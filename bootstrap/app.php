@@ -14,5 +14,7 @@ return Application::configure(basePath: dirname(__DIR__))
         //
     })
     ->withExceptions(function (Exceptions $exceptions): void {
-        //
+        $exceptions->render(function (\Illuminate\Http\Exceptions\PostTooLargeException $e, \Illuminate\Http\Request $request) {
+            return redirect()->back()->withInput()->with('error', 'Gagal mengunggah: Total ukuran file melebihi batas server. Harap pastikan setiap file maksimal berukuran 2 MB.');
+        });
     })->create();

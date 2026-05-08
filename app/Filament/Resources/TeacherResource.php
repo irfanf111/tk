@@ -3,33 +3,60 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\TeacherResource\Pages;
-use App\Filament\Resources\TeacherResource\RelationManagers;
 use App\Models\Teacher;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class TeacherResource extends Resource
 {
     protected static ?string $model = Teacher::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationGroup = 'Sistem Akademik';
+    protected static ?string $navigationIcon  = 'heroicon-o-identification';
+    protected static ?string $navigationLabel = 'Guru';
+    protected static ?int    $navigationSort  = 6;
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('nama')
-                    ->required(),
-                Forms\Components\TextInput::make('jabatan'),
-                Forms\Components\Textarea::make('foto')
-                    ->columnSpanFull(),
-                Forms\Components\Textarea::make('bio')
-                    ->columnSpanFull(),
+                // ── Bagian Atas: Foto Profil ──────────────────────────────────
+                Forms\Components\Section::make('Foto Profil')
+                    ->schema([
+                        Forms\Components\FileUpload::make('photo')
+                            ->label('Foto Guru')
+                            ->image()                              // hanya terima file gambar
+                            ->disk('public')                      // simpan di storage/app/public
+                            ->directory('teachers-photos')        // subfolder
+                            ->imageEditor()                       // aktifkan editor crop bawaan
+                            ->circleCropper()                     // crop melingkar (avatar)
+                            ->maxSize(2048)                       // maks 2 MB (dalam kilobytes)
+                            ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])
+                            ->helperText('Format: JPG, PNG, WebP. Maks 2 MB.')
+                            ->columnSpanFull(),
+                    ]),
+
+                // ── Bagian Data Utama ─────────────────────────────────────────
+                Forms\Components\Section::make('Data Guru')
+                    ->columns(2)
+                    ->schema([
+                        Forms\Components\TextInput::make('nama')
+                            ->label('Nama Lengkap')
+                            ->required()
+                            ->maxLength(255),
+
+                        Forms\Components\TextInput::make('jabatan')
+                            ->label('Jabatan / Mata Pelajaran')
+                            ->maxLength(255),
+
+                        Forms\Components\Textarea::make('bio')
+                            ->label('Biografi Singkat')
+                            ->rows(4)
+                            ->columnSpanFull(),
+                    ]),
             ]);
     }
 
@@ -37,16 +64,27 @@ class TeacherResource extends Resource
     {
         return $table
             ->columns([
+                // Foto profil sebagai avatar bulat di tabel
+                Tables\Columns\ImageColumn::make('photo')
+                    ->label('Foto')
+                    ->disk('public')
+                    ->circular()
+                    ->defaultImageUrl(fn () => 'https://ui-avatars.com/api/?name=Guru&background=10b981&color=fff')
+                    ->width(48)
+                    ->height(48),
+
                 Tables\Columns\TextColumn::make('nama')
-                    ->searchable(),
+                    ->label('Nama')
+                    ->searchable()
+                    ->sortable(),
+
                 Tables\Columns\TextColumn::make('jabatan')
+                    ->label('Jabatan')
                     ->searchable(),
+
                 Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
+                    ->label('Dibuat')
+                    ->dateTime('d M Y')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
@@ -55,6 +93,7 @@ class TeacherResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -65,17 +104,15 @@ class TeacherResource extends Resource
 
     public static function getRelations(): array
     {
-        return [
-            //
-        ];
+        return [];
     }
 
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListTeachers::route('/'),
+            'index'  => Pages\ListTeachers::route('/'),
             'create' => Pages\CreateTeacher::route('/create'),
-            'edit' => Pages\EditTeacher::route('/{record}/edit'),
+            'edit'   => Pages\EditTeacher::route('/{record}/edit'),
         ];
     }
 }

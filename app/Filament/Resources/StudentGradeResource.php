@@ -17,7 +17,10 @@ class StudentGradeResource extends Resource
 {
     protected static ?string $model = StudentGrade::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationGroup = 'Sistem Akademik';
+    protected static ?string $navigationIcon  = 'heroicon-o-chart-bar';
+    protected static ?string $navigationLabel = 'Nilai Siswa';
+    protected static ?int    $navigationSort  = 5;
 
     public static function form(Form $form): Form
     {

@@ -18,7 +18,7 @@ class HeroImageResource extends Resource
 
     protected static ?string $navigationLabel = 'Hero Images';
 
-    protected static ?string $navigationGroup = 'Website';
+    protected static ?string $navigationGroup = 'Manajemen Website';
 
     public static function form(Form $form): Form
     {

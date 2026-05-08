@@ -17,7 +17,10 @@ class CompetencyResource extends Resource
 {
     protected static ?string $model = Competency::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationGroup = 'Sistem Akademik';
+    protected static ?string $navigationIcon  = 'heroicon-o-academic-cap';
+    protected static ?string $navigationLabel = 'Kompetensi';
+    protected static ?int    $navigationSort  = 3;
 
     public static function form(Form $form): Form
     {
