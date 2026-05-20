@@ -32,6 +32,8 @@ class AdminPanelProvider extends PanelProvider
             ->colors([
                 'primary' => Color::Emerald,
             ])
+            // 🎯 Ganti favicon default Laravel dengan logo sekolah
+            ->favicon(asset('images/logo.png'))
             // ☀️ Paksa Light Mode — nonaktifkan dark mode sepenuhnya
             ->darkMode(false)
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')

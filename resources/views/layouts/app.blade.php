@@ -8,6 +8,9 @@
     <title>@yield('title', 'TK Puspitasari Kaliwatubumi — Website Resmi TK Puspitasari')</title>
     <meta name="description"
         content="@yield('meta_description', 'Website resmi TK Puspitasari Kaliwatubumi. Sekolah Taman Kanak-Kanak yang berlandaskan nilai Islami, kreatif, dan berdedikasi dalam mengembangkan potensi anak usia dini.')">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{{ asset('images/logo.png') }}">
+    <link rel="apple-touch-icon" href="{{ asset('images/logo.png') }}">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -626,20 +629,11 @@
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle">Program Sekolah</a>
+                        <a href="#" class="nav-link dropdown-toggle">Informasi</a>
                         <ul class="dropdown-menu">
-                            <li><a href="#program" class="dropdown-item">Program Unggulan</a></li>
-                            <li><a href="#ekskul" class="dropdown-item">Ekstrakulikuler</a></li>
+                            <li><a href="{{ route('berita.index') }}" class="dropdown-item">Laman Berita</a></li>
+                            <li><a href="{{ url('/agenda') }}" class="dropdown-item">Agenda Sekolah</a></li>
                         </ul>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ url('/agenda') }}" class="nav-link">Agenda</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#berita" class="nav-link">Informasi</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#kontak" class="nav-link">Kontak</a>
                     </li>
                 </ul>
 
@@ -677,30 +671,15 @@
                     </ul>
                 </li>
 
-                <!-- Program Sekolah - Dropdown -->
+                <!-- Informasi - Dropdown -->
                 <li class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle" id="mobile-dropdown-program" role="button">
-                        Program Sekolah
+                    <a href="#" class="nav-link dropdown-toggle" id="mobile-dropdown-informasi" role="button">
+                        Informasi
                     </a>
-                    <ul class="dropdown-menu" id="mobile-submenu-program">
-                        <li><a class="dropdown-item" href="#program">Program Unggulan</a></li>
-                        <li><a class="dropdown-item" href="#ekskul">Ekstrakulikuler</a></li>
+                    <ul class="dropdown-menu" id="mobile-submenu-informasi">
+                        <li><a class="dropdown-item" href="{{ route('berita.index') }}">Laman Berita</a></li>
+                        <li><a class="dropdown-item" href="{{ url('/agenda') }}">Agenda Sekolah</a></li>
                     </ul>
-                </li>
-
-                <!-- Agenda -->
-                <li class="nav-item">
-                    <a href="{{ url('/agenda') }}" class="nav-link">Agenda</a>
-                </li>
-
-                <!-- Informasi -->
-                <li class="nav-item">
-                    <a href="#berita" class="nav-link">Informasi</a>
-                </li>
-
-                <!-- Kontak -->
-                <li class="nav-item">
-                    <a href="#kontak" class="nav-link">Kontak</a>
                 </li>
             </ul>
 
