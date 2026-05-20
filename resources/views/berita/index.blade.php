@@ -416,7 +416,7 @@
                                         <i class="bi bi-clock"></i>
                                         {{ $article->published_at->diffForHumans() }}
                                     </span>
-                                    <a href="{{ route('berita.show', $article->slug) }}" class="card-read-link">
+                                    <a href="{{ route('berita.show', ['article' => $article->slug]) }}" class="card-read-link">
                                         Baca Selengkapnya
                                         <i class="bi bi-arrow-right"></i>
                                     </a>

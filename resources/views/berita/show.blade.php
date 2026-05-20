@@ -532,7 +532,7 @@
                             <i class="bi bi-collection"></i> Berita Terkait
                         </h3>
                         @foreach($relatedArticles as $related)
-                            <a href="{{ route('berita.show', $related->slug) }}" class="related-item" style="text-decoration:none; display:flex;">
+                            <a href="{{ route('berita.show', ['article' => $related->slug]) }}" class="related-item" style="text-decoration:none; display:flex;">
                                 <div class="related-item-thumb">
                                     @if($related->thumbnail_url)
                                         <img src="{{ $related->thumbnail_url }}" alt="{{ $related->title }}">
