@@ -54,31 +54,23 @@ class User extends Authenticatable implements FilamentUser
     // ─── Filament Gate ────────────────────────────────────────────────────────
 
     /**
-     * Tentukan apakah user boleh mengakses Filament Admin Panel.
-     * Hanya akun dengan email tertentu atau role admin yang bisa masuk!
+     * Hanya user dengan role 'admin' atau 'superadmin' yang boleh
+     * mengakses Filament Admin Panel. Role 'user' (pendaftar) akan
+     * mendapat 403 Forbidden secara otomatis oleh Filament.
      */
     public function canAccessPanel(Panel $panel): bool
     {
-        // VVIP PASS: Masukkan email admin / guru ke dalam array ini!
-        // Akun Supangat atau pendaftar lain otomatis ditendang (403 Forbidden).
-        $allowedEmails = [
-            'sukowati@gmail.com', // ← Ganti ini dengan email Admin kamu yang asli
-            'admin@gmail.com',    // ← Bisa tambah email kepala sekolah juga di sini
-        ];
-
-        return in_array($this->email, $allowedEmails) || in_array($this->role, ['admin', 'superadmin']);
+        return $this->isAdmin();
     }
 
     // ─── Helper ───────────────────────────────────────────────────────────────
 
+    /**
+     * Cek apakah user adalah admin — murni berbasis kolom `role`.
+     */
     public function isAdmin(): bool
     {
-        $allowedEmails = [
-            'sukowati@gmail.com',
-            'admin@gmail.com',
-        ];
-
-        return in_array($this->email, $allowedEmails) || in_array($this->role, ['admin', 'superadmin']);
+        return in_array($this->role, ['admin', 'superadmin']);
     }
 
     // ─── Relasi ───────────────────────────────────────────────────────────────

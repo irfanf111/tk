@@ -403,14 +403,14 @@
     {{-- ===== PAGE HEADER BANNER ===== --}}
     <div class="page-header-banner">
         <div class="container">
-            <h1>{{ $visionMission->title ?? 'Visi &amp; Misi' }}</h1>
+            <h1>{{ $visionMission->title ?? 'Visi Misi' }}</h1>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li><a href="/">Beranda</a></li>
                     <li><span class="mx-1">/</span></li>
                     <li><a href="/profil-sekolah">Profil Kami</a></li>
                     <li><span class="mx-1">/</span></li>
-                    <li class="active">{{ $visionMission->title ?? 'Visi &amp; Misi' }}</li>
+                    <li class="active">{{ $visionMission->title ?? 'Visi Misi' }}</li>
                 </ol>
             </nav>
         </div>
@@ -437,7 +437,7 @@
                         {{-- Article Body --}}
                         <div class="article-body">
                             <h2 class="article-title">
-                                {{ $visionMission->title ?? 'Visi &amp; Misi' }}
+                                {{ $visionMission->title ?? 'Visi Misi' }}
                             </h2>
 
                             @if($visionMission && $visionMission->content)
@@ -450,7 +450,7 @@
                                     <div class="icon-wrap">
                                         <i class="bi bi-eye"></i>
                                     </div>
-                                    <p class="lead">Konten Visi &amp; Misi belum tersedia.</p>
+                                    <p class="lead">Konten Visi dan Misi belum tersedia.</p>
                                     <p class="sub">Silakan tambahkan melalui Admin Panel.</p>
                                     <a href="/admin/vision-missions/create" class="btn-add-content">
                                         <i class="bi bi-plus-circle"></i> Tambah Konten
@@ -590,7 +590,7 @@
                         <div class="widget-contact-body">
                             <div class="widget-contact-item">
                                 <i class="bi bi-geo-alt-fill"></i>
-                                <span>Kaliwatubumi, Batanghari Nuban, Lampung Timur</span>
+                                <span>Kaliwatubumi, Butuh, Purworejo, Jawa Tengah</span>
                             </div>
                             <div class="widget-contact-item">
                                 <i class="bi bi-whatsapp"></i>

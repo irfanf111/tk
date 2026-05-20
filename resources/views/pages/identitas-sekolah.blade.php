@@ -287,7 +287,7 @@
                      </div>
                     <h3 class="text-xl font-bold mb-1">PSB {{ date('Y') }}/{{ date('Y') + 1 }}</h3>
                     <p class="text-sm text-white/80 mb-5">Daftarkan putra-putri Anda sekarang!</p>
-                    <a href="/register-student"
+                    <a href="{{ route('ppdb.user.index') }}"
                        class="inline-block px-7 py-2.5 bg-white rounded-full text-sm font-bold shadow-lg transition-all hover:shadow-xl hover:scale-105"
                        style="color:#4CAF93;">
                         Daftar Sekarang
@@ -303,7 +303,7 @@
                     <div class="p-5 space-y-3">
                          <div class="flex items-start gap-3 text-sm text-gray-700">
                             <i class="bi bi-geo-alt-fill mt-0.5 flex-shrink-0" style="color:#4CAF93;"></i>
-                            <span>Kaliwatubumi, Batanghari Nuban, Lampung Timur</span>
+                            <span>Kaliwatubumi, Butuh, Purworejo, Jawa Tengah</span>
                         </div>
                         <a href="https://wa.me/6285328209910" target="_blank"
                             class="flex items-center gap-3 text-sm text-gray-700 hover:text-green-700 transition-colors">

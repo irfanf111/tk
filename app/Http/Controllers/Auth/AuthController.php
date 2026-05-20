@@ -43,9 +43,9 @@ class AuthController extends Controller
         if (Auth::attempt($credentials, $remember)) {
             $request->session()->regenerate();
 
-            // Admin diarahkan ke panel admin, user biasa ke portal PPDB
-            if (Auth::user()->role === 'admin') {
-                return redirect()->intended(route('admin.ppdb.index'));
+            // Admin diarahkan ke panel Filament admin, user biasa ke portal PPDB
+            if (Auth::user()->role === 'admin' || Auth::user()->role === 'superadmin') {
+                return redirect()->intended('/admin');
             }
 
             return redirect()->intended(route('ppdb.user.index'));
