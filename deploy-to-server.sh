@@ -156,7 +156,7 @@ ssh -o StrictHostKeyChecking=no ${SERVER_USER}@${SERVER_IP} << EOF
     fi
 
     echo -e "${GREEN}--> Adjusting storage & bootstrap/cache permissions...${NC}"
-    chmod -R 775 storage bootstrap/cache
+    chmod -R 775 storage bootstrap/cache 2>/dev/null || true
     
     echo -e "${GREEN}--> Clearing optimization caches...${NC}"
     php artisan optimize:clear
