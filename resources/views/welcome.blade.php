@@ -654,7 +654,7 @@
           <h3>Berita, Artikel &amp; Informasi</h3>
           <p>Berita dan informasi terbaru sekolah kami</p>
         </div>
-        <a href="{{ route('berita.index') }}" class="btn-primary" style="padding:6px 14px;font-size:12px;"><i
+        <a href="/berita" class="btn-primary" style="padding:6px 14px;font-size:12px;"><i
             class="bi bi-arrow-right"></i></a>
       </div>
       <div class="post-list">
@@ -662,9 +662,9 @@
           <div class="post-item">
             <div class="wrapper">
               @if($article->image)
-                <a href="{{ route('berita.show', $article->slug) }}"><img src="{{ asset('storage/' . $article->image) }}" alt="{{ $article->title }}"></a>
+                <a href="/berita/{{ $article->slug }}"><img src="{{ asset('storage/' . $article->image) }}" alt="{{ $article->title }}"></a>
               @else
-                <a href="{{ route('berita.show', $article->slug) }}">
+                <a href="/berita/{{ $article->slug }}">
                   <div
                     style="height:180px;background:linear-gradient(135deg,#4CAF93,#2d6a4f);display:flex;align-items:center;justify-content:center;">
                     <i class="bi bi-newspaper" style="font-size:48px;color:rgba(255,255,255,0.5);"></i>
@@ -675,7 +675,7 @@
                 <small>{{ \Carbon\Carbon::parse($article->published_at)->translatedFormat('d F Y') }}</small>
               </div>
               <div class="post-item-content px-3 pt-2 pb-4">
-                <h4><a href="{{ route('berita.show', $article->slug) }}">{{ $article->title }}</a></h4>
+                <h4><a href="/berita/{{ $article->slug }}">{{ $article->title }}</a></h4>
               </div>
             </div>
           </div>
