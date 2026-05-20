@@ -71,12 +71,19 @@
             <div class="card-body">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
 
-                    {{-- Nama Lengkap --}}
-                    <div class="md:col-span-2">
-                        <label class="lbl" for="nama_lengkap">Nama Lengkap <span class="req">*</span></label>
-                        <input class="inp" type="text" id="nama_lengkap" name="nama_lengkap"
-                            value="{{ old('nama_lengkap', $student->nama_lengkap ?? '') }}" placeholder="Sesuai akta kelahiran" required>
-                        @error('nama_lengkap')<span class="err">{{ $message }}</span>@enderror
+                    {{-- Nama Lengkap & NIK --}}
+                    <div>
+                        <label class="lbl" for="nama_siswa">Nama Lengkap <span class="req">*</span></label>
+                        <input class="inp" type="text" id="nama_siswa" name="nama_siswa"
+                            value="{{ old('nama_siswa') }}" placeholder="Sesuai akta kelahiran" required>
+                        @error('nama_siswa')<span class="err">{{ $message }}</span>@enderror
+                    </div>
+
+                    <div>
+                        <label class="lbl" for="nik">NIK (16 Digit) <span class="req">*</span></label>
+                        <input class="inp" type="text" id="nik" name="nik" maxlength="16"
+                            value="{{ old('nik') }}" placeholder="Nomor Induk Kependudukan Anak" required>
+                        @error('nik')<span class="err">{{ $message }}</span>@enderror
                     </div>
 
                     {{-- Nama Panggilan --}}
@@ -136,26 +143,26 @@
                         <div>
                             <label class="lbl" for="anak_ke">Anak ke- <span class="req">*</span></label>
                             <input class="inp" type="number" id="anak_ke" name="anak_ke" min="1"
-                                value="{{ old('anak_ke', $student->anak_ke ?? '') }}" placeholder="1" required>
+                                value="{{ old('anak_ke') }}" placeholder="1" required>
                             @error('anak_ke')<span class="err">{{ $message }}</span>@enderror
                         </div>
                         <div>
-                            <label class="lbl" for="jumlah_saudara_kandung">Sdr. Kandung <span class="req">*</span></label>
-                            <input class="inp" type="number" id="jumlah_saudara_kandung" name="jumlah_saudara_kandung" min="0"
-                                value="{{ old('jumlah_saudara_kandung', $student->jumlah_saudara_kandung ?? 0) }}" required>
-                            @error('jumlah_saudara_kandung')<span class="err">{{ $message }}</span>@enderror
+                            <label class="lbl" for="jml_saudara_kandung">Sdr. Kandung <span class="req">*</span></label>
+                            <input class="inp" type="number" id="jml_saudara_kandung" name="jml_saudara_kandung" min="0"
+                                value="{{ old('jml_saudara_kandung', 0) }}" required>
+                            @error('jml_saudara_kandung')<span class="err">{{ $message }}</span>@enderror
                         </div>
                         <div>
-                            <label class="lbl" for="jumlah_saudara_tiri">Sdr. Tiri</label>
-                            <input class="inp" type="number" id="jumlah_saudara_tiri" name="jumlah_saudara_tiri" min="0"
-                                value="{{ old('jumlah_saudara_tiri', $student->jumlah_saudara_tiri ?? 0) }}">
-                            @error('jumlah_saudara_tiri')<span class="err">{{ $message }}</span>@enderror
+                            <label class="lbl" for="jml_saudara_tiri">Sdr. Tiri</label>
+                            <input class="inp" type="number" id="jml_saudara_tiri" name="jml_saudara_tiri" min="0"
+                                value="{{ old('jml_saudara_tiri', 0) }}">
+                            @error('jml_saudara_tiri')<span class="err">{{ $message }}</span>@enderror
                         </div>
                         <div>
-                            <label class="lbl" for="jumlah_saudara_angkat">Sdr. Angkat</label>
-                            <input class="inp" type="number" id="jumlah_saudara_angkat" name="jumlah_saudara_angkat" min="0"
-                                value="{{ old('jumlah_saudara_angkat', $student->jumlah_saudara_angkat ?? 0) }}">
-                            @error('jumlah_saudara_angkat')<span class="err">{{ $message }}</span>@enderror
+                            <label class="lbl" for="jml_saudara_angkat">Sdr. Angkat</label>
+                            <input class="inp" type="number" id="jml_saudara_angkat" name="jml_saudara_angkat" min="0"
+                                value="{{ old('jml_saudara_angkat', 0) }}">
+                            @error('jml_saudara_angkat')<span class="err">{{ $message }}</span>@enderror
                         </div>
                     </div>
 
@@ -341,9 +348,10 @@
                             value="{{ old('nama_wali') }}" placeholder="Kosongkan jika tidak ada wali selain orang tua">
                     </div>
                     <div>
-                        <label class="lbl" for="hubungan_wali">Hubungan dengan Anak</label>
-                        <input class="inp" type="text" id="hubungan_wali" name="hubungan_wali"
-                            value="{{ old('hubungan_wali', $studentParent->hubungan_wali ?? '') }}" placeholder="cth: Kakek, Bibi, Paman">
+                        <label class="lbl" for="hubungan_anak_wali">Hubungan dengan Anak</label>
+                        <input class="inp" type="text" id="hubungan_anak_wali" name="hubungan_anak_wali"
+                            value="{{ old('hubungan_anak_wali') }}" placeholder="cth: Kakek, Bibi, Paman">
+                        @error('hubungan_anak_wali')<span class="err">{{ $message }}</span>@enderror
                     </div>
                     <div>
                         <label class="lbl" for="pendidikan_wali">Pendidikan Terakhir</label>
