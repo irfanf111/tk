@@ -16,10 +16,14 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             // Kolom google_id: menyimpan unique ID dari akun Google
-            $table->string('google_id')->nullable()->unique()->after('email');
+            if (!Schema::hasColumn('users', 'google_id')) {
+                $table->string('google_id')->nullable()->unique()->after('email');
+            }
 
             // Kolom avatar: menyimpan URL foto profil dari Google
-            $table->string('avatar')->nullable()->after('google_id');
+            if (!Schema::hasColumn('users', 'avatar')) {
+                $table->string('avatar')->nullable()->after('google_id');
+            }
 
             // Buat password nullable agar user SSO tidak wajib punya password
             $table->string('password')->nullable()->change();
@@ -32,7 +36,16 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn(['google_id', 'avatar']);
+            $columns = [];
+            if (Schema::hasColumn('users', 'google_id')) {
+                $columns[] = 'google_id';
+            }
+            if (Schema::hasColumn('users', 'avatar')) {
+                $columns[] = 'avatar';
+            }
+            if (!empty($columns)) {
+                $table->dropColumn($columns);
+            }
             $table->string('password')->nullable(false)->change();
         });
     }
