@@ -13,6 +13,7 @@ class ArticleController extends Controller
     public function index()
     {
         $articles = Article::published()
+            ->whereNotNull('slug')
             ->latest('published_at')
             ->paginate(9);
 
@@ -26,6 +27,7 @@ class ArticleController extends Controller
     {
         // Berita terkait: ambil 4 berita lain terbaru selain yang sedang dibuka
         $relatedArticles = Article::published()
+            ->whereNotNull('slug')
             ->where('id', '!=', $article->id)
             ->latest('published_at')
             ->take(4)
