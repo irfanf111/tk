@@ -6,9 +6,11 @@ use App\Filament\Resources\ArticleResource\Pages;
 use App\Models\Article;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Forms\Set;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Support\Str;
 
 class ArticleResource extends Resource
 {
@@ -29,21 +31,41 @@ class ArticleResource extends Resource
                 ->label('Judul')
                 ->required()
                 ->maxLength(255)
+                ->live(debounce: 500)
+                ->afterStateUpdated(function (Set $set, ?string $state, string $operation) {
+                    // Auto-generate slug hanya saat CREATE, bukan edit
+                    if ($operation === 'create' && $state) {
+                        $set('slug', Str::slug($state));
+                    }
+                })
                 ->columnSpanFull(),
+
+            Forms\Components\TextInput::make('slug')
+                ->label('Slug URL')
+                ->required()
+                ->maxLength(255)
+                ->unique(ignoreRecord: true)
+                ->hint('URL berita: /artikel/{slug}')
+                ->hintColor('success')
+                ->columnSpanFull(),
+
             Forms\Components\FileUpload::make('image')
                 ->label('Gambar')
                 ->image()
                 ->directory('uploads')
                 ->nullable()
                 ->columnSpanFull(),
+
             Forms\Components\DatePicker::make('published_at')
                 ->label('Tanggal Terbit')
                 ->required(),
+
             Forms\Components\Textarea::make('excerpt')
                 ->label('Ringkasan')
                 ->required()
                 ->rows(3)
                 ->columnSpanFull(),
+
             Forms\Components\RichEditor::make('content')
                 ->label('Konten')
                 ->required()

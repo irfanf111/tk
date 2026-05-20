@@ -5,6 +5,7 @@ use App\Livewire\RegistrationForm;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\PpdbController;
 use App\Http\Controllers\AgendaController;
+use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\User\PpdbController as UserPpdbController;
 use App\Http\Controllers\Admin\PpdbAdminController;
 use App\Http\Controllers\Auth\AuthController;
@@ -31,6 +32,10 @@ Route::get('/', function () {
 });
 
 Route::get('/agenda', [AgendaController::class, 'index'])->name('agenda.index');
+
+// ─── Laman Berita ────────────────────────────────────────────────────────────
+Route::get('/artikel', [ArticleController::class, 'index'])->name('berita.index');
+Route::get('/artikel/{article:slug}', [ArticleController::class, 'show'])->name('berita.show');
 
 Route::redirect('/register-student', '/ppdb/daftar')->name('register.create');
 
@@ -59,7 +64,7 @@ Route::prefix('lpad')->name('reports.')->group(function () {
     Route::get('/{id}/pdf', [ReportController::class, 'exportPdf'])->name('pdf');
 });
 
-// ─── PPDB: Penerimaan Peserta Didik Baru ───────────────────────────────────
+// ─── PPDB: Penerimaan Peserta Didik Baru (publik, tanpa login) ─────────────
 Route::prefix('ppdb')->name('ppdb.')->group(function () {
     Route::get('/daftar', [PpdbController::class, 'create'])->name('create');
     Route::post('/daftar', [PpdbController::class, 'store'])->name('store');
@@ -67,61 +72,22 @@ Route::prefix('ppdb')->name('ppdb.')->group(function () {
     Route::get('/{id}/cetak-pdf', [PpdbController::class, 'exportPdf'])->name('pdf');
 });
 
-// ─── PPDB User Portal (Memerlukan Login & Email Verified) ──────────────────
-// Ini adalah alur PPDB baru yang terhubung ke akun user.
-// Terpisah dari route lama (/ppdb/daftar) agar backward compatible.
+// ─── PPDB User Portal ──────────────────────────────────────────────────────
+// Middleware 'auth' WAJIB di depan biar sistem ngecek login dulu, baru ngecek role!
 Route::prefix('portal/ppdb')
     ->name('ppdb.user.')
-    ->middleware(['auth']) // 'verified' dihapus karena menggunakan auth manual tanpa email verifikasi
+    ->middleware(['auth', 'role.user'])
     ->group(function () {
-
-        // Dashboard: tampilkan status pendaftaran user
-        Route::get('/', [UserPpdbController::class, 'index'])
-            ->name('index');
-
-        // Form pengisian formulir pendaftaran baru (create) atau lanjut isi (edit)
-        Route::get('/formulir', [UserPpdbController::class, 'create'])
-            ->name('create');
-
-        // Alias edit → mengarah ke method yang sama dengan create (form tunggal)
-        Route::get('/formulir/edit', [UserPpdbController::class, 'edit'])
-            ->name('edit');
-
-        // Simpan / Update data sebagai DRAFT (multi-tabel, dengan transaction)
-        Route::post('/formulir', [UserPpdbController::class, 'store'])
-            ->name('store');
-
-        // Finalisasi: ubah status draft → submitted setelah validasi kelengkapan
-        Route::post('/kirim', [UserPpdbController::class, 'submit'])
-            ->name('submit');
+        Route::get('/', [UserPpdbController::class, 'index'])->name('index');
+        Route::get('/formulir', [UserPpdbController::class, 'create'])->name('create');
+        Route::get('/formulir/edit', [UserPpdbController::class, 'edit'])->name('edit');
+        Route::post('/formulir', [UserPpdbController::class, 'store'])->name('store');
+        Route::post('/kirim', [UserPpdbController::class, 'submit'])->name('submit');
     });
 
-// ─── PPDB Admin Panel ──────────────────────────────────────────────────────
-// TODO: Tambahkan middleware role admin di sini, contoh:
-//   ->middleware(['auth', 'role:admin'])   jika pakai custom middleware
-//   ->middleware(['auth', 'can:admin'])    jika pakai Gate/Policy
-Route::prefix('admin/ppdb')
-    ->name('admin.ppdb.')
-    ->middleware(['auth']) // ← ganti sesuai middleware admin Anda
-    ->group(function () {
-
-        // Daftar semua pendaftar — support filter ?status=submitted|verified|dll
-        Route::get('/', [PpdbAdminController::class, 'index'])->name('index');
-
-        // Detail lengkap satu pendaftar (siswa + ortu + dokumen)
-        Route::get('/{id}', [PpdbAdminController::class, 'show'])->name('show');
-
-        // Verifikasi berkas: submitted → verified | rejected
-        Route::put('/{id}/verify', [PpdbAdminController::class, 'verify'])->name('verify');
-
-        // Keputusan akhir: verified → accepted | not_accepted
-        Route::put('/{id}/decide', [PpdbAdminController::class, 'decide'])->name('decide');
-
-        // Cetak rekap data pendaftaran (halaman print preview)
-        Route::get('/{id}/cetak', [PpdbAdminController::class, 'cetak'])->name('cetak');
-    });
-
-Route::prefix('auth/google')->name('auth.google.')->group(function () {
-    Route::get('redirect', [SocialiteController::class, 'redirectToGoogle'])->name('redirect');
-    Route::get('callback', [SocialiteController::class, 'handleGoogleCallback'])->name('callback');
-});
+// ─── Cetak PPDB (dipanggil dari Filament Admin Panel) ──────────────────────
+// Route ini diakses via tombol "Cetak" di PpdbRegistrationResource.
+// Dilindungi middleware 'role.admin' agar hanya admin yang bisa membuka.
+Route::get('/admin/ppdb/{id}/cetak', [PpdbAdminController::class, 'cetak'])
+    ->name('admin.ppdb.cetak')
+    ->middleware(['role.admin']);
