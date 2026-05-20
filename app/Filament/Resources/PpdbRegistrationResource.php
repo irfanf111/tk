@@ -6,6 +6,8 @@ use App\Filament\Resources\PpdbRegistrationResource\Pages;
 use App\Models\Registration;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Infolists;
+use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -192,6 +194,12 @@ class PpdbRegistrationResource extends Resource
 
             // ── Actions per baris ─────────────────────────────────────────────
             ->actions([
+                // Tombol Lihat / Detail Preview
+                Tables\Actions\ViewAction::make()
+                    ->label('Cek Detail')
+                    ->icon('heroicon-o-eye')
+                    ->color('info'),
+
                 // Tombol Verifikasi — hanya muncul saat status 'submitted'
                 Tables\Actions\Action::make('verify')
                     ->label('Verifikasi')
@@ -203,15 +211,16 @@ class PpdbRegistrationResource extends Resource
                     ->action(fn (Registration $record) =>
                         $record->update([
                             'status'      => Registration::STATUS_VERIFIED,
-                            'verified_by' => auth()->id(),
+                            'verified_by' => \Filament\Facades\Filament::auth()->id() ?? auth()->id(),
                             'verified_at' => now(),
                         ])
                     )
+                    ->successNotificationTitle('Pendaftaran berhasil diverifikasi!')
                     ->visible(fn (Registration $record): bool =>
                         $record->status === Registration::STATUS_SUBMITTED
                     ),
 
-                // Tombol Terima / Tolak — hanya muncul saat status 'verified'
+                // Tombol Terima — hanya muncul saat status 'verified'
                 Tables\Actions\Action::make('accept')
                     ->label('Terima')
                     ->icon('heroicon-o-hand-thumb-up')
@@ -222,10 +231,11 @@ class PpdbRegistrationResource extends Resource
                     ->action(fn (Registration $record) =>
                         $record->update([
                             'status'      => Registration::STATUS_ACCEPTED,
-                            'verified_by' => auth()->id(),
+                            'verified_by' => \Filament\Facades\Filament::auth()->id() ?? auth()->id(),
                             'verified_at' => now(),
                         ])
                     )
+                    ->successNotificationTitle('Pendaftaran berhasil diterima!')
                     ->visible(fn (Registration $record): bool =>
                         $record->status === Registration::STATUS_VERIFIED
                     ),
@@ -242,6 +252,7 @@ class PpdbRegistrationResource extends Resource
                             'status' => Registration::STATUS_REJECTED,
                         ])
                     )
+                    ->successNotificationTitle('Pendaftaran berhasil dikembalikan!')
                     ->visible(fn (Registration $record): bool =>
                         in_array($record->status, [
                             Registration::STATUS_SUBMITTED,
@@ -278,6 +289,74 @@ class PpdbRegistrationResource extends Resource
             );
     }
 
+    // ─── Infolist (Detail Preview Modal) ──────────────────────────────────────
+
+    public static function infolist(Infolist $infolist): Infolist
+    {
+        return $infolist->schema([
+            Infolists\Components\Section::make('Data Siswa')
+                ->icon('heroicon-o-user')
+                ->schema([
+                    Infolists\Components\TextEntry::make('student.nama_lengkap')
+                        ->label('Nama Lengkap'),
+                    Infolists\Components\TextEntry::make('student.jenis_kelamin')
+                        ->label('Jenis Kelamin')
+                        ->formatStateUsing(fn ($state) => match($state) {
+                            'L' => 'Laki-laki',
+                            'P' => 'Perempuan',
+                            default => $state,
+                        }),
+                    Infolists\Components\TextEntry::make('student.tanggal_lahir')
+                        ->label('Tanggal Lahir')
+                        ->date('d F Y'),
+                    Infolists\Components\TextEntry::make('student.tempat_lahir')
+                        ->label('Tempat Lahir'),
+                    Infolists\Components\TextEntry::make('student.no_hp')
+                        ->label('No. HP / WhatsApp'),
+                    Infolists\Components\TextEntry::make('student.alamat')
+                        ->label('Alamat')
+                        ->columnSpanFull(),
+                ])
+                ->columns(2),
+
+            Infolists\Components\Section::make('Data Orang Tua / Wali')
+                ->icon('heroicon-o-users')
+                ->schema([
+                    Infolists\Components\TextEntry::make('student.studentParent.nama_ayah')
+                        ->label('Nama Ayah'),
+                    Infolists\Components\TextEntry::make('student.studentParent.nama_ibu')
+                        ->label('Nama Ibu'),
+                    Infolists\Components\TextEntry::make('student.studentParent.no_hp_ortu')
+                        ->label('No. HP Orang Tua')
+                        ->placeholder('—'),
+                    Infolists\Components\TextEntry::make('student.studentParent.pekerjaan_ayah')
+                        ->label('Pekerjaan Ayah'),
+                ])
+                ->columns(2),
+
+            Infolists\Components\Section::make('Status Pendaftaran')
+                ->icon('heroicon-o-clipboard-document-check')
+                ->schema([
+                    Infolists\Components\TextEntry::make('status')
+                        ->label('Status')
+                        ->badge()
+                        ->color(fn ($state) => self::statusColor($state)),
+                    Infolists\Components\TextEntry::make('verifier.name')
+                        ->label('Diverifikasi Oleh')
+                        ->placeholder('Belum diverifikasi'),
+                    Infolists\Components\TextEntry::make('verified_at')
+                        ->label('Tanggal Verifikasi')
+                        ->dateTime('d F Y, H:i')
+                        ->placeholder('-'),
+                    Infolists\Components\TextEntry::make('notes')
+                        ->label('Catatan Admin')
+                        ->placeholder('Tidak ada catatan')
+                        ->columnSpanFull(),
+                ])
+                ->columns(2),
+        ]);
+    }
+
     public static function getRelations(): array
     {
         return [];
@@ -290,5 +369,20 @@ class PpdbRegistrationResource extends Resource
             'create' => Pages\CreatePpdbRegistration::route('/create'),
             'edit'   => Pages\EditPpdbRegistration::route('/{record}/edit'),
         ];
+    }
+
+    // ─── Helper: Warna Status ─────────────────────────────────────────────────
+
+    public static function statusColor(string $state): string
+    {
+        return match ($state) {
+            Registration::STATUS_DRAFT        => 'gray',
+            Registration::STATUS_SUBMITTED    => 'warning',
+            Registration::STATUS_VERIFIED     => 'info',
+            Registration::STATUS_REJECTED     => 'danger',
+            Registration::STATUS_ACCEPTED     => 'success',
+            Registration::STATUS_NOT_ACCEPTED => 'gray',
+            default                           => 'gray',
+        };
     }
 }
