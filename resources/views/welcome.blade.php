@@ -386,6 +386,7 @@
 
     /* ===== TABLET / iPad (max-width: 768px) ===== */
     @media (max-width: 768px) {
+
       .post-list,
       .fasilitas-list,
       .testimoni-list {
@@ -423,6 +424,7 @@
 
     /* ===== MOBILE / HP (max-width: 576px) ===== */
     @media (max-width: 576px) {
+
       .post-list,
       .guru-list,
       .fasilitas-list,
@@ -482,7 +484,8 @@
           style="background-image:url('{{ asset('storage/' . $img->image) }}');">
           <div class="container">
             <h3>{{ $img->alt_text ?? 'TK Puspitasari Kaliwatubumi' }}</h3>
-            <a href="/register-student" class="btn-primary">Daftar Sekarang <i class="bi bi-arrow-right-circle"></i></a>
+            <a href="{{ route('ppdb.user.index') }}" class="btn-primary">Daftar Sekarang <i
+                class="bi bi-arrow-right-circle"></i></a>
           </div>
         </div>
       @endforeach
@@ -651,7 +654,7 @@
           <h3>Berita, Artikel &amp; Informasi</h3>
           <p>Berita dan informasi terbaru sekolah kami</p>
         </div>
-        <a href="#informasi" class="btn-primary" style="padding:6px 14px;font-size:12px;"><i
+        <a href="{{ route('berita.index') }}" class="btn-primary" style="padding:6px 14px;font-size:12px;"><i
             class="bi bi-arrow-right"></i></a>
       </div>
       <div class="post-list">
@@ -659,9 +662,9 @@
           <div class="post-item">
             <div class="wrapper">
               @if($article->image)
-                <a href="#"><img src="{{ asset('storage/' . $article->image) }}" alt="{{ $article->title }}"></a>
+                <a href="{{ route('berita.show', $article->slug) }}"><img src="{{ asset('storage/' . $article->image) }}" alt="{{ $article->title }}"></a>
               @else
-                <a href="#">
+                <a href="{{ route('berita.show', $article->slug) }}">
                   <div
                     style="height:180px;background:linear-gradient(135deg,#4CAF93,#2d6a4f);display:flex;align-items:center;justify-content:center;">
                     <i class="bi bi-newspaper" style="font-size:48px;color:rgba(255,255,255,0.5);"></i>
@@ -672,7 +675,7 @@
                 <small>{{ \Carbon\Carbon::parse($article->published_at)->translatedFormat('d F Y') }}</small>
               </div>
               <div class="post-item-content px-3 pt-2 pb-4">
-                <h4><a href="#">{{ $article->title }}</a></h4>
+                <h4><a href="{{ route('berita.show', $article->slug) }}">{{ $article->title }}</a></h4>
               </div>
             </div>
           </div>
@@ -747,23 +750,18 @@
             @if($teacher->photo)
               {{-- Foto dari FileUpload Filament (disk public, folder teachers-photos) --}}
               <div class="archive-tendik-item-photo" style="position:relative;">
-                <img
-                  src="{{ asset('storage/' . $teacher->photo) }}"
-                  alt="{{ $teacher->nama }}"
-                  style="
-                    position: absolute;
-                    inset: 0;
-                    width: 100%;
-                    height: 100%;
-                    object-fit: cover;
-                    border-radius: 12px;
-                  "
-                >
+                <img src="{{ asset('storage/' . $teacher->photo) }}" alt="{{ $teacher->nama }}" style="
+                                      position: absolute;
+                                      inset: 0;
+                                      width: 100%;
+                                      height: 100%;
+                                      object-fit: cover;
+                                      border-radius: 12px;
+                                    ">
               </div>
             @else
               {{-- Fallback: kotak inisial dengan background-image dari ui-avatars --}}
-              <div
-                class="archive-tendik-item-photo"
+              <div class="archive-tendik-item-photo"
                 style="background-image:url('{{ 'https://ui-avatars.com/api/?name=' . urlencode($teacher->nama) . '&background=4CAF93&color=fff&size=200' }}');">
               </div>
             @endif
