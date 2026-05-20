@@ -14,12 +14,10 @@ class Article extends Model
     ];
 
     /**
-     * Gunakan 'slug' sebagai route key agar URL menjadi /berita/{slug}
+     * Catatan: getRouteKeyName() TIDAK di-override agar Filament Admin
+     * tetap menggunakan 'id' sebagai route key. Route frontend menggunakan
+     * explicit binding {article:slug} sehingga tidak membutuhkan override ini.
      */
-    public function getRouteKeyName(): string
-    {
-        return 'slug';
-    }
 
     /**
      * Auto-generate slug setiap kali title di-set.
@@ -66,7 +64,7 @@ class Article extends Model
      */
     public function scopePublished($query)
     {
-        return $query;
+        return $query->whereDate('published_at', '<=', now());
     }
 
     /**
