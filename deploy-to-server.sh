@@ -2,7 +2,7 @@
 
 # ==============================================================================
 # AUTOMATED DEPLOYMENT SCRIPT - TK PUSPITASARI
-# Target Server: irfan@10.0.2.253
+# Target Server: irfan@100.69.187.125 (via Tailscale VPN)
 # Target Directory on Server: /home/irfan/tk-puspitasari
 # ==============================================================================
 
@@ -17,10 +17,12 @@ RED='\033[0;31m'
 NC='\033[0m' # No Color
 
 SERVER_USER="irfan"
-SERVER_IP="10.0.2.253"
+SERVER_IP="100.69.187.125" # Tailscale IP (LAN: 192.168.21.128)
 SERVER_PATH="/home/irfan/tk-puspitasari"
 BARE_REPO_PATH="/home/irfan/tk-puspitasari.git"
 LOCAL_BRANCH="main"
+SSH_KEY="$HOME/.ssh/id_ed25519_tk"
+SSH_OPTS="-o StrictHostKeyChecking=no -i ${SSH_KEY}"
 
 echo -e "${BLUE}======================================================================${NC}"
 echo -e "${GREEN}       STARTING AUTOMATED DEPLOYMENT TO SERVER: ${SERVER_IP}${NC}"
@@ -43,7 +45,7 @@ fi
 
 # 2. Setup Bare Repository and Hook on Remote Server via SSH
 echo -e "\n${BLUE}[2/5] Creating Git Bare Repository & Hook on Remote Server...${NC}"
-ssh -o StrictHostKeyChecking=no ${SERVER_USER}@${SERVER_IP} << EOF
+ssh ${SSH_OPTS} ${SERVER_USER}@${SERVER_IP} << EOF
     echo -e "${GREEN}--> Connected to server as \$(whoami)${NC}"
     
     # Create target deployment folder
@@ -86,8 +88,11 @@ if git remote | grep -q "production"; then
     git remote set-url production ${SERVER_USER}@${SERVER_IP}:${BARE_REPO_PATH}
 else
     git remote add production ${SERVER_USER}@${SERVER_IP}:${BARE_REPO_PATH}
-    echo -e "${GREEN}Added new remote 'production' linking to ${SERVER_USER}@${SERVER_IP}:${BARE_REPO_PATH}${NC}"
 fi
+
+# Configure SSH command for git to use our key
+export GIT_SSH_COMMAND="ssh -i ${SSH_KEY} -o StrictHostKeyChecking=no"
+
 
 # 4. Push Code to Remote Server
 echo -e "\n${BLUE}[4/5] Pushing active branch (${LOCAL_BRANCH}) to server...${NC}"
@@ -95,7 +100,7 @@ git push production ${LOCAL_BRANCH}:main --force
 
 # 5. Initialize & Configure Project on Server
 echo -e "\n${BLUE}[5/5] Performing Initial Setup on Server...${NC}"
-ssh -o StrictHostKeyChecking=no ${SERVER_USER}@${SERVER_IP} << EOF
+ssh ${SSH_OPTS} ${SERVER_USER}@${SERVER_IP} << EOF
     # Force checkout files from bare repository to target folder
     echo -e "${GREEN}--> Ensuring files are checked out from Git...${NC}"
     git --git-dir=${BARE_REPO_PATH} --work-tree=${SERVER_PATH} checkout -f main
@@ -107,14 +112,21 @@ ssh -o StrictHostKeyChecking=no ${SERVER_USER}@${SERVER_IP} << EOF
     if [ ! -f ".env" ]; then
         echo -e "${YELLOW}--> .env file not found. Copying .env.example...${NC}"
         cp .env.example .env
-        
-        # Configure SQLite database file inside .env
-        sed -i 's/DB_CONNECTION=mysql/DB_CONNECTION=sqlite/g' .env
-        sed -i 's/DB_DATABASE=laravel/DB_DATABASE=\/home\/irfan\/tk-puspitasari\/database\/database.sqlite/g' .env
-        
-        echo -e "${GREEN}--> .env configured with SQLite.${NC}"
+
+        # Configure for production with SQLite
+        sed -i 's/^DB_CONNECTION=.*/DB_CONNECTION=sqlite/' .env
+        sed -i 's|^DB_DATABASE=.*|DB_DATABASE=${SERVER_PATH}/database/database.sqlite|' .env
+        sed -i 's/^DB_HOST=/#DB_HOST=/' .env
+        sed -i 's/^DB_PORT=/#DB_PORT=/' .env
+        sed -i 's/^DB_USERNAME=/#DB_USERNAME=/' .env
+        sed -i 's/^DB_PASSWORD=/#DB_PASSWORD=/' .env
+        sed -i 's/^SESSION_DRIVER=.*/SESSION_DRIVER=file/' .env
+        sed -i 's/^APP_ENV=.*/APP_ENV=production/' .env
+        sed -i 's/^APP_DEBUG=.*/APP_DEBUG=false/' .env
+        sed -i "s|^APP_URL=.*|APP_URL=https://tkpuspitasarikaliwatubumi.sch.id|" .env
+        echo -e "${GREEN}--> .env configured for production (SQLite + domain).${NC}"
     else
-        echo -e "${YELLOW}--> .env already exists. Skipping copy.${NC}"
+        echo -e "${YELLOW}--> .env already exists. Skipping — keeping existing configuration.${NC}"
     fi
 
     # Create SQLite database file if not exists
@@ -163,7 +175,7 @@ ssh -o StrictHostKeyChecking=no ${SERVER_USER}@${SERVER_IP} << EOF
 EOF
 
 echo -e "\n${BLUE}======================================================================${NC}"
-echo -e "${GREEN}    🎉 SUCCESS! DEPLOYMENT TO 10.0.2.253 COMPLETED SUCCESSFULLY! 🎉  ${NC}"
+echo -e "${GREEN}    🎉 SUCCESS! DEPLOYMENT TO 100.69.187.125 COMPLETED SUCCESSFULLY! 🎉  ${NC}"
 echo -e "${BLUE}======================================================================${NC}"
 echo -e "You can now push future updates anytime simply by running:"
 echo -e "${YELLOW}git push production main${NC}\n"
