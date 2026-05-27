@@ -55,22 +55,22 @@
                         </h2>
 
                         @php
-                            $schoolName = $identity->school_name ?? 'TK Puspitasari';
-                            $npsn = $identity->npsn ?? '-';
-                            $status = $identity->status ?? 'Swasta';
-                            $educationForm = $identity->education_form ?? 'TK';
-                            $ownershipStatus = $identity->ownership_status ?? 'Yayasan';
-                            $estDecree = $identity->establishment_decree ?? '-';
-                            $estDate = $identity->establishment_date ? $identity->establishment_date->format('d-m-Y') : '-';
-                            $opDecree = $identity->operational_decree ?? '-';
-                            $opDate = $identity->operational_date ? $identity->operational_date->format('d-m-Y') : '-';
-                            $address = $identity->address ?? 'Kaliwatubumi';
-                            $hamlet = $identity->hamlet ?? '-';
-                            $village = $identity->village ?? 'Kaliwatubumi';
-                            $district = $identity->district ?? 'Batanghari Nuban';
-                            $regency = $identity->regency ?? 'Lampung Timur';
-                            $province = $identity->province ?? 'Lampung';
-                            $postalCode = $identity->postal_code ?? '-';
+                            $schoolName = $identity?->school_name ?? 'TK Puspitasari';
+                            $npsn = $identity?->npsn ?? '-';
+                            $status = $identity?->status ?? 'Swasta';
+                            $educationForm = $identity?->education_form ?? 'TK';
+                            $ownershipStatus = $identity?->ownership_status ?? 'Yayasan';
+                            $estDecree = $identity?->establishment_decree ?? '-';
+                            $estDate = $identity?->establishment_date?->format('d-m-Y') ?? '-';
+                            $opDecree = $identity?->operational_decree ?? '-';
+                            $opDate = $identity?->operational_date?->format('d-m-Y') ?? '-';
+                            $address = $identity?->address ?? 'Kaliwatubumi';
+                            $hamlet = $identity?->hamlet ?? '-';
+                            $village = $identity?->village ?? 'Kaliwatubumi';
+                            $district = $identity?->district ?? 'Butuh';
+                            $regency = $identity?->regency ?? 'Purworejo';
+                            $province = $identity?->province ?? 'Jawa Tengah';
+                            $postalCode = $identity?->postal_code ?? '-';
                         @endphp
 
                         {{-- Table 1: Identitas Umum --}}
@@ -171,9 +171,8 @@
                             <div class="mt-6 p-4 rounded-xl border border-yellow-200 bg-yellow-50 flex items-center gap-3">
                                 <i class="bi bi-exclamation-triangle-fill text-yellow-500"></i>
                                 <p class="text-sm text-yellow-700">
-                                    Data identitas sekolah belum diisi. Data di atas adalah default.
-                                    <a href="/admin/school-identities/create"
-                                        class="font-semibold underline hover:text-yellow-900">Isi sekarang →</a>
+                                    Data identitas sekolah belum diisi. Data di atas adalah data default.
+                                    <a href="/admin" class="font-semibold underline hover:text-yellow-900">Isi melalui Admin Panel →</a>
                                 </p>
                             </div>
                         @endif
@@ -259,8 +258,7 @@
                                     ] as [$judul, $tgl])
                                     <li>
                                         <a href="#" class="flex gap-3 px-5 py-4 hover:bg-green-50 transition-colors group">
-                                            <div c
-                                  l                 ass="flex-shrink-0 w-16 h-16 rounded-xl flex items-center justify-center"
+                                            <div class="flex-shrink-0 w-16 h-16 rounded-xl flex items-center justify-center"
                                                  style="background:linear-gradient(135deg,#4CAF93,#2d6a4f);">
                                                 <i class="bi bi-newspaper text-white text-xl"></i>
                                             </div>
