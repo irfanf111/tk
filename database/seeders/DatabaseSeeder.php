@@ -8,6 +8,7 @@ use App\Models\SchoolProfile;
 use App\Models\VisionMission;
 use App\Models\Teacher;
 use App\Models\Staff;
+use App\Models\Principal;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -117,6 +118,15 @@ class DatabaseSeeder extends Seeder
             [
                 'position' => 'Admin Sekolah & Guru',
                 'is_active' => true,
+            ]
+        );
+
+        // 7. Create or update the Principal (Kepala Sekolah)
+        Principal::updateOrCreate(
+            ['id' => 1],
+            [
+                'name' => 'Kotijah, S.Pd',
+                'message' => 'Assalamualaikum Wr. Wb. Selamat datang di TK Puspitasari Kaliwatubumi. Kami berkomitmen memberikan pendidikan terbaik bagi anak usia dini dengan landasan nilai-nilai Islami yang kuat...',
             ]
         );
     }
