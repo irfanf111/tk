@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\SchoolIdentity;
 use App\Models\SchoolProfile;
 use App\Models\VisionMission;
+use App\Models\Teacher;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -83,6 +84,21 @@ class DatabaseSeeder extends Seeder
                              '<li>Menyelenggarakan proses pembelajaran yang menyenangkan, kreatif, dan inovatif sesuai tahap tumbuh kembang anak.</li>' .
                              '<li>Mengembangkan potensi diri anak secara optimal untuk mempersiapkan jenjang pendidikan selanjutnya.</li>' .
                              '</ol>',
+            ]
+        );
+
+        // 5. Create or update the Teachers list
+        Teacher::updateOrCreate(
+            ['nama' => 'Kotijah, S.Pd'],
+            [
+                'jabatan' => 'Kepala Sekolah & Guru',
+            ]
+        );
+
+        Teacher::updateOrCreate(
+            ['nama' => 'Sukowati, S. Pd.'],
+            [
+                'jabatan' => 'Admin Sekolah & Guru',
             ]
         );
     }
