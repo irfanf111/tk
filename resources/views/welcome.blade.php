@@ -546,11 +546,11 @@
                 <div class="title">Guru &amp; Staf</div>
               </div>
               <div class="item-statistik">
-                <div class="total">{{ \App\Models\Student::count() ?: 120 }}</div>
+                <div class="total">{{ \App\Models\Student::count() ?: 20 }}</div>
                 <div class="title">Siswa</div>
               </div>
               <div class="item-statistik">
-                <div class="total">{{ \App\Models\Classroom::count() ?: 6 }}</div>
+                <div class="total">{{ \App\Models\Classroom::count() ?: 2 }}</div>
                 <div class="title">Rombel</div>
               </div>
             </div>
