@@ -7,14 +7,14 @@
     use App\Models\Agenda;
     use App\Models\Article;
     use App\Models\Facility;
-    use App\Models\Teacher;
+    use App\Models\Staff;
 
     $heroImages = HeroImage::where('is_active', true)->latest()->get();
     $principal = Principal::first();
     $agendas = Agenda::orderBy('event_date', 'asc')->take(5)->get();
     $articles = Article::latest('published_at')->take(4)->get();
     $facilities = Facility::all();
-    $teachers = Teacher::orderBy('id')->get();
+    $teachers = Staff::where('is_active', true)->orderBy('id')->get();
   @endphp
 
   <style>
@@ -746,28 +746,28 @@
         @forelse($teachers as $teacher)
           <a class="guru-item" href="#">
 
-            {{-- FOTO: jika ada photo, tampilkan gambar asli; jika tidak, fallback inisial --}}
-            @if($teacher->photo)
-              {{-- Foto dari FileUpload Filament (disk public, folder teachers-photos) --}}
+            {{-- FOTO: jika ada image, tampilkan gambar asli; jika tidak, fallback inisial --}}
+            @if($teacher->image)
+              {{-- Foto dari FileUpload Filament --}}
               <div class="archive-tendik-item-photo" style="position:relative;">
-                <img src="{{ asset('storage/' . $teacher->photo) }}" alt="{{ $teacher->nama }}" style="
-                                      position: absolute;
-                                      inset: 0;
-                                      width: 100%;
-                                      height: 100%;
-                                      object-fit: cover;
-                                      border-radius: 12px;
-                                    ">
+                <img src="{{ asset('storage/' . $teacher->image) }}" alt="{{ $teacher->name }}" style="
+                                       position: absolute;
+                                       inset: 0;
+                                       width: 100%;
+                                       height: 100%;
+                                       object-fit: cover;
+                                       border-radius: 12px;
+                                     ">
               </div>
             @else
               {{-- Fallback: kotak inisial dengan background-image dari ui-avatars --}}
               <div class="archive-tendik-item-photo"
-                style="background-image:url('{{ 'https://ui-avatars.com/api/?name=' . urlencode($teacher->nama) . '&background=4CAF93&color=fff&size=200' }}');">
+                style="background-image:url('{{ 'https://ui-avatars.com/api/?name=' . urlencode($teacher->name) . '&background=4CAF93&color=fff&size=200' }}');">
               </div>
             @endif
 
-            <h5>{{ $teacher->nama }}</h5>
-            <p>{{ $teacher->jabatan ?? 'Staf Pengajar' }}</p>
+            <h5>{{ $teacher->name }}</h5>
+            <p>{{ $teacher->position ?? 'Staf Pengajar' }}</p>
           </a>
         @empty
           {{-- Fallback jika tabel teachers kosong --}}

@@ -7,6 +7,7 @@ use App\Models\SchoolIdentity;
 use App\Models\SchoolProfile;
 use App\Models\VisionMission;
 use App\Models\Teacher;
+use App\Models\Staff;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -87,7 +88,7 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
-        // 5. Create or update the Teachers list
+        // 5. Create or update the Teachers list (for backward compatibility)
         Teacher::updateOrCreate(
             ['nama' => 'Kotijah, S.Pd'],
             [
@@ -99,6 +100,23 @@ class DatabaseSeeder extends Seeder
             ['nama' => 'Sukowati, S. Pd.'],
             [
                 'jabatan' => 'Admin Sekolah & Guru',
+            ]
+        );
+
+        // 6. Create or update the Staff list (managed by "Staf Pengajar" menu in Admin Panel)
+        Staff::updateOrCreate(
+            ['name' => 'Kotijah, S.Pd'],
+            [
+                'position' => 'Kepala Sekolah & Guru',
+                'is_active' => true,
+            ]
+        );
+
+        Staff::updateOrCreate(
+            ['name' => 'Sukowati, S. Pd.'],
+            [
+                'position' => 'Admin Sekolah & Guru',
+                'is_active' => true,
             ]
         );
     }
