@@ -18,6 +18,12 @@
   @endphp
 
   <style>
+    .keunggulan-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 24px rgba(76, 175, 147, 0.15) !important;
+      border-color: #4CAF93 !important;
+    }
+
     .home-slider {
       position: relative;
       overflow: hidden;
@@ -460,7 +466,8 @@
       .home-post,
       .home-guru,
       .home-fasilitas,
-      .home-testimoni {
+      .home-testimoni,
+      .home-keunggulan {
         padding: 30px 0;
       }
 
@@ -838,45 +845,64 @@
     </div>
   </div>
 
-  {{-- TESTIMONI --}}
-  <div class="home-testimoni" id="kontak">
+  {{-- MENGAPA MEMILIH KAMI? --}}
+  <div class="home-keunggulan" id="keunggulan" style="background:#fff; padding:50px 0;">
     <div class="container">
-      <h3 style="font-size:22px;font-weight:700;text-align:center;margin:0 0 6px;">Testimoni</h3>
-      <p style="text-align:center;font-size:14px;color:#666;margin:0 0 28px;">Testimoni dari orang tua dan alumni mengenai
-        sekolah kami</p>
-      <div class="testimoni-list">
-        <div class="testimoni-item">
-          <div class="wrapper">
-            <div><i class="bi bi-quote" style="font-size:32px;color:#4CAF93;"></i>
-              <p class="content-testimonial">"Alhamdulillah anak saya banyak berkembang di sini. Kepercayaan diri,
-                kemandirian, dan kemampuan bersosialisasinya meningkat pesat."</p>
-              <div class="testimoni-info">
-                <div class="testimoni-user-photo"
-                  style="background-image:url('https://ui-avatars.com/api/?name=Orang+Tua&background=4CAF93&color=fff');">
-                </div>
-                <div class="testimoni-info-user">
-                  <h5>Ibu Siti Aminah</h5>
-                  <p>Orang Tua Siswa Angkatan 2023</p>
-                </div>
-              </div>
+      <h3 style="font-size:22px;font-weight:700;text-align:center;margin:0 0 6px;">Mengapa Memilih Kami?</h3>
+      <p style="text-align:center;font-size:14px;color:#666;margin:0 0 40px;">
+        Komitmen kami untuk memberikan pengasuhan dan pendidikan anak usia dini terbaik di Kaliwatubumi
+      </p>
+      
+      <div class="row">
+        <!-- Keunggulan 1 -->
+        <div class="col-md-3 mb-4">
+          <div class="keunggulan-card" style="background:#f8fdfb; border:1px solid rgba(76,175,147,0.15); border-radius:16px; padding:24px; text-align:center; height:100%; transition:all 0.3s; box-shadow:0 4px 12px rgba(0,0,0,0.02);">
+            <div style="background:#E8F5F1; width:56px; height:56px; border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 16px;">
+              <i class="bi bi-book" style="font-size:24px; color:#4CAF93;"></i>
             </div>
+            <h5 style="font-size:15px; font-weight:700; color:#333; margin-bottom:10px;">Nilai Islami & Karakter</h5>
+            <p style="font-size:13px; color:#666; line-height:1.6; margin:0;">
+              Menanamkan fondasi karakter yang akhlakul karimah, kejujuran, dan pembiasaan ibadah sehari-hari sejak usia dini.
+            </p>
           </div>
         </div>
-        <div class="testimoni-item">
-          <div class="wrapper">
-            <div><i class="bi bi-quote" style="font-size:32px;color:#4CAF93;"></i>
-              <p class="content-testimonial">"TK Puspitasari bukan hanya mengajar akademik, tapi membentuk karakter anak
-                dengan nilai-nilai Islami yang luar biasa. Sangat recommended!"</p>
-              <div class="testimoni-info">
-                <div class="testimoni-user-photo"
-                  style="background-image:url('https://ui-avatars.com/api/?name=Bapak+Ahmad&background=2d6a4f&color=fff');">
-                </div>
-                <div class="testimoni-info-user">
-                  <h5>Bapak Ahmad Fauzi</h5>
-                  <p>Orang Tua Siswa Angkatan 2022</p>
-                </div>
-              </div>
+
+        <!-- Keunggulan 2 -->
+        <div class="col-md-3 mb-4">
+          <div class="keunggulan-card" style="background:#f8fdfb; border:1px solid rgba(76,175,147,0.15); border-radius:16px; padding:24px; text-align:center; height:100%; transition:all 0.3s; box-shadow:0 4px 12px rgba(0,0,0,0.02);">
+            <div style="background:#E8F5F1; width:56px; height:56px; border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 16px;">
+              <i class="bi bi-people" style="font-size:24px; color:#4CAF93;"></i>
             </div>
+            <h5 style="font-size:15px; font-weight:700; color:#333; margin-bottom:10px;">Pendidik Berpengalaman</h5>
+            <p style="font-size:13px; color:#666; line-height:1.6; margin:0;">
+              Dibimbing oleh guru-guru profesional yang ramah, penyayang, penyabar, serta berpengalaman di dunia PAUD.
+            </p>
+          </div>
+        </div>
+
+        <!-- Keunggulan 3 -->
+        <div class="col-md-3 mb-4">
+          <div class="keunggulan-card" style="background:#f8fdfb; border:1px solid rgba(76,175,147,0.15); border-radius:16px; padding:24px; text-align:center; height:100%; transition:all 0.3s; box-shadow:0 4px 12px rgba(0,0,0,0.02);">
+            <div style="background:#E8F5F1; width:56px; height:56px; border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 16px;">
+              <i class="bi bi-emoji-smile" style="font-size:24px; color:#4CAF93;"></i>
+            </div>
+            <h5 style="font-size:15px; font-weight:700; color:#333; margin-bottom:10px;">Belajar Sambil Bermain</h5>
+            <p style="font-size:13px; color:#666; line-height:1.6; margin:0;">
+              Menerapkan metode aktif, kreatif, dan menyenangkan yang memicu rasa ingin tahu serta potensi motorik anak.
+            </p>
+          </div>
+        </div>
+
+        <!-- Keunggulan 4 -->
+        <div class="col-md-3 mb-4">
+          <div class="keunggulan-card" style="background:#f8fdfb; border:1px solid rgba(76,175,147,0.15); border-radius:16px; padding:24px; text-align:center; height:100%; transition:all 0.3s; box-shadow:0 4px 12px rgba(0,0,0,0.02);">
+            <div style="background:#E8F5F1; width:56px; height:56px; border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 16px;">
+              <i class="bi bi-shield-check" style="font-size:24px; color:#4CAF93;"></i>
+            </div>
+            <h5 style="font-size:15px; font-weight:700; color:#333; margin-bottom:10px;">Lingkungan yang Aman</h5>
+            <p style="font-size:13px; color:#666; line-height:1.6; margin:0;">
+              Fasilitas bermain luar dan dalam ruangan yang bersih, asri, nyaman, dan terjaga keamanannya bagi anak-anak.
+            </p>
           </div>
         </div>
       </div>
