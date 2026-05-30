@@ -31,8 +31,12 @@ class AgendaResource extends Resource
                 ->maxLength(255)
                 ->columnSpanFull(),
             Forms\Components\DatePicker::make('event_date')
-                ->label('Tanggal Kegiatan')
+                ->label('Mulai Dari')
                 ->required(),
+            Forms\Components\DatePicker::make('end_date')
+                ->label('Sampai Dengan')
+                ->afterOrEqual('event_date')
+                ->nullable(),
             Forms\Components\Textarea::make('description')
                 ->label('Keterangan')
                 ->nullable()
@@ -46,7 +50,16 @@ class AgendaResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('title')->label('Judul')->searchable()->limit(50),
-                Tables\Columns\TextColumn::make('event_date')->label('Tanggal')->date('d F Y')->sortable(),
+                Tables\Columns\TextColumn::make('event_date')
+                    ->label('Tanggal')
+                    ->formatStateUsing(function ($record) {
+                        $start = $record->event_date ? $record->event_date->translatedFormat('d M Y') : '-';
+                        if ($record->end_date) {
+                            return $start . ' - ' . $record->end_date->translatedFormat('d M Y');
+                        }
+                        return $start;
+                    })
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('description')->label('Keterangan')->limit(40),
             ])
             ->defaultSort('event_date', 'asc')

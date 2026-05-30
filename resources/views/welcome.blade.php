@@ -595,7 +595,11 @@
               </div>
               <div style="margin-top:auto; padding-top:12px; border-top:1px solid rgba(76,175,147,0.2);">
                 <p style="margin:0; font-size:13px; color:#555; font-weight:600;">
-                  {{ \Carbon\Carbon::parse($ag->event_date)->translatedFormat('d F Y') }}
+                  @if($ag->end_date)
+                    {{ \Carbon\Carbon::parse($ag->event_date)->translatedFormat('d M Y') }} - {{ \Carbon\Carbon::parse($ag->end_date)->translatedFormat('d M Y') }}
+                  @else
+                    {{ \Carbon\Carbon::parse($ag->event_date)->translatedFormat('d F Y') }}
+                  @endif
                 </p>
               </div>
             </div>

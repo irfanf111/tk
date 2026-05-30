@@ -45,7 +45,13 @@
                                 <i class="bi bi-calendar-check"></i>
                                 <h5>{{ $ag->title }}</h5>
                             </div>
-                            <p class="tanggal-agenda">{{ \Carbon\Carbon::parse($ag->event_date)->translatedFormat('d F Y') }}</p>
+                            <p class="tanggal-agenda">
+                                @if($ag->end_date)
+                                    {{ \Carbon\Carbon::parse($ag->event_date)->translatedFormat('d M Y') }} - {{ \Carbon\Carbon::parse($ag->end_date)->translatedFormat('d M Y') }}
+                                @else
+                                    {{ \Carbon\Carbon::parse($ag->event_date)->translatedFormat('d F Y') }}
+                                @endif
+                            </p>
                         </div>
                     @empty
                         <div class="archive-agenda-item">
