@@ -2,7 +2,7 @@
 
 # ==============================================================================
 # AUTOMATED DEPLOYMENT SCRIPT - TK PUSPITASARI
-# Target Server: irfan@100.69.187.125 (via Tailscale VPN)
+# Target Server: irfan@10.0.2.253
 # Target Directory on Server: /home/irfan/tk-puspitasari
 # ==============================================================================
 
@@ -17,7 +17,7 @@ RED='\033[0;31m'
 NC='\033[0m' # No Color
 
 SERVER_USER="irfan"
-SERVER_IP="100.69.187.125" # Tailscale IP (LAN: 192.168.21.128)
+SERVER_IP="10.0.2.253"
 SERVER_PATH="/home/irfan/tk-puspitasari"
 BARE_REPO_PATH="/home/irfan/tk-puspitasari.git"
 LOCAL_BRANCH="main"
@@ -175,7 +175,7 @@ ssh ${SSH_OPTS} ${SERVER_USER}@${SERVER_IP} << EOF
 EOF
 
 echo -e "\n${BLUE}======================================================================${NC}"
-echo -e "${GREEN}    🎉 SUCCESS! DEPLOYMENT TO 100.69.187.125 COMPLETED SUCCESSFULLY! 🎉  ${NC}"
+echo -e "${GREEN}    🎉 SUCCESS! DEPLOYMENT TO 10.0.2.253 COMPLETED SUCCESSFULLY! 🎉  ${NC}"
 echo -e "${BLUE}======================================================================${NC}"
 echo -e "You can now push future updates anytime simply by running:"
 echo -e "${YELLOW}git push production main${NC}\n"
