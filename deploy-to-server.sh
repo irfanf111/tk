@@ -17,12 +17,34 @@ RED='\033[0;31m'
 NC='\033[0m' # No Color
 
 SERVER_USER="irfan"
-SERVER_IP="10.0.2.253"
 SERVER_PATH="/home/irfan/tk"
 BARE_REPO_PATH="/home/irfan/tk.git"
 LOCAL_BRANCH="main"
 SSH_KEY="$HOME/.ssh/id_ed25519_tk"
 SSH_OPTS="-o StrictHostKeyChecking=no -i ${SSH_KEY}"
+
+# Auto-detect IP address or accept as CLI argument
+SERVER_IP=""
+if [ -n "$1" ]; then
+    SERVER_IP="$1"
+    echo -e "${GREEN}Using IP from command line: ${SERVER_IP}${NC}"
+else
+    CANDIDATES=("10.0.2.253" "100.69.187.125" "192.168.21.128")
+    echo -n "Auto-detecting server IP... "
+    for ip in "${CANDIDATES[@]}"; do
+        if ssh -o ConnectTimeout=2 -o StrictHostKeyChecking=no -o BatchMode=yes -i "${SSH_KEY}" "${SERVER_USER}@${ip}" "exit" &>/dev/null; then
+            SERVER_IP="$ip"
+            echo -e "${GREEN}Detected ${SERVER_IP}${NC}"
+            break
+        fi
+    done
+    if [ -z "$SERVER_IP" ]; then
+        echo -e "${RED}Failed!${NC}"
+        echo -e "${RED}Error: None of the candidate server IPs are reachable (${CANDIDATES[*]}).${NC}"
+        echo -e "Please check your network connection or specify the IP as an argument: ./deploy-to-server.sh <IP>"
+        exit 1
+    fi
+fi
 
 echo -e "${BLUE}======================================================================${NC}"
 echo -e "${GREEN}       STARTING AUTOMATED DEPLOYMENT TO SERVER: ${SERVER_IP}${NC}"
@@ -98,9 +120,36 @@ export GIT_SSH_COMMAND="ssh -i ${SSH_KEY} -o StrictHostKeyChecking=no"
 echo -e "\n${BLUE}[4/5] Pushing active branch (${LOCAL_BRANCH}) to server...${NC}"
 git push production ${LOCAL_BRANCH}:main --force
 
-# 5. Initialize & Configure Project on Server
 echo -e "\n${BLUE}[5/5] Performing Initial Setup on Server...${NC}"
 ssh ${SSH_OPTS} ${SERVER_USER}@${SERVER_IP} << EOF
+    # Create target deployment folder
+    mkdir -p ${SERVER_PATH}
+
+    # Backup critical files before deployment
+    echo -e "${GREEN}--> Checking for critical files to backup...${NC}"
+    BACKUP_DIR="/home/irfan/tk-backups"
+    mkdir -p \${BACKUP_DIR}
+    TIMESTAMP=\$(date +%Y%m%d_%H%M%S)
+
+    if [ -d "${SERVER_PATH}" ]; then
+        if [ -f "${SERVER_PATH}/.env" ]; then
+            cp "${SERVER_PATH}/.env" "\${BACKUP_DIR}/.env_\${TIMESTAMP}"
+            echo -e "${GREEN}    * Backed up .env to \${BACKUP_DIR}/.env_\${TIMESTAMP}${NC}"
+        fi
+        if [ -f "${SERVER_PATH}/database/database.sqlite" ]; then
+            cp "${SERVER_PATH}/database/database.sqlite" "\${BACKUP_DIR}/database_\${TIMESTAMP}.sqlite"
+            echo -e "${GREEN}    * Backed up database to \${BACKUP_DIR}/database_\${TIMESTAMP}.sqlite${NC}"
+        fi
+        # Keep only the last 15 backups to save disk space
+        (cd \${BACKUP_DIR} && ls -t | tail -n +16 | xargs rm -f 2>/dev/null || true)
+    fi
+
+    # Create Nginx compatibility symlink if it doesn't exist
+    if [ ! -e "/home/irfan/tk-puspitasari" ]; then
+        echo -e "${GREEN}--> Creating symlink from /home/irfan/tk-puspitasari to ${SERVER_PATH} for Nginx compatibility...${NC}"
+        ln -s ${SERVER_PATH} /home/irfan/tk-puspitasari
+    fi
+
     # Force checkout files from bare repository to target folder
     echo -e "${GREEN}--> Ensuring files are checked out from Git...${NC}"
     git --git-dir=${BARE_REPO_PATH} --work-tree=${SERVER_PATH} checkout -f main
@@ -175,7 +224,7 @@ ssh ${SSH_OPTS} ${SERVER_USER}@${SERVER_IP} << EOF
 EOF
 
 echo -e "\n${BLUE}======================================================================${NC}"
-echo -e "${GREEN}    🎉 SUCCESS! DEPLOYMENT TO 10.0.2.253 COMPLETED SUCCESSFULLY! 🎉  ${NC}"
+echo -e "${GREEN}    🎉 SUCCESS! DEPLOYMENT TO \${SERVER_IP} COMPLETED SUCCESSFULLY! 🎉  ${NC}"
 echo -e "${BLUE}======================================================================${NC}"
 echo -e "You can now push future updates anytime simply by running:"
 echo -e "${YELLOW}git push production main${NC}\n"
