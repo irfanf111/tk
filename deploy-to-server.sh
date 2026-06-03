@@ -224,7 +224,7 @@ ssh ${SSH_OPTS} ${SERVER_USER}@${SERVER_IP} << EOF
 EOF
 
 echo -e "\n${BLUE}======================================================================${NC}"
-echo -e "${GREEN}    🎉 SUCCESS! DEPLOYMENT TO \${SERVER_IP} COMPLETED SUCCESSFULLY! 🎉  ${NC}"
+echo -e "${GREEN}    🎉 SUCCESS! DEPLOYMENT TO ${SERVER_IP} COMPLETED SUCCESSFULLY! 🎉  ${NC}"
 echo -e "${BLUE}======================================================================${NC}"
 echo -e "You can now push future updates anytime simply by running:"
 echo -e "${YELLOW}git push production main${NC}\n"
