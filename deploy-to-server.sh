@@ -3,7 +3,7 @@
 # ==============================================================================
 # AUTOMATED DEPLOYMENT SCRIPT - TK PUSPITASARI
 # Target Server: irfan@10.0.2.253
-# Target Directory on Server: /home/irfan/tk-puspitasari
+# Target Directory on Server: /home/irfan/tk
 # ==============================================================================
 
 # Exit immediately if a command exits with a non-zero status
@@ -18,8 +18,8 @@ NC='\033[0m' # No Color
 
 SERVER_USER="irfan"
 SERVER_IP="10.0.2.253"
-SERVER_PATH="/home/irfan/tk-puspitasari"
-BARE_REPO_PATH="/home/irfan/tk-puspitasari.git"
+SERVER_PATH="/home/irfan/tk"
+BARE_REPO_PATH="/home/irfan/tk.git"
 LOCAL_BRANCH="main"
 SSH_KEY="$HOME/.ssh/id_ed25519_tk"
 SSH_OPTS="-o StrictHostKeyChecking=no -i ${SSH_KEY}"
