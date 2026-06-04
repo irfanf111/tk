@@ -135,7 +135,7 @@
                 <ul class="divide-y divide-gray-50">
                     @forelse($recentArticles as $article)
                     <li>
-                        <a href="#" class="flex gap-3 px-5 py-4 hover:bg-green-50 transition-colors group">
+                        <a href="{{ route('berita.show', ['article' => $article->slug]) }}" class="flex gap-3 px-5 py-4 hover:bg-green-50 transition-colors group">
                             {{-- Thumbnail --}}
                             <div class="flex-shrink-0 w-16 h-16 rounded-xl overflow-hidden bg-gray-100">
                                 @if($article->image)

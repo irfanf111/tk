@@ -522,7 +522,7 @@
                         <ul class="sidebar-article-list">
                             @forelse($recentArticles as $article)
                                 <li>
-                                    <a href="#">
+                                    <a href="{{ route('berita.show', ['article' => $article->slug]) }}">
                                         <div class="sidebar-article-thumb">
                                             @if($article->image)
                                                 <img src="{{ asset('storage/' . $article->image) }}"

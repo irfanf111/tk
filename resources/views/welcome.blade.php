@@ -661,6 +661,11 @@
                 </div>
                 <h5 style="margin:0; font-size:15px; font-weight:700; color:var(--color-text); line-height:1.4;">{{ $ag->title }}</h5>
               </div>
+              @if($ag->description)
+                <p style="margin: 0 0 16px 58px; font-size: 13px; color: #555; line-height: 1.5; text-align: left;">
+                  {{ Str::limit($ag->description, 120) }}
+                </p>
+              @endif
               <div style="margin-top:auto; padding-top:14px; border-top:1px solid rgba(76,175,147,0.15);">
                 <p style="margin:0; font-size:13px; color:#666; font-weight:600;">
                   @if($ag->end_date)

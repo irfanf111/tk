@@ -45,13 +45,18 @@
                                 <i class="bi bi-calendar-check"></i>
                                 <h5>{{ $ag->title }}</h5>
                             </div>
-                            <p class="tanggal-agenda">
+                            <p class="tanggal-agenda" style="font-weight: 600; color: #555; margin-bottom: 8px;">
                                 @if($ag->end_date)
                                     {{ \Carbon\Carbon::parse($ag->event_date)->translatedFormat('d M Y') }} - {{ \Carbon\Carbon::parse($ag->end_date)->translatedFormat('d M Y') }}
                                 @else
                                     {{ \Carbon\Carbon::parse($ag->event_date)->translatedFormat('d F Y') }}
                                 @endif
                             </p>
+                            @if($ag->description)
+                                <div class="keterangan-agenda mt-3 text-gray-700 text-sm leading-relaxed" style="color: #555; border-top: 1px dashed rgba(90, 209, 241, 0.3); padding-top: 10px; margin-top: 10px;">
+                                    {!! nl2br(e($ag->description)) !!}
+                                </div>
+                            @endif
                         </div>
                     @empty
                         <div class="archive-agenda-item">
@@ -90,7 +95,7 @@
                     <ul class="recent-entries-list">
                         @forelse($recent_articles as $art)
                             <li>
-                                <a href="#">{{ $art->title }}</a>
+                                <a href="{{ route('berita.show', ['article' => $art->slug]) }}">{{ $art->title }}</a>
                                 <span class="post-date">{{ \Carbon\Carbon::parse($art->published_at)->translatedFormat('d F Y') }}</span>
                             </li>
                         @empty
