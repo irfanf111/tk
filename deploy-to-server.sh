@@ -68,6 +68,7 @@ fi
 # 2. Setup Bare Repository and Hook on Remote Server via SSH
 echo -e "\n${BLUE}[2/5] Creating Git Bare Repository & Hook on Remote Server...${NC}"
 ssh ${SSH_OPTS} ${SERVER_USER}@${SERVER_IP} << EOF
+    set -e
     echo -e "${GREEN}--> Connected to server as \$(whoami)${NC}"
     
     # Create target deployment folder
@@ -122,6 +123,7 @@ git push production ${LOCAL_BRANCH}:main --force
 
 echo -e "\n${BLUE}[5/5] Performing Initial Setup on Server...${NC}"
 ssh ${SSH_OPTS} ${SERVER_USER}@${SERVER_IP} << EOF
+    set -e
     # Create target deployment folder
     mkdir -p ${SERVER_PATH}
 
