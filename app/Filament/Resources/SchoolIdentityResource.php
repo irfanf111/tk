@@ -64,6 +64,30 @@ class SchoolIdentityResource extends Resource
                     Forms\Components\TextInput::make('postal_code')
                         ->label('Kode Pos'),
                 ])->columns(2),
+
+            Forms\Components\Section::make('Informasi Tambahan')
+                ->schema([
+                    Forms\Components\TextInput::make('naungan')
+                        ->label('Naungan'),
+                    Forms\Components\TextInput::make('accreditation')
+                        ->label('Akreditasi'),
+                    Forms\Components\DatePicker::make('accreditation_date')
+                        ->label('Tanggal Akreditasi'),
+                    Forms\Components\TextInput::make('accreditation_decree')
+                        ->label('SK Akreditasi'),
+                    Forms\Components\TextInput::make('certification')
+                        ->label('Sertifikasi'),
+                    Forms\Components\TextInput::make('phone')
+                        ->label('No Telepon'),
+                    Forms\Components\TextInput::make('email')
+                        ->label('Email'),
+                    Forms\Components\TextInput::make('website')
+                        ->label('Website'),
+                    Forms\Components\TextInput::make('headmaster')
+                        ->label('Kepala Sekolah'),
+                    Forms\Components\TextInput::make('operator')
+                        ->label('Operator'),
+                ])->columns(2),
         ]);
     }
 

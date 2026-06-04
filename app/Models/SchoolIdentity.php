@@ -23,10 +23,21 @@ class SchoolIdentity extends Model
         'regency',
         'province',
         'postal_code',
+        'naungan',
+        'accreditation',
+        'accreditation_date',
+        'accreditation_decree',
+        'certification',
+        'phone',
+        'email',
+        'website',
+        'headmaster',
+        'operator',
     ];
 
     protected $casts = [
         'establishment_date' => 'date',
         'operational_date'   => 'date',
+        'accreditation_date' => 'date',
     ];
 }

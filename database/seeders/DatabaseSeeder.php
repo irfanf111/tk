@@ -48,6 +48,16 @@ class DatabaseSeeder extends Seeder
                 'regency' => 'Kab. Purworejo',
                 'province' => 'Jawa Tengah',
                 'postal_code' => '54264',
+                'naungan' => 'Kementerian Pendidikan dan Kebudayaan',
+                'accreditation' => 'B',
+                'accreditation_date' => '2007-12-18',
+                'accreditation_decree' => 'BAN/12/2007',
+                'certification' => 'Belum Bersertifikat',
+                'phone' => '-',
+                'email' => 'kotijah77@gmail.com',
+                'website' => '-',
+                'headmaster' => 'Kotijah,s. Pd',
+                'operator' => 'Sukowati',
             ]
         );
 

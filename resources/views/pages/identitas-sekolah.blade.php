@@ -55,15 +55,15 @@
                         </h2>
 
                         @php
-                            $schoolName = $identity?->school_name ?? 'TK Puspitasari';
+                            $schoolName = $identity?->school_name ?? 'TK PUSPITASARI';
                             $npsn = $identity?->npsn ?? '-';
                             $status = $identity?->status ?? 'Swasta';
                             $educationForm = $identity?->education_form ?? 'TK';
                             $ownershipStatus = $identity?->ownership_status ?? 'Yayasan';
                             $estDecree = $identity?->establishment_decree ?? '-';
-                            $estDate = $identity?->establishment_date?->format('d-m-Y') ?? '-';
+                            $estDate = $identity?->establishment_date ? $identity->establishment_date->format('d-m-Y') : '-';
                             $opDecree = $identity?->operational_decree ?? '-';
-                            $opDate = $identity?->operational_date?->format('d-m-Y') ?? '-';
+                            $opDate = $identity?->operational_date ? $identity->operational_date->format('d-m-Y') : '-';
                             $address = $identity?->address ?? 'Kaliwatubumi';
                             $hamlet = $identity?->hamlet ?? '-';
                             $village = $identity?->village ?? 'Kaliwatubumi';
@@ -71,10 +71,25 @@
                             $regency = $identity?->regency ?? 'Purworejo';
                             $province = $identity?->province ?? 'Jawa Tengah';
                             $postalCode = $identity?->postal_code ?? '-';
+
+                            $naungan = $identity?->naungan ?? '-';
+                            $accreditation = $identity?->accreditation ?? '-';
+                            $accDate = $identity?->accreditation_date ? $identity->accreditation_date->format('d-m-Y') : '-';
+                            $accDecree = $identity?->accreditation_decree ?? '-';
+                            $certification = $identity?->certification ?? '-';
+                            $phone = $identity?->phone ?? '-';
+                            $email = $identity?->email ?? '-';
+                            $website = $identity?->website ?? '-';
+                            $headmaster = $identity?->headmaster ?? '-';
+                            $operator = $identity?->operator ?? '-';
                         @endphp
 
-                        {{-- Table 1: Identitas Umum --}}
+                        {{-- Table 1: Dokumen & Status Resmi --}}
                         <div class="mb-8">
+                            <p class="text-sm font-bold text-gray-700 uppercase tracking-wide mb-3 flex items-center gap-2">
+                                <i class="bi bi-file-earmark-text-fill" style="color:#4CAF93;"></i>
+                                Profil & Status Resmi
+                            </p>
                             <div class="overflow-x-auto rounded-xl border border-gray-200">
                                 <table class="identity-table w-full text-sm">
                                     <tbody class="divide-y divide-gray-100">
@@ -84,20 +99,23 @@
                                         </tr>
                                         <tr>
                                             <td class="px-4 py-3 font-semibold text-gray-700">NPSN</td>
-                                            <td class="px-4 py-3 text-gray-800">{{ $npsn }}</td>
+                                            <td class="px-4 py-3 text-gray-800 font-mono">{{ $npsn }}</td>
                                         </tr>
                                         <tr>
-                                            <td class="px-4 py-3 font-semibold text-gray-700">Status</td>
-                                            <td class="px-4 py-3 text-gray-800">
-                                                <span
-                                                    class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                                                    {{ $status }}
-                                                </span>
-                                            </td>
+                                            <td class="px-4 py-3 font-semibold text-gray-700">Naungan</td>
+                                            <td class="px-4 py-3 text-gray-800">{{ $naungan }}</td>
                                         </tr>
                                         <tr>
                                             <td class="px-4 py-3 font-semibold text-gray-700">Bentuk Pendidikan</td>
                                             <td class="px-4 py-3 text-gray-800">{{ $educationForm }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-4 py-3 font-semibold text-gray-700">Status Sekolah</td>
+                                            <td class="px-4 py-3 text-gray-800">
+                                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                                    {{ $status }}
+                                                </span>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td class="px-4 py-3 font-semibold text-gray-700">Status Kepemilikan</td>
@@ -116,9 +134,28 @@
                                             <td class="px-4 py-3 text-gray-800 font-mono text-xs">{{ $opDecree }}</td>
                                         </tr>
                                         <tr>
-                                            <td class="px-4 py-3 font-semibold text-gray-700">Tanggal SK Izin Operasional
-                                            </td>
+                                            <td class="px-4 py-3 font-semibold text-gray-700">Tanggal SK Izin Operasional</td>
                                             <td class="px-4 py-3 text-gray-800">{{ $opDate }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-4 py-3 font-semibold text-gray-700">Akreditasi</td>
+                                            <td class="px-4 py-3 text-gray-800">
+                                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                                                    {{ $accreditation }}
+                                                </span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-4 py-3 font-semibold text-gray-700">SK Akreditasi</td>
+                                            <td class="px-4 py-3 text-gray-800 font-mono text-xs">{{ $accDecree }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-4 py-3 font-semibold text-gray-700">Tanggal Akreditasi</td>
+                                            <td class="px-4 py-3 text-gray-800">{{ $accDate }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-4 py-3 font-semibold text-gray-700">Sertifikasi</td>
+                                            <td class="px-4 py-3 text-gray-800">{{ $certification }}</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -126,10 +163,10 @@
                         </div>
 
                         {{-- Table 2: Alamat Sekolah --}}
-                        <div>
+                        <div class="mb-8">
                             <p class="text-sm font-bold text-gray-700 uppercase tracking-wide mb-3 flex items-center gap-2">
                                 <i class="bi bi-geo-alt-fill" style="color:#4CAF93;"></i>
-                                Alamat Sekolah
+                                Alamat & Lokasi
                             </p>
                             <div class="overflow-x-auto rounded-xl border border-gray-200">
                                 <table class="identity-table w-full text-sm">
@@ -161,6 +198,52 @@
                                         <tr>
                                             <td class="px-4 py-3 font-semibold text-gray-700">Kode Pos</td>
                                             <td class="px-4 py-3 text-gray-800">{{ $postalCode }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        {{-- Table 3: Kontak & Pengelola --}}
+                        <div>
+                            <p class="text-sm font-bold text-gray-700 uppercase tracking-wide mb-3 flex items-center gap-2">
+                                <i class="bi bi-person-badge-fill" style="color:#4CAF93;"></i>
+                                Kontak & Pengelola
+                            </p>
+                            <div class="overflow-x-auto rounded-xl border border-gray-200">
+                                <table class="identity-table w-full text-sm">
+                                    <tbody class="divide-y divide-gray-100">
+                                        <tr>
+                                            <td class="px-4 py-3 font-semibold text-gray-700 w-2/5">No Telepon</td>
+                                            <td class="px-4 py-3 text-gray-800">{{ $phone }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-4 py-3 font-semibold text-gray-700">Email</td>
+                                            <td class="px-4 py-3 text-gray-800">
+                                                @if($email !== '-')
+                                                    <a href="mailto:{{ $email }}" class="text-green-700 hover:underline">{{ $email }}</a>
+                                                @else
+                                                    {{ $email }}
+                                                @endif
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-4 py-3 font-semibold text-gray-700">Website</td>
+                                            <td class="px-4 py-3 text-gray-800">
+                                                @if($website !== '-')
+                                                    <a href="{{ $website }}" target="_blank" class="text-green-700 hover:underline">{{ $website }}</a>
+                                                @else
+                                                    {{ $website }}
+                                                @endif
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-4 py-3 font-semibold text-gray-700">Kepala Sekolah</td>
+                                            <td class="px-4 py-3 text-gray-800 font-medium">{{ $headmaster }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-4 py-3 font-semibold text-gray-700">Operator</td>
+                                            <td class="px-4 py-3 text-gray-800">{{ $operator }}</td>
                                         </tr>
                                     </tbody>
                                 </table>
