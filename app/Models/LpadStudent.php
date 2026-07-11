@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class LpadStudent extends Model
@@ -17,6 +18,15 @@ class LpadStudent extends Model
     ];
 
     // ─── Relasi ────────────────────────────────────────────────────────────────
+
+    /**
+     * LpadStudent terhubung ke data siswa PPDB (students).
+     * Nullable karena data lama mungkin belum punya student_id.
+     */
+    public function student(): BelongsTo
+    {
+        return $this->belongsTo(Student::class, 'student_id');
+    }
 
     /**
      * Seorang murid memiliki banyak laporan (berbeda semester/tahun ajaran).
@@ -43,5 +53,13 @@ class LpadStudent extends Model
         $bulan = $lahir->copy()->addYears($tahun)->diffInMonths($now);
 
         return "{$tahun} Tahun {$bulan} Bulan";
+    }
+
+    /**
+     * Mengembalikan nama lengkap — prioritas dari relasi student jika ada.
+     */
+    public function getNamaAttribute(): string
+    {
+        return $this->student?->nama_lengkap ?? $this->nama_lengkap;
     }
 }

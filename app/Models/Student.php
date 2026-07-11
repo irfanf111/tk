@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Student extends Model
@@ -62,7 +63,7 @@ class Student extends Model
         'jumlah_saudara_angkat'   => 'integer',
     ];
 
-    // ─── Relasi ───────────────────────────────────────────────────────────────
+    // ─── Relasi PPDB ──────────────────────────────────────────────────────────
 
     /**
      * Siswa dimiliki oleh satu akun user (orang tua/wali yang mendaftar).
@@ -110,6 +111,35 @@ class Student extends Model
     public function ppdbRegistration(): BelongsTo
     {
         return $this->belongsTo(PpdbRegistration::class);
+    }
+
+    // ─── Relasi Akademik ──────────────────────────────────────────────────────
+
+    /**
+     * Satu siswa memiliki satu data LPAD (bisa null jika belum diisi).
+     * Dihubungkan via student_id di lpad_students.
+     */
+    public function lpadStudent(): HasOne
+    {
+        return $this->hasOne(LpadStudent::class, 'student_id');
+    }
+
+    /**
+     * Satu siswa memiliki banyak nilai (per kompetensi per semester).
+     */
+    public function grades(): HasMany
+    {
+        return $this->hasMany(StudentGrade::class);
+    }
+
+    // ─── Relasi SPP ───────────────────────────────────────────────────────────
+
+    /**
+     * Satu siswa memiliki banyak catatan pembayaran SPP.
+     */
+    public function sppPayments(): HasMany
+    {
+        return $this->hasMany(SppPayment::class);
     }
 
     // ─── Accessor / Helper ────────────────────────────────────────────────────

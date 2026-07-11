@@ -90,4 +90,12 @@ class User extends Authenticatable implements FilamentUser
     {
         return $this->hasMany(Registration::class, 'verified_by');
     }
+
+    /**
+     * Pembayaran SPP yang dicatat oleh admin ini.
+     */
+    public function sppPayments(): HasMany
+    {
+        return $this->hasMany(SppPayment::class, 'dicatat_oleh');
+    }
 }
