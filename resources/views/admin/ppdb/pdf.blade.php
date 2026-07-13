@@ -13,35 +13,25 @@
             font-family: Arial, Helvetica, sans-serif;
             font-size: 9pt;
             line-height: 1.4;
-            color: #222;
+            color: #111;
             margin: 0;
             padding: 0;
         }
 
         /* ─── KOP SURAT ─────────────────────────────── */
-        .kop { width: 100%; border-collapse: collapse; margin-bottom: 6pt; }
+        .kop { width: 100%; border-collapse: collapse; margin-bottom: 4pt; }
         .kop td { vertical-align: middle; padding: 0; }
-        .kop-logo {
-            width: 44pt;
-            height: 44pt;
-            background-color: #15803d;
-            color: #fff;
-            font-size: 15pt;
-            font-weight: bold;
-            text-align: center;
-            line-height: 44pt;
-            border-radius: 50%;
-        }
+        .kop-logo-img { width: 44pt; height: 44pt; }
         .kop-info { padding-left: 10pt; }
         .kop-info .sekolah {
             font-size: 13pt;
             font-weight: bold;
-            color: #15803d;
+            color: #111;
             margin: 0 0 1pt 0;
             text-transform: uppercase;
         }
-        .kop-info .alamat { font-size: 7.5pt; color: #666; margin: 0; }
-        .kop-border { border-bottom: 2.5pt solid #15803d; margin-bottom: 8pt; }
+        .kop-info .alamat { font-size: 7.5pt; color: #444; margin: 0; }
+        .kop-border { border-bottom: 2pt solid #111; margin-bottom: 6pt; }
 
         /* ─── JUDUL ─────────────────────────────────── */
         .judul {
@@ -58,24 +48,23 @@
         .infobar {
             width: 100%;
             border-collapse: collapse;
-            background: #f0fdf4;
-            border: 1pt solid #86efac;
+            background: #f4f4f4;
+            border: 1pt solid #bbb;
             margin-bottom: 10pt;
         }
         .infobar td { padding: 5pt 8pt; vertical-align: top; }
-        .infobar .lbl { font-size: 7pt; color: #777; text-transform: uppercase; }
-        .infobar .val { font-size: 9pt; font-weight: bold; color: #15803d; }
+        .infobar .lbl { font-size: 7pt; color: #555; text-transform: uppercase; }
+        .infobar .val { font-size: 9pt; font-weight: bold; color: #111; }
 
         /* ─── SECTION HEADING ───────────────────────── */
         .sec {
-            background: #15803d;
+            background: #333;
             color: #fff;
             font-size: 8.5pt;
             font-weight: bold;
             text-transform: uppercase;
             padding: 3.5pt 7pt;
             margin: 8pt 0 4pt 0;
-            border-radius: 3pt;
         }
 
         /* ─── DATA TABLE ────────────────────────────── */
@@ -87,52 +76,51 @@
         .dt td {
             padding: 2.5pt 3pt;
             vertical-align: top;
-            border-bottom: 0.5pt dashed #ddd;
+            border-bottom: 0.5pt dashed #ccc;
         }
         .dt tr:last-child td { border-bottom: none; }
-        .dt .lbl { font-weight: bold; color: #555; width: 22%; }
+        .dt .lbl { font-weight: bold; color: #444; width: 22%; }
         .dt .sep { width: 2%; }
         .dt .val { color: #111; }
         .dt .sub {
             font-size: 8pt;
             font-weight: bold;
-            color: #15803d;
+            color: #111;
             padding: 4pt 3pt 1pt;
             border-bottom: none;
+            text-decoration: underline;
         }
-        .dt .sub-pink { color: #db2777; }
-        .dt .sub-blue { color: #0891b2; }
 
         /* ─── DOKUMEN CARDS ─────────────────────────── */
         .doc-outer { width: 100%; border-collapse: collapse; margin-top: 4pt; }
         .doc-outer td { width: 33.33%; padding: 4pt; vertical-align: top; }
-        .doc-card { border: 0.75pt solid #d1d5db; border-radius: 4pt; }
+        .doc-card { border: 1pt solid #888; width: 100%; border-collapse: collapse; }
         .doc-card-h {
-            background: #f3f4f6;
+            background: #e8e8e8;
             font-weight: bold;
             font-size: 7.5pt;
-            color: #374151;
+            color: #111;
             padding: 3.5pt 5pt;
-            border-bottom: 0.75pt solid #d1d5db;
+            border-bottom: 1pt solid #888;
             text-align: center;
         }
         .doc-card-b {
             padding: 5pt;
             text-align: center;
-            height: 110pt;
+            height: 100pt;
         }
         .doc-img {
             max-width: 100%;
-            max-height: 100pt;
+            max-height: 90pt;
         }
-        .doc-miss { font-size: 7.5pt; color: #aaa; font-style: italic; }
+        .doc-miss { font-size: 7.5pt; color: #888; font-style: italic; }
 
         /* ─── TANDA TANGAN ──────────────────────────── */
         .ttd { width: 100%; border-collapse: collapse; margin-top: 20pt; }
         .ttd td { width: 50%; text-align: center; padding: 0 10pt; }
         .ttd .role { font-size: 8.5pt; font-weight: bold; margin-bottom: 40pt; }
         .ttd .nama-line {
-            border-top: 0.75pt solid #333;
+            border-top: 1pt solid #111;
             font-size: 8.5pt;
             font-weight: bold;
             padding-top: 3pt;
@@ -142,12 +130,11 @@
 
         /* ─── CATATAN ───────────────────────────────── */
         .catatan {
-            border: 0.75pt solid #e5e7eb;
-            border-radius: 3pt;
-            background: #fafafa;
+            border: 1pt solid #ccc;
+            background: #f9f9f9;
             padding: 5pt 8pt;
             font-size: 8pt;
-            color: #555;
+            color: #444;
             margin-bottom: 6pt;
         }
 
@@ -163,7 +150,7 @@
 <table class="kop">
     <tr>
         <td style="width:50pt;">
-            <div class="kop-logo">TK</div>
+            <img class="kop-logo-img" src="file://{{ public_path('images/logo.png') }}" alt="Logo TK Puspitasari">
         </td>
         <td class="kop-info">
             <p class="sekolah">TK Puspitasari Kaliwatubumi</p>
@@ -257,7 +244,6 @@
 {{-- B. KETERANGAN ORANG TUA / WALI --}}
 <div class="sec">B. Keterangan Orang Tua / Wali</div>
 <table class="dt">
-    {{-- Ayah --}}
     <tr><td colspan="6" class="sub">Data Ayah</td></tr>
     <tr>
         <td class="lbl">Nama Ayah</td><td class="sep">:</td>
@@ -271,8 +257,7 @@
         <td class="lbl">Pekerjaan</td><td class="sep">:</td>
         <td class="val">{{ $parent?->pekerjaan_ayah ?? '-' }}</td>
     </tr>
-    {{-- Ibu --}}
-    <tr><td colspan="6" class="sub sub-pink">Data Ibu</td></tr>
+    <tr><td colspan="6" class="sub">Data Ibu</td></tr>
     <tr>
         <td class="lbl">Nama Ibu</td><td class="sep">:</td>
         <td class="val">{{ $parent?->nama_ibu ?? '-' }}</td>
@@ -285,9 +270,8 @@
         <td class="lbl">Pekerjaan</td><td class="sep">:</td>
         <td class="val">{{ $parent?->pekerjaan_ibu ?? '-' }}</td>
     </tr>
-    {{-- Wali --}}
     @if($parent?->nama_wali)
-    <tr><td colspan="6" class="sub sub-blue">Data Wali</td></tr>
+    <tr><td colspan="6" class="sub">Data Wali</td></tr>
     <tr>
         <td class="lbl">Nama Wali</td><td class="sep">:</td>
         <td class="val">{{ $parent->nama_wali }}</td>
@@ -303,7 +287,7 @@
     @endif
 </table>
 
-{{-- ═══════════ PAGE BREAK ═══════════ --}}
+{{-- PAGE BREAK --}}
 <div class="page-break"></div>
 
 {{-- ━━━━━━━━━━━━━━━━━ HALAMAN 2 ━━━━━━━━━━━━━━━━━ --}}
@@ -311,10 +295,12 @@
 {{-- KOP mini halaman 2 --}}
 <table class="kop" style="margin-bottom:4pt;">
     <tr>
-        <td style="width:50pt;"><div class="kop-logo" style="width:32pt;height:32pt;line-height:32pt;font-size:11pt;">TK</div></td>
+        <td style="width:40pt;">
+            <img style="width:36pt; height:36pt;" src="file://{{ public_path('images/logo.png') }}" alt="Logo TK">
+        </td>
         <td class="kop-info">
             <p class="sekolah" style="font-size:10pt;">TK Puspitasari Kaliwatubumi</p>
-            <p class="alamat">Lanjutan – Formulir Rekap PPDB (Halaman 2)</p>
+            <p class="alamat">Lanjutan Formulir Rekap PPDB – Halaman 2 dari 2</p>
         </td>
     </tr>
 </table>
@@ -327,17 +313,20 @@
     <tr>
         {{-- Akta Kelahiran --}}
         <td>
-            <table class="doc-card" style="width:100%; border-collapse:collapse;">
+            <table class="doc-card">
                 <tr><td class="doc-card-h">Akta Kelahiran *</td></tr>
                 <tr>
                     <td class="doc-card-b">
-                        @if($doc?->akta_kelahiran && file_exists(public_path('storage/' . $doc->akta_kelahiran)))
-                            @php $ext = strtolower(pathinfo($doc->akta_kelahiran, PATHINFO_EXTENSION)); @endphp
-                            @if(in_array($ext, ['jpg','jpeg','png','webp']))
-                                <img class="doc-img" src="{{ public_path('storage/' . $doc->akta_kelahiran) }}" alt="Akta">
-                            @else
-                                <span class="doc-miss">Berkas PDF<br>(Tersedia)</span>
-                            @endif
+                        @php
+                            $aktaPath = $doc?->akta_kelahiran
+                                ? public_path('storage/' . $doc->akta_kelahiran)
+                                : null;
+                            $aktaExt = $aktaPath ? strtolower(pathinfo($aktaPath, PATHINFO_EXTENSION)) : null;
+                        @endphp
+                        @if($aktaPath && file_exists($aktaPath) && in_array($aktaExt, ['jpg','jpeg','png','webp']))
+                            <img class="doc-img" src="file://{{ $aktaPath }}" alt="Akta Kelahiran">
+                        @elseif($aktaPath && file_exists($aktaPath))
+                            <span class="doc-miss">Berkas PDF<br>Tersedia</span>
                         @else
                             <span class="doc-miss">Belum<br>diunggah</span>
                         @endif
@@ -347,17 +336,20 @@
         </td>
         {{-- Kartu Keluarga --}}
         <td>
-            <table class="doc-card" style="width:100%; border-collapse:collapse;">
+            <table class="doc-card">
                 <tr><td class="doc-card-h">Kartu Keluarga *</td></tr>
                 <tr>
                     <td class="doc-card-b">
-                        @if($doc?->kartu_keluarga && file_exists(public_path('storage/' . $doc->kartu_keluarga)))
-                            @php $ext = strtolower(pathinfo($doc->kartu_keluarga, PATHINFO_EXTENSION)); @endphp
-                            @if(in_array($ext, ['jpg','jpeg','png','webp']))
-                                <img class="doc-img" src="{{ public_path('storage/' . $doc->kartu_keluarga) }}" alt="KK">
-                            @else
-                                <span class="doc-miss">Berkas PDF<br>(Tersedia)</span>
-                            @endif
+                        @php
+                            $kkPath = $doc?->kartu_keluarga
+                                ? public_path('storage/' . $doc->kartu_keluarga)
+                                : null;
+                            $kkExt = $kkPath ? strtolower(pathinfo($kkPath, PATHINFO_EXTENSION)) : null;
+                        @endphp
+                        @if($kkPath && file_exists($kkPath) && in_array($kkExt, ['jpg','jpeg','png','webp']))
+                            <img class="doc-img" src="file://{{ $kkPath }}" alt="Kartu Keluarga">
+                        @elseif($kkPath && file_exists($kkPath))
+                            <span class="doc-miss">Berkas PDF<br>Tersedia</span>
                         @else
                             <span class="doc-miss">Belum<br>diunggah</span>
                         @endif
@@ -367,17 +359,20 @@
         </td>
         {{-- Ijazah TK --}}
         <td>
-            <table class="doc-card" style="width:100%; border-collapse:collapse;">
+            <table class="doc-card">
                 <tr><td class="doc-card-h">Ijazah TK / PAUD</td></tr>
                 <tr>
                     <td class="doc-card-b">
-                        @if($doc?->ijazah_tk && file_exists(public_path('storage/' . $doc->ijazah_tk)))
-                            @php $ext = strtolower(pathinfo($doc->ijazah_tk, PATHINFO_EXTENSION)); @endphp
-                            @if(in_array($ext, ['jpg','jpeg','png','webp']))
-                                <img class="doc-img" src="{{ public_path('storage/' . $doc->ijazah_tk) }}" alt="Ijazah">
-                            @else
-                                <span class="doc-miss">Berkas PDF<br>(Tersedia)</span>
-                            @endif
+                        @php
+                            $ijazahPath = $doc?->ijazah_tk
+                                ? public_path('storage/' . $doc->ijazah_tk)
+                                : null;
+                            $ijazahExt = $ijazahPath ? strtolower(pathinfo($ijazahPath, PATHINFO_EXTENSION)) : null;
+                        @endphp
+                        @if($ijazahPath && file_exists($ijazahPath) && in_array($ijazahExt, ['jpg','jpeg','png','webp']))
+                            <img class="doc-img" src="file://{{ $ijazahPath }}" alt="Ijazah TK">
+                        @elseif($ijazahPath && file_exists($ijazahPath))
+                            <span class="doc-miss">Berkas PDF<br>Tersedia</span>
                         @else
                             <span class="doc-miss">Tidak<br>diunggah</span>
                         @endif
@@ -390,12 +385,12 @@
 
 {{-- Catatan Verifikasi --}}
 @if($registration->notes)
-<div class="sec" style="background:#6b7280; margin-top:10pt;">Catatan Verifikasi Admin</div>
+<div class="sec" style="background:#555; margin-top:10pt;">Catatan Verifikasi Admin</div>
 <div class="catatan">{{ $registration->notes }}</div>
 @endif
 
 {{-- TANDA TANGAN --}}
-<table class="ttd" style="margin-top:{{ $registration->notes ? '10pt' : '25pt' }};">
+<table class="ttd" style="margin-top:20pt;">
     <tr>
         <td>
             <div class="role">Orang Tua / Wali,</div>
@@ -411,7 +406,7 @@
     </tr>
 </table>
 
-<p style="text-align:center; font-size:7pt; color:#bbb; margin-top:18pt;">
+<p style="text-align:center; font-size:7pt; color:#aaa; margin-top:20pt;">
     Halaman 2 dari 2 &nbsp;|&nbsp; PPDB TK Puspitasari Kaliwatubumi &nbsp;|&nbsp; Dicetak: {{ \Carbon\Carbon::now()->translatedFormat('d F Y, H:i') }}
 </p>
 
