@@ -56,8 +56,8 @@ class LpadStudent extends Model
         $lahir  = Carbon::parse($this->tanggal_lahir);
         $target = Carbon::parse($date);
 
-        $tahun = $lahir->diffInYears($target);
-        $bulan = $lahir->copy()->addYears($tahun)->diffInMonths($target);
+        $tahun = (int) $lahir->diffInYears($target);
+        $bulan = (int) $lahir->copy()->addYears($tahun)->diffInMonths($target);
 
         return "{$tahun} Tahun {$bulan} Bulan";
     }
