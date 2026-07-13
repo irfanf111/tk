@@ -118,6 +118,10 @@ class ReportController extends Controller
             . '_' . $report->tahun_ajaran
             . '.pdf';
 
-        return $pdf->download($filename);
+        return $pdf->download($filename, [
+            'Cache-Control' => 'no-cache, no-store, must-revalidate',
+            'Pragma'        => 'no-cache',
+            'Expires'       => '0',
+        ]);
     }
 }
