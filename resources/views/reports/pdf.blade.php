@@ -7,24 +7,16 @@
     <style>
         @page {
             size: A4 portrait;
-            margin-top: 54pt;
-            margin-right: 72pt;
-            margin-bottom: 54pt;
-            margin-left: 72pt;
+            margin: 12mm 15mm 10mm 15mm;
         }
-        html, body {
-            width: 100%;
-            margin: 0;
-            padding: 0;
-        }
-        * { margin: 0; padding: 0; }
-
+        * { box-sizing: border-box; }
         body {
             font-family: 'Times New Roman', Times, serif;
-            font-size: 9.5pt;
+            font-size: 9pt;
+            line-height: 1.4;
             color: #111;
-            background: #fff;
-            line-height: 1.45;
+            margin: 0;
+            padding: 0;
         }
 
         /* ─── PAGE LAYOUT ──────────────────────────────────────── */
