@@ -25,12 +25,12 @@
         /* ─── KOP SURAT ────────────────────────────────────────── */
         .kop-table {
             width: 100%;
-            border-bottom: 4px double #1a1a6e;
+            border-bottom: 3pt double #1a1a6e;
             margin-bottom: 12pt;
         }
         .kop-table td { vertical-align: middle; }
         .kop-logo { width: 75pt; text-align: center; }
-        .kop-logo img { width: 65pt; height: 65pt; object-fit: contain; }
+        .kop-logo img { width: 65pt; height: 65pt; }
         .kop-logo-placeholder {
             width: 65pt; height: 65pt;
             border: 2px solid #1a1a6e;
@@ -207,10 +207,27 @@
     <table class="kop-table" cellpadding="0" cellspacing="0">
         <tr>
             <td class="kop-logo">
-                @if($identity && $identity->logo)
-                    <img src="{{ public_path('storage/' . $identity->logo) }}" alt="Logo Sekolah">
+                @php
+                    // Prioritas 1: logo dari identitas sekolah (storage)
+                    $logoSrc = null;
+                    if ($identity && $identity->logo) {
+                        $idLogoPath = storage_path('app/public/' . $identity->logo);
+                        if (file_exists($idLogoPath)) {
+                            $logoSrc = 'file://' . $idLogoPath;
+                        }
+                    }
+                    // Prioritas 2: logo bawaan TK di public/images/logo.png
+                    if (!$logoSrc) {
+                        $defLogo = realpath(public_path('images/logo.png'));
+                        if ($defLogo && file_exists($defLogo)) {
+                            $logoSrc = 'file://' . $defLogo;
+                        }
+                    }
+                @endphp
+                @if($logoSrc)
+                    <img src="{{ $logoSrc }}" alt="Logo Sekolah">
                 @else
-                    <table width="65" height="65" style="border:2px solid #1a1a6e;border-radius:50%;font-size:22pt;font-weight:bold;color:#1a1a6e;" cellpadding="0" cellspacing="0">
+                    <table width="65" height="65" style="border:2pt solid #1a1a6e;font-size:20pt;font-weight:bold;color:#1a1a6e;" cellpadding="0" cellspacing="0">
                         <tr><td align="center" valign="middle">TK</td></tr>
                     </table>
                 @endif
