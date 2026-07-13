@@ -86,9 +86,9 @@
             font-size: 10pt;
         }
         .biodata-table td { padding: 3pt 6pt; vertical-align: top; }
-        .biodata-table .label { width: 32%; color: #333; }
-        .biodata-table .colon { width: 3%; text-align: center; }
-        .biodata-table .value { font-weight: bold; color: #111; }
+        .biodata-table .label { width: 18%; color: #333; }
+        .biodata-table .colon { width: 2%; text-align: center; }
+        .biodata-table .value { width: 30%; font-weight: bold; color: #111; }
 
         /* ─── DATA TABLE (kesehatan, kehadiran) ────────────────── */
         .data-table {
