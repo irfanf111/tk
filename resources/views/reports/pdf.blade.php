@@ -7,7 +7,10 @@
     <style>
         @page {
             size: A4 portrait;
-            margin: 15mm 15mm 15mm 20mm;
+            margin-top: 40pt;
+            margin-right: 45pt;
+            margin-bottom: 40pt;
+            margin-left: 55pt;
         }
         /* ─── RESET & BASE ─────────────────────────────────────── */
         * { margin: 0; padding: 0; box-sizing: border-box; }
