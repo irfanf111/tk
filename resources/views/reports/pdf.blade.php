@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LPAD – {{ $report->lpadStudent->nama_lengkap }} – Semester {{ $report->semester }} – {{ $report->tahun_ajaran }}</title>
     <style>
+        @page {
+            size: A4 portrait;
+            margin: 0;
+        }
         /* ─── RESET & BASE ─────────────────────────────────────── */
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
