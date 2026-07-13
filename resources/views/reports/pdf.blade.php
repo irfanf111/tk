@@ -12,8 +12,12 @@
             margin-bottom: 40pt;
             margin-left: 55pt;
         }
-        /* ─── RESET & BASE ─────────────────────────────────────── */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body {
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        * { margin: 0; padding: 0; }
 
         body {
             font-family: 'Times New Roman', Times, serif;
@@ -37,17 +41,7 @@
         .kop-table td { vertical-align: middle; }
         .kop-logo { width: 75pt; text-align: center; }
         .kop-logo img { width: 55pt; height: auto; }
-        .kop-logo-placeholder {
-            width: 65pt; height: 65pt;
-            border: 2px solid #1a1a6e;
-            border-radius: 50%;
-            display: table-cell;
-            vertical-align: middle;
-            text-align: center;
-            font-size: 22pt;
-            color: #1a1a6e;
-            font-weight: bold;
-        }
+
         .kop-info { padding-left: 10pt; }
         .kop-info .nama-sekolah {
             font-size: 15pt;
