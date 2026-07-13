@@ -30,7 +30,7 @@
         }
         .kop-table td { vertical-align: middle; }
         .kop-logo { width: 75pt; text-align: center; }
-        .kop-logo img { width: 65pt; height: 65pt; }
+        .kop-logo img { width: 55pt; height: auto; }
         .kop-logo-placeholder {
             width: 65pt; height: 65pt;
             border: 2px solid #1a1a6e;

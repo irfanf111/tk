@@ -21,7 +21,7 @@
         /* ─── KOP SURAT ─────────────────────────────── */
         .kop { width: 100%; border-collapse: collapse; margin-bottom: 4pt; }
         .kop td { vertical-align: middle; padding: 0; }
-        .kop-logo-img { width: 44pt; height: 44pt; }
+        .kop-logo-img { width: 46pt; height: auto; }
         .kop-info { padding-left: 10pt; }
         .kop-info .sekolah {
             font-size: 13pt;
@@ -303,9 +303,9 @@
         <td style="width:40pt;">
             @php $logoPath2 = realpath(public_path('images/logo.png')); @endphp
             @if($logoPath2 && file_exists($logoPath2))
-                <img style="width:36pt;height:36pt;" src="file://{{ $logoPath2 }}" alt="Logo TK">
+                <img style="width:36pt;height:auto;" src="file://{{ $logoPath2 }}" alt="Logo TK">
             @else
-                <div style="width:36pt;height:36pt;background:#333;color:#fff;font-size:11pt;font-weight:bold;text-align:center;line-height:36pt;">TK</div>
+                <div style="width:36pt;height:36pt;line-height:36pt;background:#333;color:#fff;font-size:11pt;font-weight:bold;text-align:center;">TK</div>
             @endif
         </td>
         <td class="kop-info">

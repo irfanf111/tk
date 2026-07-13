@@ -80,7 +80,7 @@
                     }
                 @endphp
                 @if($logoSrc)
-                    <img src="{{ $logoSrc }}" style="width: 50pt; height: 50pt;" alt="Logo School">
+                    <img src="{{ $logoSrc }}" style="width: 50pt; height: auto;" alt="Logo School">
                 @else
                     <table width="50" height="50" style="border:2px solid #1a1a6e;border-radius:50%;" cellpadding="0" cellspacing="0">
                         <tr><td class="center bold" style="font-size:14pt;color:#1a1a6e;">TK</td></tr>
