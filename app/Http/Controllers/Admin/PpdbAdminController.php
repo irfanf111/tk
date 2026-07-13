@@ -219,6 +219,7 @@ class PpdbAdminController extends Controller
                 'isRemoteEnabled'      => true,
                 'defaultFont'          => 'sans-serif',
                 'dpi'                  => 96,
+                'chroot'               => base_path(),
             ]);
 
         $filename = 'RekapPPDB_'

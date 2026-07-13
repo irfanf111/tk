@@ -63,10 +63,29 @@
     {{-- KOP --}}
     <table class="kop" cellpadding="0" cellspacing="0">
         <tr>
-            <td class="kop-logo">
-                <table width="60" height="60" style="border:2px solid #1a1a6e;border-radius:50%;" cellpadding="0" cellspacing="0">
-                    <tr><td class="center bold" style="font-size:16pt;color:#1a1a6e;">TK</td></tr>
-                </table>
+            <td class="kop-logo" style="width: 60pt; text-align: center;">
+                @php
+                    $logoSrc = null;
+                    if ($identity && $identity->logo) {
+                        $idLogoPath = storage_path('app/public/' . $identity->logo);
+                        if (file_exists($idLogoPath)) {
+                            $logoSrc = 'file://' . $idLogoPath;
+                        }
+                    }
+                    if (!$logoSrc) {
+                        $defLogo = realpath(public_path('images/logo.png'));
+                        if ($defLogo && file_exists($defLogo)) {
+                            $logoSrc = 'file://' . $defLogo;
+                        }
+                    }
+                @endphp
+                @if($logoSrc)
+                    <img src="{{ $logoSrc }}" style="width: 50pt; height: 50pt;" alt="Logo School">
+                @else
+                    <table width="50" height="50" style="border:2px solid #1a1a6e;border-radius:50%;" cellpadding="0" cellspacing="0">
+                        <tr><td class="center bold" style="font-size:14pt;color:#1a1a6e;">TK</td></tr>
+                    </table>
+                @endif
             </td>
             <td class="kop-info">
                 <div class="kop-nama">{{ $identity->school_name ?? 'TK Puspitasari' }}</div>

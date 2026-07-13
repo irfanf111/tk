@@ -110,6 +110,7 @@ class ReportController extends Controller
                 'isRemoteEnabled'      => true,
                 'defaultFont'          => 'sans-serif',
                 'dpi'                  => 96,
+                'chroot'               => base_path(),
             ]);
 
         $filename = 'LPAD_' . str_replace(' ', '_', $report->lpadStudent->nama_lengkap)
