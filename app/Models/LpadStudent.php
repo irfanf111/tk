@@ -38,19 +38,26 @@ class LpadStudent extends Model
 
     // ─── Accessor ──────────────────────────────────────────────────────────────
 
-    /**
-     * Menghitung usia anak berdasarkan tanggal_lahir.
-     * Format output: "5 Tahun 2 Bulan"
-     *
-     * @return string
-     */
     public function getUsiaAttribute(): string
     {
-        $lahir = Carbon::parse($this->tanggal_lahir);
-        $now   = Carbon::now();
+        return $this->getUsiaAt(now());
+    }
 
-        $tahun = $lahir->diffInYears($now);
-        $bulan = $lahir->copy()->addYears($tahun)->diffInMonths($now);
+    /**
+     * Menghitung usia anak pada tanggal tertentu.
+     * Format output: "5 Tahun 2 Bulan"
+     */
+    public function getUsiaAt($date): string
+    {
+        if (!$this->tanggal_lahir) {
+            return '—';
+        }
+        
+        $lahir  = Carbon::parse($this->tanggal_lahir);
+        $target = Carbon::parse($date);
+
+        $tahun = $lahir->diffInYears($target);
+        $bulan = $lahir->copy()->addYears($tahun)->diffInMonths($target);
 
         return "{$tahun} Tahun {$bulan} Bulan";
     }

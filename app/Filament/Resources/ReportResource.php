@@ -96,21 +96,32 @@ class ReportResource extends Resource
                             ->label('Berat Badan (kg)')
                             ->numeric()
                             ->required()
-                            ->minValue(0)
+                            ->minValue(5)
+                            ->maxValue(100)
+                            ->validationMessages([
+                                'max' => 'Berat badan tidak wajar (> 100 kg)',
+                                'min' => 'Berat badan tidak wajar (< 5 kg)',
+                            ])
                             ->step(0.1),
 
                         Forms\Components\TextInput::make('tb')
                             ->label('Tinggi Badan (cm)')
                             ->numeric()
                             ->required()
-                            ->minValue(0)
+                            ->minValue(50)
+                            ->maxValue(200)
+                            ->validationMessages([
+                                'min' => 'Tinggi badan tidak wajar (< 50 cm)',
+                                'max' => 'Tinggi badan tidak wajar (> 200 cm)',
+                            ])
                             ->step(0.1),
 
                         Forms\Components\TextInput::make('lingkar_kepala')
                             ->label('Lingkar Kepala (cm)')
                             ->numeric()
                             ->required()
-                            ->minValue(0)
+                            ->minValue(10)
+                            ->maxValue(100)
                             ->step(0.1),
                     ]),
 

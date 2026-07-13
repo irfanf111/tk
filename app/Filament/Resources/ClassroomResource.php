@@ -17,10 +17,7 @@ class ClassroomResource extends Resource
 {
     protected static ?string $model = Classroom::class;
 
-    protected static ?string $navigationGroup = 'Sistem Akademik';
-    protected static ?string $navigationIcon  = 'heroicon-o-building-library';
-    protected static ?string $navigationLabel = 'Kelas';
-    protected static ?int    $navigationSort  = 2;
+    protected static bool $shouldRegisterNavigation = false;
 
     public static function form(Form $form): Form
     {

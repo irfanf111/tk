@@ -188,6 +188,17 @@
     </style>
 </head>
 <body>
+@php
+    if (!function_exists('pdf_value')) {
+        function pdf_value($value, $fallback = '—') {
+            if (is_null($value)) {
+                return $fallback;
+            }
+            $trimmed = trim(strip_tags($value));
+            return (empty($trimmed) || $trimmed === '') ? $fallback : $value;
+        }
+    }
+@endphp
 <div class="page">
 
     {{-- ═══════════════════════════════════════════════════════════
@@ -253,7 +264,13 @@
             <td class="value">{{ \Carbon\Carbon::parse($s->tanggal_lahir)->translatedFormat('d F Y') }}</td>
             <td class="label">Usia</td>
             <td class="colon">:</td>
-            <td class="value">{{ $s->usia }}</td>
+            <td class="value">
+                @if($s && $s->tanggal_lahir)
+                    {{ $s->getUsiaAt($report->created_at ?? now()) }}
+                @else
+                    —
+                @endif
+            </td>
         </tr>
         <tr>
             <td class="label">Tahun Ajaran</td>
@@ -277,11 +294,19 @@
             <th>Lingkar Kepala (cm)</th>
         </tr>
         <tr>
-            <td class="center bold">{{ number_format($report->bb, 1) }}</td>
-            <td class="center bold">{{ number_format($report->tb, 1) }}</td>
-            <td class="center bold">{{ number_format($report->lingkar_kepala, 1) }}</td>
+            <td class="center bold">{{ number_format($report->bb ?? 0, 1) }}</td>
+            <td class="center bold">{{ number_format($report->tb ?? 0, 1) }}</td>
+            <td class="center bold">{{ number_format($report->lingkar_kepala ?? 0, 1) }}</td>
         </tr>
     </table>
+    @if(($report->bb && $report->bb > 100) || ($report->tb && $report->tb < 50))
+        <div style="color: #c0392b; font-size: 8.5pt; margin-top: 5pt; font-weight: bold; font-style: italic;">
+            * Peringatan: Terdapat nilai antropometri yang tidak wajar 
+            (@if($report->bb > 100) Berat Badan > 100 kg @endif
+             @if($report->bb > 100 && $report->tb < 50) dan @endif
+             @if($report->tb < 50) Tinggi Badan < 50 cm @endif)
+        </div>
+    @endif
 
     {{-- ═══════════════════════════════════════════════════════════
          KONDISI KESEHATAN
@@ -296,10 +321,13 @@
             'Gigi'    => $report->kondisi_gigi,
             'Kulit'   => $report->kondisi_kulit,
         ];
-        function badgeClass(string $val): string {
-            if (str_contains($val, 'Baik'))   return 'badge-baik';
-            if (str_contains($val, 'Cukup'))  return 'badge-cukup';
-            return 'badge-perlu';
+        if (!function_exists('badgeClass')) {
+            function badgeClass($val): string {
+                $val = (string) $val;
+                if (str_contains($val, 'Baik'))   return 'badge-baik';
+                if (str_contains($val, 'Cukup'))  return 'badge-cukup';
+                return 'badge-perlu';
+            }
         }
     @endphp
 
@@ -314,7 +342,13 @@
         <tr>
             @foreach($chunk as $organ)
             <td>{{ $organ }}</td>
-            <td class="center"><span class="{{ badgeClass($kesehatanData[$organ]) }}">{{ $kesehatanData[$organ] }}</span></td>
+            <td class="center">
+                @if(!empty(trim($kesehatanData[$organ] ?? '')))
+                    <span class="{{ badgeClass($kesehatanData[$organ]) }}">{{ $kesehatanData[$organ] }}</span>
+                @else
+                    <span style="color: #999; font-style: italic;">Data belum tersedia</span>
+                @endif
+            </td>
             @endforeach
             @if(count($chunk) == 1)
             <td colspan="2"></td>
@@ -353,41 +387,25 @@
     {{-- E.1 Agama & Budi Pekerti --}}
     <div class="bold mt-6">E.1 &nbsp; Elemen Agama &amp; Budi Pekerti</div>
     <div class="narasi-wrapper">
-        @if($narasi && $narasi->elemen_agama_budi_pekerti)
-            {!! $narasi->elemen_agama_budi_pekerti !!}
-        @else
-            <span class="narasi-empty">— Belum diisi —</span>
-        @endif
+        {!! pdf_value($narasi?->elemen_agama_budi_pekerti, '<span class="narasi-empty">Data belum tersedia</span>') !!}
     </div>
 
     {{-- E.2 Jati Diri --}}
     <div class="bold mt-6">E.2 &nbsp; Elemen Jati Diri</div>
     <div class="narasi-wrapper">
-        @if($narasi && $narasi->elemen_jati_diri)
-            {!! $narasi->elemen_jati_diri !!}
-        @else
-            <span class="narasi-empty">— Belum diisi —</span>
-        @endif
+        {!! pdf_value($narasi?->elemen_jati_diri, '<span class="narasi-empty">Data belum tersedia</span>') !!}
     </div>
 
     {{-- E.3 Literasi & STEAM --}}
     <div class="bold mt-6">E.3 &nbsp; Elemen Literasi &amp; STEAM</div>
     <div class="narasi-wrapper">
-        @if($narasi && $narasi->elemen_literasi_steam)
-            {!! $narasi->elemen_literasi_steam !!}
-        @else
-            <span class="narasi-empty">— Belum diisi —</span>
-        @endif
+        {!! pdf_value($narasi?->elemen_literasi_steam, '<span class="narasi-empty">Data belum tersedia</span>') !!}
     </div>
 
     {{-- E.4 Projek P5 --}}
     <div class="bold mt-6">E.4 &nbsp; Projek Penguatan Profil Pelajar Pancasila (P5)</div>
     <div class="narasi-wrapper">
-        @if($narasi && $narasi->projek_p5)
-            {!! $narasi->projek_p5 !!}
-        @else
-            <span class="narasi-empty">— Belum diisi —</span>
-        @endif
+        {!! pdf_value($narasi?->projek_p5, '<span class="narasi-empty">Data belum tersedia</span>') !!}
     </div>
 
     {{-- ═══════════════════════════════════════════════════════════
@@ -395,11 +413,7 @@
     ════════════════════════════════════════════════════════════════ --}}
     <div class="section-title">F. Komentar / Harapan Orang Tua</div>
     <div class="komentar-box">
-        @if($report->komentar_ortu)
-            {{ $report->komentar_ortu }}
-        @else
-            <span class="komentar-empty">— Belum diisi —</span>
-        @endif
+        {!! pdf_value($report->komentar_ortu, '<span class="komentar-empty">Data belum tersedia</span>') !!}
     </div>
 
     {{-- ═══════════════════════════════════════════════════════════
