@@ -100,13 +100,13 @@
 {{-- KOP --}}
 @php
     $identity = \App\Models\SchoolIdentity::first();
-    $logoPath = realpath(public_path('images/logo.png'));
+    $logoFile = public_path('images/logo.png');
 @endphp
 <table class="kop">
     <tr>
         <td style="width:50pt;">
-            @if($logoPath && file_exists($logoPath))
-                <img class="kop-logo-img" src="{{ public_path('images/logo.png') }}" alt="Logo TK Puspitasari">
+            @if(file_exists($logoFile))
+                <img class="kop-logo-img" src="{{ asset('images/logo.png') }}" alt="Logo TK Puspitasari">
             @else
                 <div style="width:44pt;height:44pt;background:#333;color:#fff;font-size:14pt;font-weight:bold;text-align:center;line-height:44pt;">TK</div>
             @endif
@@ -255,8 +255,8 @@
 <table class="kop" style="margin-bottom:4pt;">
     <tr>
         <td style="width:40pt;">
-            @if($logoPath && file_exists($logoPath))
-                <img style="width:36pt;height:auto;" src="{{ public_path('images/logo.png') }}" alt="Logo TK">
+            @if(file_exists($logoFile))
+                <img style="width:36pt;height:auto;" src="{{ asset('images/logo.png') }}" alt="Logo TK">
             @else
                 <div style="width:36pt;height:36pt;line-height:36pt;background:#333;color:#fff;font-size:11pt;font-weight:bold;text-align:center;">TK</div>
             @endif
