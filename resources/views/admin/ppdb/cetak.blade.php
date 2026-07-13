@@ -58,12 +58,14 @@
         .btn-pdf   { display: inline-block; background: #1e40af; color: #fff; text-decoration: none; padding: 9px 24px; font-size: 13px; border-radius: 7px; font-weight: bold; margin-right: 6px; }
         .btn-back  { background: #e5e7eb; color: #374151; border: none; padding: 9px 18px; font-size: 13px; border-radius: 7px; cursor: pointer; }
 
+        .page-break { display: none; }
         @media print {
             .no-print { display: none !important; }
             body { background: #fff; }
             .wrapper { padding: 0; max-width: 100%; }
+            .page-break { display: block; page-break-before: always; }
         }
-        @page { size: A4; margin: 14mm; }
+        @page { size: A4; margin: 12mm 15mm; }
     </style>
 </head>
 <body>
@@ -262,6 +264,8 @@
             @endif
         </div>
     </div>
+
+    <div class="page-break"></div>
 
     {{-- SEKSI C: DOKUMEN --}}
     <div class="section">
