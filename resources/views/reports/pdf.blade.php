@@ -157,10 +157,11 @@
         .komentar-empty { color: #aaa; font-style: italic; }
 
         /* ─── TANDA TANGAN ─────────────────────────────────────── */
-        .ttd-table { width: 100%; border-collapse: collapse; margin-top: 15pt; }
-        .ttd-table td { width: 33%; text-align: center; vertical-align: top; padding: 4pt; font-size: 9pt; }
-        .ttd-table .ttd-label { font-weight: bold; margin-bottom: 35pt; }
-        .ttd-table .ttd-name { border-top: 1px solid #555; padding-top: 2pt; display: inline-block; min-width: 90pt; }
+        .ttd-table { width: 100%; border-collapse: collapse; margin-top: 20pt; }
+        .ttd-table td { width: 33.33%; text-align: center; vertical-align: top; font-size: 9pt; }
+        .ttd-table .ttd-label { font-weight: bold; line-height: 1.4; }
+        .ttd-table .ttd-signature-space { height: 50pt; }
+        .ttd-table .ttd-name { font-weight: bold; text-decoration: underline; }
 
         /* ─── FOOTER ───────────────────────────────────────────── */
         .doc-footer {
@@ -455,27 +456,21 @@
         <tr>
             <td>
                 <div class="ttd-label">Mengetahui,<br>Kepala Sekolah</div>
-                <br><br><br><br>
-                <div class="ttd-name">
-                    <b>{{ $identity->kepala_sekolah ?? '(.............................)'  }}</b>
-                </div>
+                <div class="ttd-signature-space"></div>
+                <div class="ttd-name">{{ $identity->headmaster ?? '....................................' }}</div>
             </td>
             <td>
-                <div class="ttd-label">Wali Kelas</div>
-                <br><br><br><br>
-                <div class="ttd-name">
-                    <b>(.............................)</b>
-                </div>
+                <div class="ttd-label">Guru Kelas</div>
+                <div class="ttd-signature-space"></div>
+                <div class="ttd-name">{{ $identity->operator ?? '....................................' }}</div>
             </td>
             <td>
                 <div class="ttd-label">
                     Orang Tua / Wali,<br>
                     {{ \Carbon\Carbon::now()->translatedFormat('d F Y') }}
                 </div>
-                <br><br><br><br>
-                <div class="ttd-name">
-                    <b>(.............................)</b>
-                </div>
+                <div class="ttd-signature-space"></div>
+                <div class="ttd-name">....................................</div>
             </td>
         </tr>
     </table>
