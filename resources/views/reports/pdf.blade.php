@@ -287,6 +287,12 @@
     ════════════════════════════════════════════════════════════════ --}}
     <div class="section-title">B. Data Fisik &amp; Antropometri</div>
 
+    @php
+        $bbDisplay = ($report->bb && $report->bb >= 5) ? number_format($report->bb, 1) : '—';
+        $tbDisplay = ($report->tb && $report->tb >= 50) ? number_format($report->tb, 1) : '—';
+        $lkDisplay = ($report->lingkar_kepala && $report->lingkar_kepala >= 30) ? number_format($report->lingkar_kepala, 1) : '—';
+    @endphp
+
     <table class="data-table" cellpadding="0" cellspacing="0">
         <tr>
             <th>Berat Badan (kg)</th>
@@ -294,17 +300,17 @@
             <th>Lingkar Kepala (cm)</th>
         </tr>
         <tr>
-            <td class="center bold">{{ number_format($report->bb ?? 0, 1) }}</td>
-            <td class="center bold">{{ number_format($report->tb ?? 0, 1) }}</td>
-            <td class="center bold">{{ number_format($report->lingkar_kepala ?? 0, 1) }}</td>
+            <td class="center bold">{{ $bbDisplay }}</td>
+            <td class="center bold">{{ $tbDisplay }}</td>
+            <td class="center bold">{{ $lkDisplay }}</td>
         </tr>
     </table>
-    @if(($report->bb && $report->bb > 100) || ($report->tb && $report->tb < 50))
+    @if(($report->bb && $report->bb > 100) || ($report->tb && $report->tb > 0 && $report->tb < 50))
         <div style="color: #c0392b; font-size: 8.5pt; margin-top: 5pt; font-weight: bold; font-style: italic;">
             * Peringatan: Terdapat nilai antropometri yang tidak wajar 
             (@if($report->bb > 100) Berat Badan > 100 kg @endif
-             @if($report->bb > 100 && $report->tb < 50) dan @endif
-             @if($report->tb < 50) Tinggi Badan < 50 cm @endif)
+             @if($report->bb > 100 && $report->tb > 0 && $report->tb < 50) dan @endif
+             @if($report->tb > 0 && $report->tb < 50) Tinggi Badan < 50 cm @endif)
         </div>
     @endif
 
@@ -382,30 +388,47 @@
     ════════════════════════════════════════════════════════════════ --}}
     <div class="section-title">E. Capaian Pembelajaran (Narasi)</div>
 
-    @php $narasi = $report->narrative; @endphp
+    @php 
+        $narasi = $report->narrative; 
+
+        $narasiAgama = $narasi?->elemen_agama_budi_pekerti;
+        if (empty(trim(strip_tags($narasiAgama)))) {
+            $narasiAgama = \App\Services\NarrativeGenerator::generate($s, 'nilai_agama_budi_pekerti');
+        }
+
+        $narasiJatiDiri = $narasi?->elemen_jati_diri;
+        if (empty(trim(strip_tags($narasiJatiDiri)))) {
+            $narasiJatiDiri = \App\Services\NarrativeGenerator::generate($s, 'jati_diri');
+        }
+
+        $narasiSteam = $narasi?->elemen_literasi_steam;
+        if (empty(trim(strip_tags($narasiSteam)))) {
+            $narasiSteam = \App\Services\NarrativeGenerator::generate($s, 'dasar_literasi_steam');
+        }
+    @endphp
 
     {{-- E.1 Agama & Budi Pekerti --}}
     <div class="bold mt-6">E.1 &nbsp; Elemen Agama &amp; Budi Pekerti</div>
     <div class="narasi-wrapper">
-        {!! pdf_value($narasi?->elemen_agama_budi_pekerti, '<span class="narasi-empty">Data belum tersedia</span>') !!}
+        {!! pdf_value($narasiAgama, '<span class="narasi-empty">Perkembangan Ananda masih dalam tahap observasi guru.</span>') !!}
     </div>
 
     {{-- E.2 Jati Diri --}}
     <div class="bold mt-6">E.2 &nbsp; Elemen Jati Diri</div>
     <div class="narasi-wrapper">
-        {!! pdf_value($narasi?->elemen_jati_diri, '<span class="narasi-empty">Data belum tersedia</span>') !!}
+        {!! pdf_value($narasiJatiDiri, '<span class="narasi-empty">Perkembangan Ananda masih dalam tahap observasi guru.</span>') !!}
     </div>
 
     {{-- E.3 Literasi & STEAM --}}
     <div class="bold mt-6">E.3 &nbsp; Elemen Literasi &amp; STEAM</div>
     <div class="narasi-wrapper">
-        {!! pdf_value($narasi?->elemen_literasi_steam, '<span class="narasi-empty">Data belum tersedia</span>') !!}
+        {!! pdf_value($narasiSteam, '<span class="narasi-empty">Perkembangan Ananda masih dalam tahap observasi guru.</span>') !!}
     </div>
 
     {{-- E.4 Projek P5 --}}
     <div class="bold mt-6">E.4 &nbsp; Projek Penguatan Profil Pelajar Pancasila (P5)</div>
     <div class="narasi-wrapper">
-        {!! pdf_value($narasi?->projek_p5, '<span class="narasi-empty">Data belum tersedia</span>') !!}
+        {!! pdf_value($narasi?->projek_p5, '<span class="narasi-empty">Perkembangan Ananda masih dalam tahap observasi guru.</span>') !!}
     </div>
 
     {{-- ═══════════════════════════════════════════════════════════
