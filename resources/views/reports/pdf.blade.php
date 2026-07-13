@@ -7,7 +7,7 @@
     <style>
         @page {
             size: A4 portrait;
-            margin: 0;
+            margin: 15mm 15mm 15mm 20mm;
         }
         /* ─── RESET & BASE ─────────────────────────────────────── */
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -23,7 +23,6 @@
         /* ─── PAGE LAYOUT ──────────────────────────────────────── */
         .page {
             width: 100%;
-            padding: 15mm 15mm 15mm 20mm;
         }
 
         /* ─── KOP SURAT ────────────────────────────────────────── */
