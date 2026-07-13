@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Use Case Diagram – Sistem Informasi TK Puspitasari</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #0f0f1a;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 32px 16px 64px;
+    }
+
+    h1 {
+      color: #fff;
+      font-size: 1.5rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 6px;
+      letter-spacing: -0.3px;
+    }
+
+    .subtitle {
+      color: #9ca3af;
+      font-size: 0.85rem;
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    .diagram-wrapper {
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 48px 40px;
+      box-shadow: 0 0 60px rgba(99,102,241,0.15), 0 4px 30px rgba(0,0,0,0.4);
+      width: 100%;
+      max-width: 1380px;
+      overflow-x: auto;
+    }
+
+    svg {
+      display: block;
+      margin: 0 auto;
+      font-family: 'Inter', sans-serif;
+    }
+
+    /* ── Actors ── */
+    .actor-label { font-size: 13px; font-weight: 700; fill: #111827; }
+    .actor-stick { stroke: #374151; stroke-width: 2; fill: none; }
+    .actor-head  { stroke: #374151; stroke-width: 2; fill: #f9fafb; }
+
+    /* ── System boundary ── */
+    .boundary {
+      fill: #f0f4ff;
+      stroke: #6366f1;
+      stroke-width: 2;
+      stroke-dasharray: 6 3;
+      rx: 18;
+    }
+    .boundary-label { font-size: 14px; font-weight: 700; fill: #4338ca; letter-spacing: 0.5px; }
+
+    /* ── Use-case ellipses ── */
+    .uc { fill: white; stroke-width: 1.8; }
+    .uc-admin    { stroke: #6366f1; }
+    .uc-user     { stroke: #22c55e; }
+    .uc-shared   { stroke: #f59e0b; }
+    .uc-auth     { stroke: #ec4899; }
+
+    .uc-text { font-size: 10.5px; font-weight: 600; fill: #1f2937; text-anchor: middle; dominant-baseline: middle; pointer-events: none; }
+
+    /* ── Lines ── */
+    .assoc    { stroke: #374151; stroke-width: 1.5; fill: none; }
+    .include  { stroke: #6366f1; stroke-width: 1.4; fill: none; stroke-dasharray: 5 3; }
+    .extend   { stroke: #22c55e; stroke-width: 1.4; fill: none; stroke-dasharray: 5 3; }
+    .arrow    { stroke: #374151; fill: #374151; }
+    .arrow-inc{ stroke: #6366f1; fill: #6366f1; }
+    .arrow-ext{ stroke: #22c55e; fill: #22c55e; }
+
+    .rel-label { font-size: 9px; fill: #6b7280; }
+
+    /* legend */
+    .legend-box { fill: #f9fafb; stroke: #e5e7eb; stroke-width: 1; rx: 8; }
+    .legend-text { font-size: 11px; fill: #374151; font-weight: 500; }
+    .legend-title { font-size: 12px; fill: #111827; font-weight: 700; }
+  </style>
+</head>
+<body>
+  <h1>📊 Use Case Diagram</h1>
+  <p class="subtitle">Sistem Informasi TK Puspitasari – Gambaran lengkap aktor, fitur, dan relasi sistem</p>
+
+  <div class="diagram-wrapper">
+    <!-- ============================================================
+         SVG CANVAS
+         Width  : 1300
+         Height : 1380
+    ============================================================ -->
+    <svg width="1300" height="1380" viewBox="0 0 1300 1380">
+      <defs>
+        <!-- Arrow markers -->
+        <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+          <path d="M0,0 L0,6 L8,3 z" class="arrow"/>
+        </marker>
+        <marker id="arrow-inc" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+          <path d="M0,0 L0,6 L8,3 z" class="arrow-inc"/>
+        </marker>
+        <marker id="arrow-ext" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+          <path d="M0,0 L0,6 L8,3 z" class="arrow-ext"/>
+        </marker>
+
+        <!-- Drop shadow for ellipses -->
+        <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+          <feDropShadow dx="1" dy="2" stdDeviation="3" flood-color="#00000022"/>
+        </filter>
+      </defs>
+
+      <!-- ══════════════════════════════════════════════
+           SYSTEM BOUNDARY
+      ══════════════════════════════════════════════ -->
+      <rect class="boundary" x="170" y="30" width="960" height="1320" rx="18"/>
+      <text class="boundary-label" x="650" y="58" text-anchor="middle">Sistem Informasi TK Puspitasari</text>
+
+      <!-- ══════════════════════════════════════════════
+           ACTOR: ADMIN  (kiri)
+      ══════════════════════════════════════════════ -->
+      <!-- head -->
+      <circle class="actor-head" cx="72" cy="200" r="18"/>
+      <!-- body -->
+      <line class="actor-stick" x1="72" y1="218" x2="72" y2="270"/>
+      <!-- arms -->
+      <line class="actor-stick" x1="45" y1="240" x2="99" y2="240"/>
+      <!-- legs -->
+      <line class="actor-stick" x1="72" y1="270" x2="50" y2="310"/>
+      <line class="actor-stick" x1="72" y1="270" x2="94" y2="310"/>
+      <text class="actor-label" x="72" y="330" text-anchor="middle">Admin</text>
+
+      <!-- ══════════════════════════════════════════════
+           ACTOR: USER / ORANG TUA  (kanan)
+      ══════════════════════════════════════════════ -->
+      <circle class="actor-head" cx="1228" cy="500" r="18"/>
+      <line class="actor-stick" x1="1228" y1="518" x2="1228" y2="570"/>
+      <line class="actor-stick" x1="1201" y1="540" x2="1255" y2="540"/>
+      <line class="actor-stick" x1="1228" y1="570" x2="1206" y2="610"/>
+      <line class="actor-stick" x1="1228" y1="570" x2="1250" y2="610"/>
+      <text class="actor-label" x="1228" y="630" text-anchor="middle">User / Orang Tua</text>
+
+      <!-- ══════════════════════════════════════════════
+           ACTOR: GURU  (kanan bawah)
+      ══════════════════════════════════════════════ -->
+      <circle class="actor-head" cx="1228" cy="900" r="18"/>
+      <line class="actor-stick" x1="1228" y1="918" x2="1228" y2="968"/>
+      <line class="actor-stick" x1="1201" y1="940" x2="1255" y2="940"/>
+      <line class="actor-stick" x1="1228" y1="968" x2="1206" y2="1008"/>
+      <line class="actor-stick" x1="1228" y1="968" x2="1250" y2="1008"/>
+      <text class="actor-label" x="1228" y="1028" text-anchor="middle">Guru</text>
+
+      <!-- ══════════════════════════════════════════════════════════
+           ── SECTION A: AUTH (top center)
+      ══════════════════════════════════════════════════════════ -->
+
+      <!-- UC-01: Login -->
+      <ellipse class="uc uc-auth" filter="url(#shadow)" cx="430" cy="100" rx="80" ry="26"/>
+      <text class="uc-text" x="430" y="100">Login / SSO Google</text>
+
+      <!-- UC-02: Register -->
+      <ellipse class="uc uc-auth" filter="url(#shadow)" cx="650" cy="100" rx="66" ry="26"/>
+      <text class="uc-text" x="650" y="100">Register Akun</text>
+
+      <!-- UC-03: Session -->
+      <ellipse class="uc uc-shared" filter="url(#shadow)" cx="870" cy="100" rx="60" ry="26"/>
+      <text class="uc-text" x="870" y="100">Kelola Sesi</text>
+
+      <!-- Admin → Login -->
+      <line class="assoc" x1="90" y1="200" x2="350" y2="102" marker-end="url(#arrow)"/>
+      <!-- Login --include--> Session -->
+      <line class="include" x1="510" y1="100" x2="810" y2="100" marker-end="url(#arrow-inc)"/>
+      <text class="rel-label" x="660" y="93">«include»</text>
+      <!-- User --> Login -->
+      <line class="assoc" x1="1200" y1="500" x2="520" y2="108" marker-end="url(#arrow)"/>
+      <!-- Guru --> Login -->
+      <line class="assoc" x1="1200" y1="900" x2="532" y2="118" marker-end="url(#arrow)"/>
+
+      <!-- ══════════════════════════════════════════════════════════
+           ── SECTION B: PROFIL SEKOLAH  (col-left, rows 1-4)
+      ══════════════════════════════════════════════════════════ -->
+
+      <!-- GROUP BOX -->
+      <rect fill="#eef2ff" stroke="#a5b4fc" stroke-width="1.2" rx="10"
+            x="195" y="160" width="250" height="230" stroke-dasharray="4 2"/>
+      <text font-size="10" font-weight="700" fill="#4338ca" x="320" y="178" text-anchor="middle">Profil Sekolah</text>
+
+      <!-- UC: Kelola Identitas Sekolah -->
+      <ellipse class="uc uc-admin" filter="url(#shadow)" cx="320" cy="210" rx="82" ry="26"/>
+      <text class="uc-text" x="320" y="206">Kelola Identitas</text>
+      <text class="uc-text" x="320" y="218">Sekolah</text>
+
+      <!-- UC: Kelola Visi & Misi -->
+      <ellipse class="uc uc-admin" filter="url(#shadow)" cx="320" cy="268" rx="74" ry="24"/>
+      <text class="uc-text" x="320" y="268">Kelola Visi & Misi</text>
+
+      <!-- UC: Kelola Profil Sekolah -->
+      <ellipse class="uc uc-admin" filter="url(#shadow)" cx="320" cy="326" rx="78" ry="24"/>
+      <text class="uc-text" x="320" y="326">Kelola Profil Sekolah</text>
+
+      <!-- UC: Kelola Fasilitas -->
+      <ellipse class="uc uc-admin" filter="url(#shadow)" cx="320" cy="362" rx="72" ry="22"/>
+      <text class="uc-text" x="320" y="362">Kelola Fasilitas</text>
+
+      <!-- Admin associations -->
+      <line class="assoc" x1="90" y1="220" x2="238" y2="210" marker-end="url(#arrow)"/>
+      <line class="assoc" x1="90" y1="228" x2="246" y2="268" marker-end="url(#arrow)"/>
+      <line class="assoc" x1="90" y1="236" x2="242" y2="326" marker-end="url(#arrow)"/>
+      <line class="assoc" x1="90" y1="244" x2="248" y2="362" marker-end="url(#arrow)"/>
+
+      <!-- ══════════════════════════════════════════════════════════
+           ── SECTION B-VIEW: Lihat Profil Sekolah (col-right, rows 1-4)
+      ══════════════════════════════════════════════════════════ -->
+      <rect fill="#f0fdf4" stroke="#86efac" stroke-width="1.2" rx="10"
+            x="840" y="160" width="248" height="230" stroke-dasharray="4 2"/>
+      <text font-size="10" font-weight="700" fill="#15803d" x="964" y="178" text-anchor="middle">Lihat Profil Sekolah</text>
+
+      <ellipse class="uc uc-user" filter="url(#shadow)" cx="964" cy="210" rx="82" ry="26"/>
+      <text class="uc-text" x="964" y="206">Lihat Identitas</text>
+      <text class="uc-text" x="964" y="218">Sekolah</text>
+
+      <ellipse class="uc uc-user" filter="url(#shadow)" cx="964" cy="268" rx="74" ry="24"/>
+      <text class="uc-text" x="964" y="268">Lihat Visi & Misi</text>
+
+      <ellipse class="uc uc-user" filter="url(#shadow)" cx="964" cy="326" rx="78" ry="24"/>
+      <text class="uc-text" x="964" y="326">Lihat Profil Sekolah</text>
+
+      <ellipse class="uc uc-user" filter="url(#shadow)" cx="964" cy="362" rx="72" ry="22"/>
+      <text class="uc-text" x="964" y="362">Lihat Fasilitas</text>
+
+      <!-- User associations -->
+      <line class="assoc" x1="1200" y1="510" x2="1046" y2="210" marker-end="url(#arrow)"/>
+      <line class="assoc" x1="1205" y1="516" x2="1038" y2="268" marker-end="url(#arrow)"/>
+      <line class="assoc" x1="1209" y1="524" x2="1042" y2="326" marker-end="url(#arrow)"/>
+      <line class="assoc" x1="1212" y1="530" x2="1036" y2="362" marker-end="url(#arrow)"/>
+
+      <!-- extend arrows: admin-uc -> user-uc (same feature) -->
+      <line class="extend" x1="402" y1="210" x2="882" y2="210" marker-end="url(#arrow-ext)"/>
+      <text class="rel-label" x="640" y="204">«extend»</text>
+      <line class="extend" x1="394" y1="268" x2="890" y2="268" marker-end="url(#arrow-ext)"/>
+      <text class="rel-label" x="640" y="262">«extend»</text>
+      <line class="extend" x1="398" y1="326" x2="886" y2="326" marker-end="url(#arrow-ext)"/>
+      <text class="rel-label" x="640" y="320">«extend»</text>
+      <line class="extend" x1="392" y1="362" x2="892" y2="362" marker-end="url(#arrow-ext)"/>
+      <text class="rel-label" x="640" y="356">«extend»</text>
+
+      <!-- ══════════════════════════════════════════════════════════
+           ── SECTION C: GURU & STAFF  (col-left rows 5-7)
+      ══════════════════════════════════════════════════════════ -->
+      <rect fill="#eef2ff" stroke="#a5b4fc" stroke-width="1.2" rx="10"
+            x="195" y="415" width="250" height="165" stroke-dasharray="4 2"/>
+      <text font-size="10" font-weight="700" fill="#4338ca" x="320" y="433" text-anchor="middle">SDM Sekolah</text>
+
+      <ellipse class="uc uc-admin" filter="url(#shadow)" cx="320" cy="462" rx="76" ry="24"/>
+      <text class="uc-text" x="320" y="462">Kelola Data Guru</text>
+
+      <ellipse class="uc uc-admin" filter="url(#shadow)" cx="320" cy="518" rx="76" ry="24"/>
+      <text class="uc-text" x="320" y="518">Kelola Data Staf</text>
+
+      <ellipse class="uc uc-admin" filter="url(#shadow)" cx="320" cy="562" rx="76" ry="24"/>
+      <text class="uc-text" x="320" y="562">Kelola Kelas</text>
+
+      <line class="assoc" x1="90" y1="252" x2="244" y2="462" marker-end="url(#arrow)"/>
+      <line class="assoc" x1="90" y1="258" x2="244" y2="518" marker-end="url(#arrow)"/>
+      <line class="assoc" x1="90" y1="264" x2="244" y2="562" marker-end="url(#arrow)"/>
+
+      <!-- View side -->
+      <rect fill="#f0fdf4" stroke="#86efac" stroke-width="1.2" rx="10"
+            x="840" y="415" width="248" height="165" stroke-dasharray="4 2"/>
+      <text font-size="10" font-weight="700" fill="#15803d" x="964" y="433" text-anchor="middle">Lihat SDM</text>
+
+      <ellipse class="uc uc-user" filter="url(#shadow)" cx="964" cy="462" rx="76" ry="24"/>
+      <text class="uc-text" x="964" y="462">Lihat Data Guru</text>
+
+      <ellipse class="uc uc-user" filter="url(#shadow)" cx="964" cy="518" rx="76" ry="24"/>
+      <text class="uc-text" x="964" y="518">Lihat Data Staf</text>
+
+      <ellipse class="uc uc-user" filter="url(#shadow)" cx="964" cy="562" rx="76" ry="24"/>
+      <text class="uc-text" x="964" y="562">Lihat Daftar Kelas</text>
+
+      <line class="assoc" x1="1214" y1="534" x2="1040" y2="462" marker-end="url(#arrow)"/>
+      <line class="assoc" x1="1216" y1="538" x2="1040" y2="518" marker-end="url(#arrow)"/>
+      <line class="assoc" x1="1218" y1="542" x2="1040" y2="562" marker-end="url(#arrow)"/>
+
+      <line class="extend" x1="396" y1="462" x2="888" y2="462" marker-end="url(#arrow-ext)"/>
+      <text class="rel-label" x="640" y="456">«extend»</text>
+      <line class="extend" x1="396" y1="518" x2="888" y2="518" marker-end="url(#arrow-ext)"/>
+      <text class="rel-label" x="640" y="512">«extend»</text>
+      <line class="extend" x1="396" y1="562" x2="888" y2="562" marker-end="url(#arrow-ext)"/>
+      <text class="rel-label" x="640" y="556">«extend»</text>
+
+      <!-- ══════════════════════════════════════════════════════════
+           ── SECTION D: PPDB  (col-left rows 8-11)
+      ══════════════════════════════════════════════════════════ -->
+      <rect fill="#eef2ff" stroke="#a5b4fc" stroke-width="1.2" rx="10"
+            x="195" y="610" width="250" height="220" stroke-dasharray="4 2"/>
+      <text font-size="10" font-weight="700" fill="#4338ca" x="320" y="628" text-anchor="middle">PPDB (Penerimaan Siswa)</text>
+
+      <ellipse class="uc uc-admin" filter="url(#shadow)" cx="320" cy="660" rx="84" ry="26"/>
+      <text class="uc-text" x="320" y="656">Kelola Pendaftaran</text>
+      <text class="uc-text" x="320" y="668">PPDB</text>
+
+      <ellipse class="uc uc-admin" filter="url(#shadow)" cx="320" cy="718" rx="84" ry="26"/>
+      <text class="uc-text" x="320" y="714">Verifikasi &</text>
+      <text class="uc-text" x="320" y="726">Acc Pendaftaran</text>
+
+      <ellipse class="uc uc-admin" filter="url(#shadow)" cx="320" cy="778" rx="84" ry="26"/>
+      <text class="uc-text" x="320" y="774">Cetak Berkas</text>
+      <text class="uc-text" x="320" y="786">PPDB (PDF)</text>
+
+      <ellipse class="uc uc-admin" filter="url(#shadow)" cx="320" cy="806" rx="80" ry="0"/><!-- spacer -->
+
+      <line class="assoc" x1="90" y1="272" x2="236" y2="660" marker-end="url(#arrow)"/>
+      <line class="assoc" x1="90" y1="278" x2="236" y2="718" marker-end="url(#arrow)"/>
+      <line class="assoc" x1="90" y1="284" x2="236" y2="778" marker-end="url(#arrow)"/>
+
+      <!-- User side PPDB -->
+      <rect fill="#f0fdf4" stroke="#86efac" stroke-width="1.2" rx="10"
+            x="840" y="610" width="248" height="220" stroke-dasharray="4 2"/>
+      <text font-size="10" font-weight="700" fill="#15803d" x="964" y="628" text-anchor="middle">Portal PPDB Orang Tua</text>
+
+      <ellipse class="uc uc-user" filter="url(#shadow)" cx="964" cy="660" rx="84" ry="26"/>
+      <text class="uc-text" x="964" y="656">Isi Formulir</text>
+      <text class="uc-text" x="964" y="668">Pendaftaran</text>
+
+      <ellipse class="uc uc-user" filter="url(#shadow)" cx="964" cy="718" rx="84" ry="26"/>
+      <text class="uc-text" x="964" y="714">Submit &</text>
+      <text class="uc-text" x="964" y="726">Kirim Berkas</text>
+
+      <ellipse class="uc uc-user" filter="url(#shadow)" cx="964" cy="778" rx="84" ry="26"/>
+      <text class="uc-text" x="964" y="774">Lihat Status</text>
+      <text class="uc-text" x="964" y="786">Pendaftaran</text>
+
+      <line class="assoc" x1="1220" y1="545" x2="1048" y2="660" marker-end="url(#arrow)"/>
+      <line class="assoc" x1="1222" y1="550" x2="1048" y2="718" marker-end="url(#arrow)"/>
+      <line class="assoc" x1="1222" y1="556" x2="1048" y2="778" marker-end="url(#arrow)"/>
+
+      <line class="extend" x1="404" y1="660" x2="880" y2="660" marker-end="url(#arrow-ext)"/>
+      <text class="rel-label" x="640" y="654">«extend»</text>
+      <line class="extend" x1="404" y1="718" x2="880" y2="718" marker-end="url(#arrow-ext)"/>
+      <text class="rel-label" x="640" y="712">«extend»</text>
+      <line class="extend" x1="404" y1="778" x2="880" y2="778" marker-end="url(#arrow-ext)"/>
+      <text class="rel-label" x="640" y="772">«extend»</text>
+
+      <!-- ══════════════════════════════════════════════════════════
+           ── SECTION E: SISWA  (col-left rows 12-13)
+      ══════════════════════════════════════════════════════════ -->
+      <rect fill="#eef2ff" stroke="#a5b4fc" stroke-width="1.2" rx="10"
+            x="195" y="845" width="250" height="120" stroke-dasharray="4 2"/>
+      <text font-size="10" font-weight="700" fill="#4338ca" x="320" y="863" text-anchor="middle">Data Siswa</text>
+
+      <ellipse class="uc uc-admin" filter="url(#shadow)" cx="320" cy="894" rx="80" ry="24"/>
+      <text class="uc-text" x="320" y="894">Kelola Data Siswa</text>
+
+      <ellipse class="uc uc-admin" filter="url(#shadow)" cx="320" cy="942" rx="80" ry="24"/>
+      <text class="uc-text" x="320" y="942">Kelola Tahun Ajaran</text>
+
+      <line class="assoc" x1="90" y1="290" x2="240" y2="894" marker-end="url(#arrow)"/>
+      <line class="assoc" x1="90" y1="296" x2="240" y2="942" marker-end="url(#arrow)"/>
+
+      <!-- View side siswa -->
+      <rect fill="#f0fdf4" stroke="#86efac" stroke-width="1.2" rx="10"
+            x="840" y="845" width="248" height="120" stroke-dasharray="4 2"/>
+      <text font-size="10" font-weight="700" fill="#15803d" x="964" y="863" text-anchor="middle">Info Siswa</text>
+
+      <ellipse class="uc uc-user" filter="url(#shadow)" cx="964" cy="894" rx="80" ry="24"/>
+      <text class="uc-text" x="964" y="894">Lihat Data Anak</text>
+
+      <ellipse class="uc uc-user" filter="url(#shadow)" cx="964" cy="942" rx="80" ry="24"/>
+      <text class="uc-text" x="964" y="942">Lihat Tahun Ajaran</text>
+
+      <line class="assoc" x1="1222" y1="560" x2="1044" y2="894" marker-end="url(#arrow)"/>
+      <line class="assoc" x1="1224" y1="566" x2="1044" y2="942" marker-end="url(#arrow)"/>
+
+      <line class="extend" x1="400" y1="894" x2="884" y2="894" marker-end="url(#arrow-ext)"/>
+      <text class="rel-label" x="640" y="888">«extend»</text>
+      <line class="extend" x1="400" y1="942" x2="884" y2="942" marker-end="url(#arrow-ext)"/>
+      <text class="rel-label" x="640" y="936">«extend»</text>
+
+      <!-- ══════════════════════════════════════════════════════════
+           ── SECTION F: RAPOR / LPAD  (col-left rows 14-15)
+      ══════════════════════════════════════════════════════════ -->
+      <rect fill="#eef2ff" stroke="#a5b4fc" stroke-width="1.2" rx="10"
+            x="195" y="985" width="250" height="170" stroke-dasharray="4 2"/>
+      <text font-size="10" font-weight="700" fill="#4338ca" x="320" y="1003" text-anchor="middle">Rapor / LPAD</text>
+
+      <ellipse class="uc uc-admin" filter="url(#shadow)" cx="320" cy="1036" rx="84" ry="26"/>
+      <text class="uc-text" x="320" y="1032">Kelola Kompetensi</text>
+      <text class="uc-text" x="320" y="1044">& Nilai</text>
+
+      <ellipse class="uc uc-admin" filter="url(#shadow)" cx="320" cy="1096" rx="84" ry="26"/>
+      <text class="uc-text" x="320" y="1092">Buat & Kelola</text>
+      <text class="uc-text" x="320" y="1104">Laporan LPAD</text>
+
+      <ellipse class="uc uc-admin" filter="url(#shadow)" cx="320" cy="1140" rx="84" ry="26"/>
+      <text class="uc-text" x="320" y="1136">Cetak Rapor</text>
+      <text class="uc-text" x="320" y="1148">PDF</text>
+
+      <line class="assoc" x1="90" y1="300" x2="236" y2="1036" marker-end="url(#arrow)"/>
+      <line class="assoc" x1="90" y1="306" x2="236" y2="1096" marker-end="url(#arrow)"/>
+      <line class="assoc" x1="90" y1="312" x2="236" y2="1140" marker-end="url(#arrow)"/>
+
+      <!-- Guru associations for LPAD -->
+      <line class="assoc" x1="1200" y1="920" x2="404" y2="1036" marker-end="url(#arrow)"/>
+      <line class="assoc" x1="1202" y1="926" x2="404" y2="1096" marker-end="url(#arrow)"/>
+      <line class="assoc" x1="1204" y1="932" x2="404" y2="1140" marker-end="url(#arrow)"/>
+
+      <!-- view side Rapor -->
+      <rect fill="#f0fdf4" stroke="#86efac" stroke-width="1.2" rx="10"
+            x="840" y="985" width="248" height="170" stroke-dasharray="4 2"/>
+      <text font-size="10" font-weight="700" fill="#15803d" x="964" y="1003" text-anchor="middle">Lihat Rapor</text>
+
+      <ellipse class="uc uc-user" filter="url(#shadow)" cx="964" cy="1036" rx="84" ry="26"/>
+      <text class="uc-text" x="964" y="1032">Lihat Nilai</text>
+      <text class="uc-text" x="964" y="1044">Anak</text>
+
+      <ellipse class="uc uc-user" filter="url(#shadow)" cx="964" cy="1096" rx="84" ry="26"/>
+      <text class="uc-text" x="964" y="1092">Lihat Laporan</text>
+      <text class="uc-text" x="964" y="1104">LPAD</text>
+
+      <ellipse class="uc uc-user" filter="url(#shadow)" cx="964" cy="1140" rx="84" ry="26"/>
+      <text class="uc-text" x="964" y="1136">Unduh Rapor</text>
+      <text class="uc-text" x="964" y="1148">PDF</text>
+
+      <line class="assoc" x1="1222" y1="572" x2="1048" y2="1036" marker-end="url(#arrow)"/>
+      <line class="assoc" x1="1224" y1="578" x2="1048" y2="1096" marker-end="url(#arrow)"/>
+      <line class="assoc" x1="1224" y1="584" x2="1048" y2="1140" marker-end="url(#arrow)"/>
+
+      <line class="extend" x1="404" y1="1036" x2="880" y2="1036" marker-end="url(#arrow-ext)"/>
+      <text class="rel-label" x="640" y="1030">«extend»</text>
+      <line class="extend" x1="404" y1="1096" x2="880" y2="1096" marker-end="url(#arrow-ext)"/>
+      <text class="rel-label" x="640" y="1090">«extend»</text>
+      <line class="extend" x1="404" y1="1140" x2="880" y2="1140" marker-end="url(#arrow-ext)"/>
+      <text class="rel-label" x="640" y="1134">«extend»</text>
+
+      <!-- ══════════════════════════════════════════════════════════
+           ── SECTION G: SPP & KEUANGAN  (middle top, CENTER column)
+      ══════════════════════════════════════════════════════════ -->
+      <rect fill="#fff7ed" stroke="#fdba74" stroke-width="1.2" rx="10"
+            x="530" y="160" width="240" height="165" stroke-dasharray="4 2"/>
+      <text font-size="10" font-weight="700" fill="#c2410c" x="650" y="178" text-anchor="middle">Keuangan SPP</text>
+
+      <ellipse class="uc uc-shared" filter="url(#shadow)" cx="650" cy="210" rx="80" ry="26"/>
+      <text class="uc-text" x="650" y="206">Kelola Pembayaran</text>
+      <text class="uc-text" x="650" y="218">SPP</text>
+
+      <ellipse class="uc uc-shared" filter="url(#shadow)" cx="650" cy="268" rx="80" ry="26"/>
+      <text class="uc-text" x="650" y="264">Lihat Riwayat</text>
+      <text class="uc-text" x="650" y="276">Pembayaran</text>
+
+      <ellipse class="uc uc-shared" filter="url(#shadow)" cx="650" cy="310" rx="80" ry="22"/>
+      <text class="uc-text" x="650" y="310">Cetak Kwitansi SPP</text>
+
+      <!-- Admin → SPP -->
+      <line class="assoc" x1="90" y1="246" x2="570" y2="210" marker-end="url(#arrow)"/>
+      <line class="assoc" x1="90" y1="252" x2="570" y2="268" marker-end="url(#arrow)"/>
+      <line class="assoc" x1="90" y1="258" x2="570" y2="310" marker-end="url(#arrow)"/>
+      <!-- User → SPP (lihat riwayat) -->
+      <line class="assoc" x1="1202" y1="516" x2="730" y2="268" marker-end="url(#arrow)"/>
+
+      <!-- ══════════════════════════════════════════════════════════
+           ── SECTION H: KONTEN (Artikel, Agenda, Hero)  CENTER
+      ══════════════════════════════════════════════════════════ -->
+      <rect fill="#fff7ed" stroke="#fdba74" stroke-width="1.2" rx="10"
+            x="530" y="345" width="240" height="225" stroke-dasharray="4 2"/>
+      <text font-size="10" font-weight="700" fill="#c2410c" x="650" y="363" text-anchor="middle">Konten Website</text>
+
+      <ellipse class="uc uc-shared" filter="url(#shadow)" cx="650" cy="395" rx="80" ry="24"/>
+      <text class="uc-text" x="650" y="391">Kelola Berita</text>
+      <text class="uc-text" x="650" y="403">& Artikel</text>
+
+      <ellipse class="uc uc-shared" filter="url(#shadow)" cx="650" cy="451" rx="80" ry="24"/>
+      <text class="uc-text" x="650" y="447">Kelola Agenda</text>
+      <text class="uc-text" x="650" y="459">Sekolah</text>
+
+      <ellipse class="uc uc-shared" filter="url(#shadow)" cx="650" cy="509" rx="80" ry="24"/>
+      <text class="uc-text" x="650" y="505">Kelola Hero Image</text>
+      <text class="uc-text" x="650" y="517">/ Banner</text>
+
+      <ellipse class="uc uc-shared" filter="url(#shadow)" cx="650" cy="551" rx="80" ry="20"/>
+      <text class="uc-text" x="650" y="551">Kelola Postingan</text>
+
+      <!-- Admin → Konten -->
+      <line class="assoc" x1="90" y1="264" x2="570" y2="395" marker-end="url(#arrow)"/>
+      <line class="assoc" x1="90" y1="270" x2="570" y2="451" marker-end="url(#arrow)"/>
+      <line class="assoc" x1="90" y1="276" x2="570" y2="509" marker-end="url(#arrow)"/>
+      <line class="assoc" x1="90" y1="282" x2="570" y2="551" marker-end="url(#arrow)"/>
+      <!-- User → Lihat Artikel (extend) -->
+      <line class="extend" x1="730" y1="395" x2="882" y2="462" marker-end="url(#arrow-ext)"/>
+      <text class="rel-label" x="808" y="424">«extend»</text>
+      <line class="extend" x1="730" y1="451" x2="882" y2="518" marker-end="url(#arrow-ext)"/>
+      <text class="rel-label" x="808" y="480">«extend»</text>
+
+      <!-- ══════════════════════════════════════════════════════════
+           ── SECTION I: PRINCIPAL / KEPALA SEKOLAH  CENTER
+      ══════════════════════════════════════════════════════════ -->
+      <rect fill="#fff7ed" stroke="#fdba74" stroke-width="1.2" rx="10"
+            x="530" y="590" width="240" height="120" stroke-dasharray="4 2"/>
+      <text font-size="10" font-weight="700" fill="#c2410c" x="650" y="608" text-anchor="middle">Kepala Sekolah</text>
+
+      <ellipse class="uc uc-shared" filter="url(#shadow)" cx="650" cy="640" rx="84" ry="26"/>
+      <text class="uc-text" x="650" y="636">Kelola Profil</text>
+      <text class="uc-text" x="650" y="648">Kepala Sekolah</text>
+
+      <ellipse class="uc uc-shared" filter="url(#shadow)" cx="650" cy="696" rx="84" ry="18"/>
+      <text class="uc-text" x="650" y="696">Sambutan Kepala Sekolah</text>
+
+      <line class="assoc" x1="90" y1="286" x2="566" y2="640" marker-end="url(#arrow)"/>
+      <line class="assoc" x1="90" y1="292" x2="566" y2="696" marker-end="url(#arrow)"/>
+      <!-- User lihat sambutan -->
+      <line class="extend" x1="734" y1="696" x2="882" y2="660" marker-end="url(#arrow-ext)"/>
+      <text class="rel-label" x="808" y="674">«extend»</text>
+
+      <!-- ══════════════════════════════════════════════════════════
+           ── SECTION J: HERO IMAGE & SISTEM CENTER-BOTTOM
+      ══════════════════════════════════════════════════════════ -->
+      <rect fill="#fff7ed" stroke="#fdba74" stroke-width="1.2" rx="10"
+            x="530" y="735" width="240" height="120" stroke-dasharray="4 2"/>
+      <text font-size="10" font-weight="700" fill="#c2410c" x="650" y="753" text-anchor="middle">Manajemen Sistem</text>
+
+      <ellipse class="uc uc-shared" filter="url(#shadow)" cx="650" cy="786" rx="84" ry="26"/>
+      <text class="uc-text" x="650" y="782">Kelola Akun</text>
+      <text class="uc-text" x="650" y="794">Pengguna</text>
+
+      <ellipse class="uc uc-shared" filter="url(#shadow)" cx="650" cy="840" rx="84" ry="20"/>
+      <text class="uc-text" x="650" y="840">Pengaturan Sistem</text>
+
+      <line class="assoc" x1="90" y1="296" x2="566" y2="786" marker-end="url(#arrow)"/>
+      <line class="assoc" x1="90" y1="302" x2="566" y2="840" marker-end="url(#arrow)"/>
+
+      <!-- ══════════════════════════════════════════════════════════
+           ── SECTION K: NOTIF & include  (include from Login)
+      ══════════════════════════════════════════════════════════ -->
+      <!-- Login includes Session -->
+      <!-- Session extends to different UC via auth -->
+
+      <!-- ══════════════════════════════════════════════════════════
+           LEGEND
+      ══════════════════════════════════════════════════════════ -->
+      <rect class="legend-box" x="200" y="1185" width="740" height="140" rx="8"/>
+      <text class="legend-title" x="570" y="1208" text-anchor="middle">Legenda</text>
+
+      <!-- Actor item -->
+      <circle stroke="#374151" stroke-width="2" fill="#f9fafb" cx="230" cy="1228" r="10"/>
+      <line stroke="#374151" stroke-width="1.5" x1="230" y1="1238" x2="230" y2="1258"/>
+      <line stroke="#374151" stroke-width="1.5" x1="216" y1="1248" x2="244" y2="1248"/>
+      <line stroke="#374151" stroke-width="1.5" x1="230" y1="1258" x2="216" y2="1272"/>
+      <line stroke="#374151" stroke-width="1.5" x1="230" y1="1258" x2="244" y2="1272"/>
+      <text class="legend-text" x="255" y="1252">Aktor</text>
+
+      <!-- Ellipse -->
+      <ellipse fill="white" stroke="#6366f1" stroke-width="1.8" cx="370" cy="1248" rx="40" ry="18"/>
+      <text class="legend-text" x="420" y="1252">Use Case (Admin)</text>
+
+      <ellipse fill="white" stroke="#22c55e" stroke-width="1.8" cx="370" cy="1290" rx="40" ry="18"/>
+      <text class="legend-text" x="420" y="1294">Use Case (User)</text>
+
+      <ellipse fill="white" stroke="#f59e0b" stroke-width="1.8" cx="370" cy="1220" rx="40" ry="18"/>
+      <text class="legend-text" x="420" y="1224">Use Case (Shared)</text>
+
+      <!-- Assoc line -->
+      <line stroke="#374151" stroke-width="1.5" x1="560" y1="1220" x2="630" y2="1220" marker-end="url(#arrow)"/>
+      <text class="legend-text" x="638" y="1224">Asosiasi</text>
+
+      <!-- Include line -->
+      <line stroke="#6366f1" stroke-width="1.4" stroke-dasharray="5 3" x1="560" y1="1248" x2="630" y2="1248" marker-end="url(#arrow-inc)"/>
+      <text class="legend-text" x="638" y="1252">«include»</text>
+
+      <!-- Extend line -->
+      <line stroke="#22c55e" stroke-width="1.4" stroke-dasharray="5 3" x1="560" y1="1276" x2="630" y2="1276" marker-end="url(#arrow-ext)"/>
+      <text class="legend-text" x="638" y="1280">«extend»</text>
+
+      <!-- System boundary legend -->
+      <rect fill="#f0f4ff" stroke="#6366f1" stroke-width="1.5" stroke-dasharray="6 3" rx="4"
+            x="750" y="1212" width="170" height="40"/>
+      <text class="legend-text" x="835" y="1238" text-anchor="middle">Batas Sistem</text>
+
+      <!-- Group box -->
+      <rect fill="#eef2ff" stroke="#a5b4fc" stroke-width="1.2" stroke-dasharray="4 2" rx="4"
+            x="750" y="1264" width="170" height="36"/>
+      <text class="legend-text" x="835" y="1288" text-anchor="middle">Kelompok Fitur</text>
+
+    </svg>
+  </div>
+
+  <p style="color:#6b7280; font-size:0.78rem; margin-top:20px; text-align:center;">
+    Gambar Use Case Diagram – Sistem Informasi TK Puspitasari &nbsp;|&nbsp; Admin · User/Orang Tua · Guru
+  </p>
+</body>
+</html>

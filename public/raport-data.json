@@ -1,0 +1,184 @@
+{
+  "metadata": {
+    "schema_version": "1.0.0",
+    "generated_at": "2026-07-13T20:55:14+07:00",
+    "institusi": "TK Puspitasari Kaliwatubumi",
+    "kurikulum": "Kurikulum Merdeka",
+    "total_records": 2,
+    "status_validasi": "completed_with_corrections"
+  },
+  "data": [
+    {
+      "identitas_siswa": {
+        "nama_lengkap": "Bagas Prasetyo Widodo",
+        "usia": "5 Tahun 2 Bulan",
+        "usia_tahun": 5,
+        "usia_bulan": 2,
+        "nomor_induk": "1482",
+        "kelompok_belajar": "A",
+        "semester": 1,
+        "tahun_pelajaran": "2025/2026"
+      },
+      "kurikulum_merdeka": {
+        "nilai_agama_dan_budi_pekerti": {
+          "capaian_optimal": [
+            "Menyebutkan benda-benda ciptaan Tuhan.",
+            "Melafalkan dua kalimat syahadat.",
+            "Melafalkan doa-doa pendek.",
+            "Melafalkan sholawat Nabi.",
+            "Melafalkan kalimat Thayyibah.",
+            "Menunjukkan perilaku baik yang menggambarkan nilai ajaran agama atau kepercayaannya.",
+            "Menunjukkan sikap menyayangi sesama makhluk hidup.",
+            "Mengenal dan menghormati adanya perbedaan agama dan kepercayaan."
+          ],
+          "butuh_bimbingan": [
+            "Mulai terbiasa melaksanakan kegiatan ibadah sesuai agama dan kepercayaannya.",
+            "Menunjukkan sikap sopan dan santun dalam berbicara dan bertindak atau berperilaku."
+          ]
+        },
+        "jati_diri": {
+          "capaian_optimal": [
+            "Mampu mengekspresikan emosinya secara wajar.",
+            "Mampu mengidentifikasi nilai-nilai positif dalam keluarganya.",
+            "Mengenal identitas diri melalui kebiasaan budaya dalam keluarganya.",
+            "Mampu menunjukkan rasa ingin tahu terhadap budaya-budaya yang beragam.",
+            "Menunjukkan kesediaan untuk terlibat dengan kegiatan yang terkait dengan aktivitas membersihkan tubuhnya.",
+            "Menunjukkan kesediaan untuk mengonsumsi makanan atau minuman yang bernutrisi."
+          ],
+          "butuh_bimbingan": [
+            "Menunjukkan kesediaan terlibat dalam kegiatan yang terkait dengan aktivitas berolahraga.",
+            "Menunjukkan keterampilan untuk melakukan koordinasi motorik kasar dan halus."
+          ]
+        },
+        "dasar_literasi_dan_steam": {
+          "capaian_optimal": [
+            "Menyimak dan merespons orang lain dalam berbagai konteks.",
+            "Memahami arti atau informasi dari gambar, tanda, atau simbol termasuk angka dan huruf bahkan cerita.",
+            "Merespons secara tepat dalam komunikasi dua arah dan terlibat dalam percakapan.",
+            "Mengekspresikan ide, gagasan, dan perasaan melalui tulisan, gambar, atau karya dalam berbagai media.",
+            "Memusatkan dan mempertahankan perhatian terhadap arahan guru atau informasi yang diberikan.",
+            "Mengenal dan menyebutkan lebih dari satu ciri atau aspek dari objek yang diobservasi, seperti warna, aroma, bunyi, bentuk, dan rasa."
+          ],
+          "butuh_bimbingan": [
+            "Mengingat dan menyebutkan peristiwa atau tokoh dalam cerita atau informasi yang didapatkannya dari buku cerita.",
+            "Mengenal fonik setiap huruf dan dapat mengaitkannya dengan benda, orang, atau objek di sekitarnya.",
+            "Merasa senang terlibat dalam berbagai macam aktivitas seni seperti bernyanyi, menari, melukis, menggambar, membuat patung, atau membentuk objek tertentu."
+          ]
+        }
+      },
+      "tumbuh_kembang": {
+        "berat_badan_kg": 16.0,
+        "tinggi_badan_cm": 107.0,
+        "lingkar_kepala_cm": 47.5,
+        "status_kesehatan_fisik": {
+          "kulit_kuku": "Baik",
+          "mata": "Baik",
+          "telinga": "Baik",
+          "hidung": "Baik",
+          "gigi": "Baik"
+        }
+      },
+      "kehadiran": {
+        "sakit": 0,
+        "izin": 0,
+        "tanpa_keterangan": 0
+      },
+      "flag_validasi": []
+    },
+    {
+      "identitas_siswa": {
+        "nama_lengkap": "Khaira Safa Azkayra",
+        "usia": "5 Tahun 4 Bulan",
+        "usia_tahun": 5,
+        "usia_bulan": 4,
+        "nomor_induk": "1493",
+        "kelompok_belajar": "A",
+        "semester": 1,
+        "tahun_pelajaran": "2025/2026"
+      },
+      "kurikulum_merdeka": {
+        "nilai_agama_dan_budi_pekerti": {
+          "capaian_optimal": [
+            "Menyebutkan benda-benda ciptaan Tuhan.",
+            "Melafalkan dua kalimat syahadat.",
+            "Melafalkan doa-doa pendek.",
+            "Melafalkan sholawat Nabi.",
+            "Melafalkan kalimat Thayyibah.",
+            "Menunjukkan perilaku baik yang menggambarkan nilai ajaran agama atau kepercayaannya.",
+            "Menjaga kebersihan dan merawat lingkungan alam sekitar yang merupakan karunia Tuhan Yang Maha Esa."
+          ],
+          "butuh_bimbingan": [
+            "Mulai terbiasa melaksanakan kegiatan ibadah sesuai agama dan kepercayaannya.",
+            "Menunjukkan sikap sopan dan santun dalam berbicara dan bertindak atau berperilaku."
+          ]
+        },
+        "jati_diri": {
+          "capaian_optimal": [
+            "Mengenal identitas diri melalui kebiasaan budaya dalam keluarganya.",
+            "Mampu menunjukkan rasa ingin tahu terhadap budaya-budaya yang beragam.",
+            "Menunjukkan sikap positif terhadap identitas kebangsaannya sebagai anak Indonesia.",
+            "Menunjukkan kesediaan untuk terlibat dengan kegiatan yang terkait dengan aktivitas membersihkan tubuhnya.",
+            "Menunjukkan kesediaan untuk mengonsumsi makanan atau minuman yang bernutrisi."
+          ],
+          "butuh_bimbingan": [
+            "Menunjukkan kesediaan terlibat dalam kegiatan yang terkait dengan aktivitas berolahraga.",
+            "Menunjukkan keterampilan untuk melakukan koordinasi motorik kasar dan halus."
+          ]
+        },
+        "dasar_literasi_dan_steam": {
+          "capaian_optimal": [
+            "Menyimak dan merespons orang lain dalam berbagai konteks.",
+            "Memahami arti atau informasi dari gambar, tanda, atau simbol termasuk angka dan huruf bahkan cerita.",
+            "Mampu mengutarakan, menunjukkan, atau menceritakan informasi yang diperoleh dari gambar, tanda, simbol, dan cerita.",
+            "Dapat menceritakan mengenai ide, gagasan, dan perasaannya.",
+            "Merespons secara tepat dalam komunikasi dua arah dan terlibat dalam percakapan."
+          ],
+          "butuh_bimbingan": [
+            "Mengingat dan menyebutkan peristiwa atau tokoh dalam cerita atau informasi yang didapatkannya.",
+            "Mengenal fonik setiap huruf dan dapat mengaitkannya dengan benda, orang, atau objek di sekitarnya.",
+            "Menyadari akibat dari perilakunya sendiri atau orang lain.",
+            "Memahami pola, simbol, dan data yang diamati di lingkungan sekitarnya sebagai informasi.",
+            "Mengajukan pertanyaan-pertanyaan mengapa dan apa yang menyebabkan suatu peristiwa atau kejadian."
+          ]
+        }
+      },
+      "tumbuh_kembang": {
+        "berat_badan_kg": 16.0,
+        "tinggi_badan_cm": 107.0,
+        "lingkar_kepala_cm": null,
+        "status_kesehatan_fisik": {
+          "kulit_kuku": "Baik",
+          "mata": "Baik",
+          "telinga": "Baik",
+          "hidung": "Baik",
+          "gigi": "Karies"
+        }
+      },
+      "kehadiran": {
+        "sakit": 0,
+        "izin": 0,
+        "tanpa_keterangan": 0
+      },
+      "flag_validasi": [
+        {
+          "field": "identitas_siswa.tahun_pelajaran",
+          "nilai_asli": "2024/2025",
+          "nilai_koreksi": "2025/2026",
+          "keterangan": "Inkonsistensi data: kelompok A semester 1 pada rekap yang sama menggunakan tahun pelajaran 2025/2026. Dikoreksi agar konsisten."
+        },
+        {
+          "field": "tumbuh_kembang.lingkar_kepala_cm",
+          "nilai_asli": 0,
+          "nilai_koreksi": null,
+          "keterangan": "Nilai 0 terindikasi sebagai data yang belum terukur atau tidak dicatat, bukan nilai aktual. Diubah menjadi null dan perlu konfirmasi ulang dari guru."
+        },
+        {
+          "field": "tumbuh_kembang.status_kesehatan_fisik.gigi",
+          "nilai_asli": "Caries",
+          "nilai_koreksi": "Karies",
+          "keterangan": "Standardisasi istilah medis ke Bahasa Indonesia."
+        }
+      ]
+    }
+  ]
+}
