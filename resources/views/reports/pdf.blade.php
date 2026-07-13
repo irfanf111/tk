@@ -460,7 +460,7 @@
                 <div class="ttd-name">{{ $identity->headmaster ?? '....................................' }}</div>
             </td>
             <td>
-                <div class="ttd-label">Guru Kelas</div>
+                <div class="ttd-label">Guru Kelas<br><span style="visibility:hidden;">.</span></div>
                 <div class="ttd-signature-space"></div>
                 <div class="ttd-name">{{ $identity->operator ?? '....................................' }}</div>
             </td>
