@@ -21,10 +21,10 @@
 
         body {
             font-family: 'Times New Roman', Times, serif;
-            font-size: 11pt;
+            font-size: 9.5pt;
             color: #111;
             background: #fff;
-            line-height: 1.5;
+            line-height: 1.45;
         }
 
         /* ─── PAGE LAYOUT ──────────────────────────────────────── */
@@ -35,57 +35,57 @@
         /* ─── KOP SURAT ────────────────────────────────────────── */
         .kop-table {
             width: 100%;
-            border-bottom: 3pt double #1a1a6e;
-            margin-bottom: 12pt;
+            border-bottom: 2pt double #1a1a6e;
+            margin-bottom: 10pt;
         }
         .kop-table td { vertical-align: middle; }
-        .kop-logo { width: 75pt; text-align: center; }
-        .kop-logo img { width: 55pt; height: auto; }
+        .kop-logo { width: 65pt; text-align: center; }
+        .kop-logo img { width: 48pt; height: auto; }
 
         .kop-info { padding-left: 10pt; }
         .kop-info .nama-sekolah {
-            font-size: 15pt;
-            font-weight: bold;
-            color: #1a1a6e;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        .kop-info .npsn { font-size: 9pt; color: #555; margin-top: 1pt; }
-        .kop-info .alamat { font-size: 9pt; color: #333; margin-top: 3pt; }
-
-        /* ─── JUDUL DOKUMEN ────────────────────────────────────── */
-        .doc-title-wrapper { text-align: center; margin: 10pt 0 6pt; }
-        .doc-title {
-            display: inline-block;
             font-size: 13pt;
             font-weight: bold;
-            color: #fff;
-            background-color: #1a1a6e;
-            padding: 4pt 20pt;
-            letter-spacing: 1px;
-        }
-        .doc-subtitle { font-size: 9pt; color: #444; margin-top: 4pt; }
-
-        /* ─── BIODATA SISWA ────────────────────────────────────── */
-        .section-title {
-            font-size: 10pt;
-            font-weight: bold;
-            background-color: #dce8ff;
-            border-left: 4px solid #1a1a6e;
-            padding: 3pt 8pt;
-            margin-top: 10pt;
-            margin-bottom: 6pt;
             color: #1a1a6e;
             text-transform: uppercase;
             letter-spacing: 0.5px;
+        }
+        .kop-info .npsn { font-size: 8pt; color: #555; margin-top: 1pt; }
+        .kop-info .alamat { font-size: 8pt; color: #333; margin-top: 2pt; }
+
+        /* ─── JUDUL DOKUMEN ────────────────────────────────────── */
+        .doc-title-wrapper { text-align: center; margin: 8pt 0 4pt; }
+        .doc-title {
+            display: inline-block;
+            font-size: 11pt;
+            font-weight: bold;
+            color: #fff;
+            background-color: #1a1a6e;
+            padding: 3.5pt 18pt;
+            letter-spacing: 0.5px;
+        }
+        .doc-subtitle { font-size: 8pt; color: #444; margin-top: 3pt; }
+
+        /* ─── BIODATA SISWA ────────────────────────────────────── */
+        .section-title {
+            font-size: 9pt;
+            font-weight: bold;
+            background-color: #dce8ff;
+            border-left: 3px solid #1a1a6e;
+            padding: 2.5pt 7pt;
+            margin-top: 8pt;
+            margin-bottom: 5pt;
+            color: #1a1a6e;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
         }
 
         .biodata-table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 10pt;
+            font-size: 9pt;
         }
-        .biodata-table td { padding: 3pt 6pt; vertical-align: middle; }
+        .biodata-table td { padding: 2.5pt 5pt; vertical-align: middle; }
         .biodata-table .label { width: 18%; color: #333; }
         .biodata-table .colon { width: 2%; text-align: center; }
         .biodata-table .value { width: 30%; font-weight: bold; color: #111; }
@@ -94,59 +94,59 @@
         .data-table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 10pt;
-            margin-top: 4pt;
+            font-size: 9pt;
+            margin-top: 3pt;
         }
         .data-table th {
             background-color: #1a1a6e;
             color: #fff;
-            padding: 5pt 8pt;
+            padding: 4pt 6pt;
             text-align: center;
             font-weight: bold;
-            font-size: 9.5pt;
+            font-size: 8.5pt;
         }
         .data-table td {
-            padding: 4pt 8pt;
+            padding: 3.5pt 6pt;
             border: 1px solid #c0cce8;
             vertical-align: middle;
         }
         .data-table tr:nth-child(even) td { background-color: #f0f4ff; }
         .data-table .center { text-align: center; }
-        .data-table .badge-baik    { color: #155724; background: #d4edda; padding: 1pt 5pt; border-radius: 3pt; font-size: 9pt; }
-        .data-table .badge-cukup   { color: #856404; background: #fff3cd; padding: 1pt 5pt; border-radius: 3pt; font-size: 9pt; }
-        .data-table .badge-perlu   { color: #721c24; background: #f8d7da; padding: 1pt 5pt; border-radius: 3pt; font-size: 9pt; }
+        .data-table .badge-baik    { color: #155724; background: #d4edda; padding: 1pt 4pt; border-radius: 2pt; font-size: 8.5pt; }
+        .data-table .badge-cukup   { color: #856404; background: #fff3cd; padding: 1pt 4pt; border-radius: 2pt; font-size: 8.5pt; }
+        .data-table .badge-perlu   { color: #721c24; background: #f8d7da; padding: 1pt 4pt; border-radius: 2pt; font-size: 8.5pt; }
 
         /* ─── NARASI CAPAIAN ───────────────────────────────────── */
         .narasi-wrapper {
             border: 1px solid #c0cce8;
-            border-radius: 4pt;
-            padding: 8pt 10pt;
-            margin-top: 4pt;
-            font-size: 10pt;
+            border-radius: 3pt;
+            padding: 6pt 8pt;
+            margin-top: 3pt;
+            font-size: 9pt;
             background: #fafbff;
-            min-height: 50pt;
+            min-height: 40pt;
         }
-        .narasi-wrapper p    { margin-bottom: 4pt; }
+        .narasi-wrapper p    { margin-bottom: 3pt; }
         .narasi-wrapper ul,
-        .narasi-wrapper ol   { margin-left: 18pt; margin-bottom: 4pt; }
-        .narasi-wrapper li   { margin-bottom: 2pt; }
+        .narasi-wrapper ol   { margin-left: 15pt; margin-bottom: 3pt; }
+        .narasi-wrapper li   { margin-bottom: 1.5pt; }
         .narasi-wrapper strong { color: #1a1a6e; }
-        .narasi-empty { color: #999; font-style: italic; font-size: 9.5pt; }
+        .narasi-empty { color: #999; font-style: italic; font-size: 8.5pt; }
 
         /* ─── KEHADIRAN HIGHLIGHT ──────────────────────────────── */
         .kehadiran-table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 10pt;
-            margin-top: 4pt;
+            font-size: 9pt;
+            margin-top: 3pt;
         }
         .kehadiran-table td {
             border: 1px solid #c0cce8;
-            padding: 6pt;
+            padding: 5pt;
             text-align: center;
         }
-        .kehadiran-table .kh-label { font-weight: bold; font-size: 9pt; color: #333; background: #dce8ff; }
-        .kehadiran-table .kh-val   { font-size: 14pt; font-weight: bold; }
+        .kehadiran-table .kh-label { font-weight: bold; font-size: 8pt; color: #333; background: #dce8ff; }
+        .kehadiran-table .kh-val   { font-size: 12pt; font-weight: bold; }
         .sakit-color  { color: #c0392b; }
         .izin-color   { color: #e67e22; }
         .alpa-color   { color: #8e44ad; }
@@ -154,10 +154,10 @@
         /* ─── KOMENTAR ORTU ────────────────────────────────────── */
         .komentar-box {
             border: 1px dashed #1a1a6e;
-            padding: 8pt 10pt;
-            margin-top: 4pt;
-            min-height: 40pt;
-            font-size: 10pt;
+            padding: 6pt 8pt;
+            margin-top: 3pt;
+            min-height: 30pt;
+            font-size: 9pt;
             background: #fafbff;
             font-style: italic;
             color: #333;
@@ -165,10 +165,10 @@
         .komentar-empty { color: #aaa; font-style: italic; }
 
         /* ─── TANDA TANGAN ─────────────────────────────────────── */
-        .ttd-table { width: 100%; border-collapse: collapse; margin-top: 20pt; }
-        .ttd-table td { width: 33%; text-align: center; vertical-align: top; padding: 5pt; font-size: 10pt; }
-        .ttd-table .ttd-label { font-weight: bold; margin-bottom: 45pt; }
-        .ttd-table .ttd-name { border-top: 1px solid #555; padding-top: 3pt; display: inline-block; min-width: 100pt; }
+        .ttd-table { width: 100%; border-collapse: collapse; margin-top: 15pt; }
+        .ttd-table td { width: 33%; text-align: center; vertical-align: top; padding: 4pt; font-size: 9pt; }
+        .ttd-table .ttd-label { font-weight: bold; margin-bottom: 35pt; }
+        .ttd-table .ttd-name { border-top: 1px solid #555; padding-top: 2pt; display: inline-block; min-width: 90pt; }
 
         /* ─── FOOTER ───────────────────────────────────────────── */
         .doc-footer {
