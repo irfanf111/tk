@@ -85,7 +85,7 @@
             border-collapse: collapse;
             font-size: 10pt;
         }
-        .biodata-table td { padding: 3pt 6pt; vertical-align: top; }
+        .biodata-table td { padding: 3pt 6pt; vertical-align: middle; }
         .biodata-table .label { width: 18%; color: #333; }
         .biodata-table .colon { width: 2%; text-align: center; }
         .biodata-table .value { width: 30%; font-weight: bold; color: #111; }
@@ -249,22 +249,22 @@
 
     @php $s = $report->lpadStudent; @endphp
 
-    <table class="biodata-table" cellpadding="0" cellspacing="0">
+    <table class="biodata-table" cellpadding="0" cellspacing="0" style="width: 100%;">
         <tr>
-            <td class="label">Nama Lengkap</td>
-            <td class="colon">:</td>
-            <td class="value">{{ $s->nama_lengkap }}</td>
-            <td class="label">No. Induk</td>
-            <td class="colon">:</td>
-            <td class="value">{{ $s->no_induk }}</td>
+            <td class="label" style="width: 15%; font-weight: normal; color: #333; padding: 4pt 6pt; vertical-align: middle;">Nama Lengkap</td>
+            <td class="colon" style="width: 2%; text-align: center; padding: 4pt 6pt; vertical-align: middle;">:</td>
+            <td class="value" style="width: 33%; font-weight: bold; color: #111; padding: 4pt 6pt; vertical-align: middle;">{{ $s->nama_lengkap }}</td>
+            <td class="label" style="width: 15%; font-weight: normal; color: #333; padding: 4pt 6pt; vertical-align: middle;">No. Induk</td>
+            <td class="colon" style="width: 2%; text-align: center; padding: 4pt 6pt; vertical-align: middle;">:</td>
+            <td class="value" style="width: 33%; font-weight: bold; color: #111; padding: 4pt 6pt; vertical-align: middle;">{{ $s->no_induk }}</td>
         </tr>
         <tr>
-            <td class="label">Tanggal Lahir</td>
-            <td class="colon">:</td>
-            <td class="value">{{ \Carbon\Carbon::parse($s->tanggal_lahir)->translatedFormat('d F Y') }}</td>
-            <td class="label">Usia</td>
-            <td class="colon">:</td>
-            <td class="value">
+            <td class="label" style="width: 15%; font-weight: normal; color: #333; padding: 4pt 6pt; vertical-align: middle;">Tanggal Lahir</td>
+            <td class="colon" style="width: 2%; text-align: center; padding: 4pt 6pt; vertical-align: middle;">:</td>
+            <td class="value" style="width: 33%; font-weight: bold; color: #111; padding: 4pt 6pt; vertical-align: middle;">{{ \Carbon\Carbon::parse($s->tanggal_lahir)->translatedFormat('d F Y') }}</td>
+            <td class="label" style="width: 15%; font-weight: normal; color: #333; padding: 4pt 6pt; vertical-align: middle;">Usia</td>
+            <td class="colon" style="width: 2%; text-align: center; padding: 4pt 6pt; vertical-align: middle;">:</td>
+            <td class="value" style="width: 33%; font-weight: bold; color: #111; padding: 4pt 6pt; vertical-align: middle;">
                 @if($s && $s->tanggal_lahir)
                     {{ $s->getUsiaAt($report->created_at ?? now()) }}
                 @else
@@ -273,12 +273,12 @@
             </td>
         </tr>
         <tr>
-            <td class="label">Tahun Ajaran</td>
-            <td class="colon">:</td>
-            <td class="value">{{ $report->tahun_ajaran }}</td>
-            <td class="label">Semester</td>
-            <td class="colon">:</td>
-            <td class="value">{{ $report->semester == '1' ? 'I (Ganjil)' : 'II (Genap)' }}</td>
+            <td class="label" style="width: 15%; font-weight: normal; color: #333; padding: 4pt 6pt; vertical-align: middle;">Tahun Ajaran</td>
+            <td class="colon" style="width: 2%; text-align: center; padding: 4pt 6pt; vertical-align: middle;">:</td>
+            <td class="value" style="width: 33%; font-weight: bold; color: #111; padding: 4pt 6pt; vertical-align: middle;">{{ $report->tahun_ajaran }}</td>
+            <td class="label" style="width: 15%; font-weight: normal; color: #333; padding: 4pt 6pt; vertical-align: middle;">Semester</td>
+            <td class="colon" style="width: 2%; text-align: center; padding: 4pt 6pt; vertical-align: middle;">:</td>
+            <td class="value" style="width: 33%; font-weight: bold; color: #111; padding: 4pt 6pt; vertical-align: middle;">{{ $report->semester == '1' ? 'I (Ganjil)' : 'II (Genap)' }}</td>
         </tr>
     </table>
 
