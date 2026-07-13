@@ -227,14 +227,16 @@
             </td>
             <td class="kop-info">
                 <div class="nama-sekolah">
-                    {{ $identity->nama_sekolah ?? 'TK Puspitasari' }}
+                    {{ $identity->school_name ?? 'TAMAN KANAK-KANAK PUSPITASARI KALIWATUBUMI' }}
                 </div>
                 @if($identity && $identity->npsn)
                     <div class="npsn">NPSN: {{ $identity->npsn }}</div>
                 @endif
                 <div class="alamat">
-                    {{ $identity->alamat ?? 'Alamat Sekolah' }}
-                    @if($identity && $identity->telepon) &nbsp;| Telp: {{ $identity->telepon }} @endif
+                    Alamat: {{ $identity->address ?? 'Jalan Abean RT 01 RW 05 Desa Kaliwatubumi Kecamatan Butuh Kabupaten Purworejo Jawa Tengah Kode Pos 54264' }}
+                    @if($identity && $identity->phone) &nbsp;| Telp: {{ $identity->phone }} @endif
+                    @if($identity && $identity->email) &nbsp;| Email: {{ $identity->email }} @endif
+                    @if($identity && $identity->website) &nbsp;| Website: {{ $identity->website }} @endif
                 </div>
             </td>
         </tr>
