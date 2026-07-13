@@ -150,7 +150,12 @@
 <table class="kop">
     <tr>
         <td style="width:50pt;">
-            <img class="kop-logo-img" src="file://{{ public_path('images/logo.png') }}" alt="Logo TK Puspitasari">
+            @php $logoPath = realpath(public_path('images/logo.png')); @endphp
+            @if($logoPath && file_exists($logoPath))
+                <img class="kop-logo-img" src="file://{{ $logoPath }}" alt="Logo TK Puspitasari">
+            @else
+                <div style="width:44pt;height:44pt;background:#333;color:#fff;font-size:14pt;font-weight:bold;text-align:center;line-height:44pt;">TK</div>
+            @endif
         </td>
         <td class="kop-info">
             <p class="sekolah">TK Puspitasari Kaliwatubumi</p>
@@ -296,7 +301,12 @@
 <table class="kop" style="margin-bottom:4pt;">
     <tr>
         <td style="width:40pt;">
-            <img style="width:36pt; height:36pt;" src="file://{{ public_path('images/logo.png') }}" alt="Logo TK">
+            @php $logoPath2 = realpath(public_path('images/logo.png')); @endphp
+            @if($logoPath2 && file_exists($logoPath2))
+                <img style="width:36pt;height:36pt;" src="file://{{ $logoPath2 }}" alt="Logo TK">
+            @else
+                <div style="width:36pt;height:36pt;background:#333;color:#fff;font-size:11pt;font-weight:bold;text-align:center;line-height:36pt;">TK</div>
+            @endif
         </td>
         <td class="kop-info">
             <p class="sekolah" style="font-size:10pt;">TK Puspitasari Kaliwatubumi</p>
@@ -318,10 +328,9 @@
                 <tr>
                     <td class="doc-card-b">
                         @php
-                            $aktaPath = $doc?->akta_kelahiran
-                                ? public_path('storage/' . $doc->akta_kelahiran)
-                                : null;
-                            $aktaExt = $aktaPath ? strtolower(pathinfo($aktaPath, PATHINFO_EXTENSION)) : null;
+                            $aktaRel  = $doc?->akta_kelahiran;
+                            $aktaPath = $aktaRel ? storage_path('app/public/' . $aktaRel) : null;
+                            $aktaExt  = $aktaPath ? strtolower(pathinfo($aktaPath, PATHINFO_EXTENSION)) : null;
                         @endphp
                         @if($aktaPath && file_exists($aktaPath) && in_array($aktaExt, ['jpg','jpeg','png','webp']))
                             <img class="doc-img" src="file://{{ $aktaPath }}" alt="Akta Kelahiran">
@@ -341,10 +350,9 @@
                 <tr>
                     <td class="doc-card-b">
                         @php
-                            $kkPath = $doc?->kartu_keluarga
-                                ? public_path('storage/' . $doc->kartu_keluarga)
-                                : null;
-                            $kkExt = $kkPath ? strtolower(pathinfo($kkPath, PATHINFO_EXTENSION)) : null;
+                            $kkRel  = $doc?->kartu_keluarga;
+                            $kkPath = $kkRel ? storage_path('app/public/' . $kkRel) : null;
+                            $kkExt  = $kkPath ? strtolower(pathinfo($kkPath, PATHINFO_EXTENSION)) : null;
                         @endphp
                         @if($kkPath && file_exists($kkPath) && in_array($kkExt, ['jpg','jpeg','png','webp']))
                             <img class="doc-img" src="file://{{ $kkPath }}" alt="Kartu Keluarga">
@@ -364,10 +372,9 @@
                 <tr>
                     <td class="doc-card-b">
                         @php
-                            $ijazahPath = $doc?->ijazah_tk
-                                ? public_path('storage/' . $doc->ijazah_tk)
-                                : null;
-                            $ijazahExt = $ijazahPath ? strtolower(pathinfo($ijazahPath, PATHINFO_EXTENSION)) : null;
+                            $ijazahRel  = $doc?->ijazah_tk;
+                            $ijazahPath = $ijazahRel ? storage_path('app/public/' . $ijazahRel) : null;
+                            $ijazahExt  = $ijazahPath ? strtolower(pathinfo($ijazahPath, PATHINFO_EXTENSION)) : null;
                         @endphp
                         @if($ijazahPath && file_exists($ijazahPath) && in_array($ijazahExt, ['jpg','jpeg','png','webp']))
                             <img class="doc-img" src="file://{{ $ijazahPath }}" alt="Ijazah TK">
