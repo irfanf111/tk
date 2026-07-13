@@ -92,6 +92,10 @@ Route::get('/admin/ppdb/{id}/cetak', [PpdbAdminController::class, 'cetak'])
     ->name('admin.ppdb.cetak')
     ->middleware(['role.admin']);
 
+Route::get('/admin/ppdb/{id}/pdf', [PpdbAdminController::class, 'exportPdf'])
+    ->name('admin.ppdb.pdf')
+    ->middleware(['role.admin']);
+
 // ─── Export PDF Rapor/LPAD (dipanggil dari Filament Admin Panel) ────────────
 // Dilindungi middleware 'role.admin'. Memanggil ReportController::exportPdf.
 Route::get('/admin/rapor/{id}/pdf', [ReportController::class, 'exportPdf'])

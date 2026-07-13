@@ -270,6 +270,16 @@ class PpdbRegistrationResource extends Resource
                     )
                     ->openUrlInNewTab(),
 
+                // Tombol PDF — unduh langsung
+                Tables\Actions\Action::make('export_pdf')
+                    ->label('PDF')
+                    ->icon('heroicon-o-document-arrow-down')
+                    ->color('success')
+                    ->url(fn (Registration $record): string =>
+                        route('admin.ppdb.pdf', $record->id)
+                    )
+                    ->openUrlInNewTab(),
+
                 Tables\Actions\EditAction::make()
                     ->label('Edit Status'),
             ])

@@ -55,6 +55,7 @@
 
         .no-print { text-align: center; padding: 16px; background: #f9fafb; border-bottom: 1px solid #e5e7eb; }
         .btn-print { background: #16a34a; color: #fff; border: none; padding: 9px 24px; font-size: 13px; border-radius: 7px; cursor: pointer; font-weight: bold; margin-right: 6px; }
+        .btn-pdf   { display: inline-block; background: #1e40af; color: #fff; text-decoration: none; padding: 9px 24px; font-size: 13px; border-radius: 7px; font-weight: bold; margin-right: 6px; }
         .btn-back  { background: #e5e7eb; color: #374151; border: none; padding: 9px 18px; font-size: 13px; border-radius: 7px; cursor: pointer; }
 
         @media print {
@@ -69,6 +70,7 @@
 
 <div class="no-print">
     <button class="btn-print" onclick="window.print()">🖨️ Cetak / Print (Ctrl+P)</button>
+    <a href="{{ route('admin.ppdb.pdf', $registration->id) }}" class="btn-pdf">📥 Unduh PDF (A4)</a>
     <button class="btn-back"  onclick="window.close()">✕ Tutup Tab</button>
 </div>
 

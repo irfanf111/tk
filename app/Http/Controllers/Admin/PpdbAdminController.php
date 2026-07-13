@@ -191,4 +191,41 @@ class PpdbAdminController extends Controller
             'registration', 'student', 'parent', 'doc', 'user'
         ));
     }
+
+    /**
+     * Export rekap data pendaftaran PPDB sebagai A4 PDF.
+     */
+    public function exportPdf(int $id)
+    {
+        $registration = Registration::with([
+            'student.user:id,name,email',
+            'student.studentParent',
+            'student.document',
+            'verifier:id,name',
+        ])->findOrFail($id);
+
+        $student = $registration->student;
+        $parent  = $student?->studentParent;
+        $doc     = $student?->document;
+        $user    = $student?->user;
+        $identity = \App\Models\SchoolIdentity::first();
+
+        $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('admin.ppdb.pdf', compact(
+            'registration', 'student', 'parent', 'doc', 'user', 'identity'
+        ))
+            ->setPaper('a4', 'portrait')
+            ->setOptions([
+                'isHtml5ParserEnabled' => true,
+                'isRemoteEnabled'      => true,
+                'defaultFont'          => 'sans-serif',
+                'dpi'                  => 96,
+            ]);
+
+        $filename = 'RekapPPDB_'
+            . str_replace(' ', '_', $student->nama_lengkap)
+            . '_' . ($registration->no_pendaftaran ?? $registration->id)
+            . '.pdf';
+
+        return $pdf->download($filename);
+    }
 }
