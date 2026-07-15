@@ -57,6 +57,12 @@ Route::get('/identitas-sekolah', function () {
     return view('pages.identitas-sekolah', compact('identity', 'recentArticles'));
 })->name('identitas-sekolah');
 
+// ─── Staf Pengajar ───────────────────────────────────────────────────────────
+Route::get('/staf-pengajar', function () {
+    $teachers = \App\Models\Staff::where('is_active', true)->orderBy('id')->get();
+    return view('pages.staf-pengajar', compact('teachers'));
+})->name('staf-pengajar');
+
 // ─── LPAD: Laporan Perkembangan Anak Didik ─────────────────────────────────
 Route::prefix('lpad')->name('reports.')->group(function () {
     Route::get('/buat', [ReportController::class, 'create'])->name('create');

@@ -270,6 +270,7 @@
       color: inherit;
       position: relative;
       transition: all 0.3s ease;
+      display: block;
     }
 
     .guru-item:hover {
@@ -816,7 +817,7 @@
       </div>
       <div class="guru-list">
         @forelse($teachers as $teacher)
-          <a class="guru-item" href="#">
+          <a class="guru-item" href="/staf-pengajar#guru-{{ $teacher->id }}">
             @if($teacher->image)
               <div class="archive-tendik-item-photo" style="position:relative;">
                 <img src="{{ asset('storage/' . $teacher->image) }}" alt="{{ $teacher->name }}" style="

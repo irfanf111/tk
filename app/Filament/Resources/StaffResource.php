@@ -42,6 +42,10 @@ class StaffResource extends Resource
             Forms\Components\Toggle::make('is_active')
                 ->label('Aktif')
                 ->default(true),
+            Forms\Components\RichEditor::make('bio')
+                ->label('Biodata Singkat')
+                ->columnSpanFull()
+                ->nullable(),
         ]);
     }
 
