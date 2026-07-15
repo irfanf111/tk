@@ -268,34 +268,38 @@
             {{-- ============================= --}}
             <aside class="w-full lg:w-1/3 flex flex-col gap-6">
 
-                {{-- Widget 1: Navigasi Profil Kami --}}
+                {{-- Widget 1: Agenda Mendatang --}}
                 <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
                     <div class="flex items-center gap-2 px-5 py-4" style="background-color:#4CAF93;">
-                        <i class="bi bi-grid-3x3-gap-fill text-white"></i>
-                        <h2 class="text-base font-bold text-white">Profil Kami</h2>
+                        <i class="bi bi-calendar-event text-white"></i>
+                        <h2 class="text-base font-bold text-white">Agenda Mendatang</h2>
                     </div>
                     <ul class="divide-y divide-gray-50">
                         @php
-                            $navItems = [
-                                ['label' => 'Profil Sekolah', 'url' => '/profil-sekolah', 'active' => false],
-                                ['label' => 'Identitas Sekolah', 'url' => '/identitas-sekolah', 'active' => true],
-                                ['label' => 'Visi & Misi', 'url' => '/visi-misi', 'active' => false],
-                                ['label' => 'Staf Pengajar', 'url' => '/#program', 'active' => false],
-                                ['label' => 'Fasilitas', 'url' => '/#fasilitas', 'active' => false],
-                                ['label' => 'Kontak Kami', 'url' => '/#kontak', 'active' => false],
-                            ];
+                            $upcomingAgendas = \App\Models\Agenda::whereDate('event_date', '>=', now())->orderBy('event_date', 'asc')->take(4)->get();
                         @endphp
-                        @foreach($navItems as $nav)
+                        @forelse($upcomingAgendas as $agenda)
                             <li>
-                                <a href="{{ $nav['url'] }}"
-                                    class="flex items-center gap-3 px-5 py-3 text-sm transition-colors
-                                          {{ $nav['active'] ? 'font-semibold bg-green-50' : 'text-gray-700 hover:bg-green-50 hover:text-green-700' }}"
-                                    style="{{ $nav['active'] ? 'color:#4CAF93;' : '' }}">
-                                    <i class="bi bi-chevron-right text-xs flex-shrink-0" style="color:#4CAF93;"></i>
-                                    {{ $nav['label'] }}
+                                <a href="/agenda" class="flex items-start gap-3 px-5 py-4 hover:bg-green-50 transition-colors group">
+                                    <div class="flex-shrink-0 w-12 h-12 rounded-xl flex flex-col items-center justify-center border border-gray-100 bg-white shadow-sm group-hover:border-green-200 transition-colors">
+                                        <span class="text-xs font-bold text-gray-500 uppercase leading-none">{{ \Carbon\Carbon::parse($agenda->event_date)->translatedFormat('M') }}</span>
+                                        <span class="text-lg font-bold text-green-600 leading-none mt-1">{{ \Carbon\Carbon::parse($agenda->event_date)->translatedFormat('d') }}</span>
+                                    </div>
+                                    <div class="flex-1 min-w-0 pt-0.5">
+                                        <p class="text-sm font-semibold text-gray-800 leading-snug group-hover:text-green-700 transition-colors line-clamp-2">
+                                            {{ $agenda->title }}
+                                        </p>
+                                    </div>
                                 </a>
                             </li>
-                        @endforeach
+                        @empty
+                            <li class="px-5 py-6 text-center">
+                                <div class="w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-2" style="background-color:#E8F5F1;">
+                                    <i class="bi bi-calendar-x text-xl" style="color:#4CAF93;"></i>
+                                </div>
+                                <p class="text-sm text-gray-500">Belum ada agenda terdekat.</p>
+                            </li>
+                        @endforelse
                     </ul>
                 </div>
 

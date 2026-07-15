@@ -486,30 +486,36 @@
                 {{-- ============================= --}}
                 <div class="col-lg-4 col-12">
 
-                    {{-- Widget 1: Navigasi Profil Kami --}}
+                    {{-- Widget 1: Agenda Mendatang --}}
                     <div class="sidebar-widget">
                         <div class="widget-header">
-                            <i class="bi bi-grid-3x3-gap-fill"></i>
-                            <h2>Profil Kami</h2>
+                            <i class="bi bi-calendar-event"></i>
+                            <h2>Agenda Mendatang</h2>
                         </div>
-                        @php
-                            $navItems = [
-                                ['label' => 'Profil Sekolah',  'url' => '/profil-sekolah', 'active' => false],
-                                ['label' => 'Visi & Misi',     'url' => '/visi-misi',       'active' => true],
-                                ['label' => 'Staf Pengajar',   'url' => '/#program',        'active' => false],
-                                ['label' => 'Fasilitas',       'url' => '/#fasilitas',      'active' => false],
-                                ['label' => 'Kontak Kami',     'url' => '/#kontak',         'active' => false],
-                            ];
-                        @endphp
-                        <ul class="sidebar-nav-list">
-                            @foreach($navItems as $nav)
+                        <ul class="sidebar-article-list">
+                            @php
+                                $upcomingAgendas = \App\Models\Agenda::whereDate('event_date', '>=', now())->orderBy('event_date', 'asc')->take(4)->get();
+                            @endphp
+                            @forelse($upcomingAgendas as $agenda)
                                 <li>
-                                    <a href="{{ $nav['url'] }}" class="{{ $nav['active'] ? 'active' : '' }}">
-                                        <i class="bi bi-chevron-right"></i>
-                                        {{ $nav['label'] }}
+                                    <a href="/agenda">
+                                        <div class="sidebar-article-thumb" style="display:flex; flex-direction:column; background-color:#fff; border:1px solid #eee;">
+                                            <span style="font-size:11px; font-weight:700; color:#888; text-transform:uppercase;">{{ \Carbon\Carbon::parse($agenda->event_date)->translatedFormat('M') }}</span>
+                                            <span style="font-size:16px; font-weight:700; color:#4CAF93;">{{ \Carbon\Carbon::parse($agenda->event_date)->translatedFormat('d') }}</span>
+                                        </div>
+                                        <div class="sidebar-article-info">
+                                            <p class="title">{{ $agenda->title }}</p>
+                                        </div>
                                     </a>
                                 </li>
-                            @endforeach
+                            @empty
+                                <li style="padding: 24px 20px; text-align: center;">
+                                    <div style="width: 48px; height: 48px; border-radius: 50%; background-color: #E8F5F1; display: flex; align-items: center; justify-content: center; margin: 0 auto 8px;">
+                                        <i class="bi bi-calendar-x" style="font-size: 20px; color: #4CAF93;"></i>
+                                    </div>
+                                    <p style="font-size: 13px; color: #888; margin: 0;">Belum ada agenda terdekat.</p>
+                                </li>
+                            @endforelse
                         </ul>
                     </div>
 
