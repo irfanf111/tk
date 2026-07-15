@@ -763,8 +763,6 @@
                             <li><a href="/profil-sekolah" class="dropdown-item">Profil Sekolah</a></li>
                             <li><a href="/identitas-sekolah" class="dropdown-item">Identitas Sekolah</a></li>
                             <li><a href="/visi-misi" class="dropdown-item">Visi &amp; Misi</a></li>
-                            <li><a href="/#program" class="dropdown-item">Staf Pengajar</a></li>
-                            <li><a href="/#fasilitas" class="dropdown-item">Fasilitas</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
@@ -804,8 +802,6 @@
                         <li><a class="dropdown-item" href="/profil-sekolah">Profil Sekolah</a></li>
                         <li><a class="dropdown-item" href="/identitas-sekolah">Identitas Sekolah</a></li>
                         <li><a class="dropdown-item" href="/visi-misi">Visi &amp; Misi</a></li>
-                        <li><a class="dropdown-item" href="/#program">Staf Pengajar</a></li>
-                        <li><a class="dropdown-item" href="/#fasilitas">Fasilitas</a></li>
                     </ul>
                 </li>
 
