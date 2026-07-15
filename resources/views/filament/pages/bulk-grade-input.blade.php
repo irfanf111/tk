@@ -29,7 +29,7 @@
             </div>
         </div>
 
-        @if($academic_year_id && $classroom_id && $semester)
+        @if($academic_year_id && $semester)
             <div class="mt-4">
                 <button wire:click="loadStudents"
                     class="inline-flex items-center gap-2 px-4 py-2 bg-primary-600 hover:bg-primary-700 text-white rounded-lg text-sm font-medium transition">
@@ -134,14 +134,14 @@
     @elseif($students && $students->isEmpty())
         <div class="text-center py-12 text-gray-500 dark:text-gray-400">
             <x-heroicon-o-user-group class="w-12 h-12 mx-auto mb-3 opacity-40"/>
-            <p>Tidak ada siswa di kelas ini.</p>
-            <p class="text-xs mt-1">Pastikan siswa sudah diassign ke kelas yang dipilih.</p>
+            <p>Tidak ada siswa aktif.</p>
+            <p class="text-xs mt-1">Pastikan ada siswa dengan status aktif.</p>
         </div>
 
-    @elseif(!$academic_year_id || !$classroom_id || !$semester)
+    @elseif(!$academic_year_id || !$semester)
         <div class="text-center py-12 text-gray-400 dark:text-gray-600">
             <x-heroicon-o-funnel class="w-12 h-12 mx-auto mb-3 opacity-40"/>
-            <p>Pilih tahun ajaran, kelas, dan semester di atas untuk memulai input nilai.</p>
+            <p>Pilih tahun ajaran dan semester di atas untuk memulai input nilai.</p>
         </div>
     @endif
 
