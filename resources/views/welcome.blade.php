@@ -621,15 +621,15 @@
             <h3 style="font-size:18px;font-weight:700;margin:0 0 16px;text-align:center;">Statistik Data Sekolah</h3>
             <div class="statistik">
               <div class="item-statistik">
-                <div class="total">2</div>
+                <div class="total">{{ \App\Models\Staff::where('is_active', true)->count() }}</div>
                 <div class="title">Guru &amp; Staf</div>
               </div>
               <div class="item-statistik">
-                <div class="total">{{ \App\Models\Student::count() ?: 20 }}</div>
-                <div class="title">Siswa</div>
+                <div class="total">{{ \App\Models\Student::where('status', 'aktif')->count() }}</div>
+                <div class="title">Siswa Aktif</div>
               </div>
               <div class="item-statistik">
-                <div class="total">{{ \App\Models\Classroom::count() ?: 2 }}</div>
+                <div class="total">{{ \App\Models\Classroom::count() }}</div>
                 <div class="title">Rombel</div>
               </div>
             </div>
