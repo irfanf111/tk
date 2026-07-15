@@ -213,6 +213,11 @@
         color: #2d6a55;
     }
 
+    /* Hide Trix attachment caption (filename & size) */
+    .article-body .attachment__caption {
+        display: none !important;
+    }
+
     /* ==================== SHARE & BACK ==================== */
     .article-actions {
         display: flex;
