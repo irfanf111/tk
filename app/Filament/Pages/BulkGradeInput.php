@@ -45,6 +45,12 @@ class BulkGradeInput extends Page implements HasForms
         $activeYear = AcademicYear::where('is_active', true)->first();
         if ($activeYear) {
             $this->academic_year_id = $activeYear->id;
+            
+            // Otomatis set kelas karena cuma ada 1 kelas
+            $firstClassroom = Classroom::where('academic_year_id', $this->academic_year_id)->first();
+            if ($firstClassroom) {
+                $this->classroom_id = $firstClassroom->id;
+            }
         }
     }
 
@@ -54,25 +60,22 @@ class BulkGradeInput extends Page implements HasForms
     {
         return [
             Forms\Components\Section::make('Filter Data')
-                ->columns(3)
+                ->columns(2)
                 ->schema([
                     Forms\Components\Select::make('academic_year_id')
                         ->label('Tahun Ajaran')
                         ->options(AcademicYear::orderBy('name', 'desc')->pluck('name', 'id'))
                         ->required()
                         ->live()
-                        ->afterStateUpdated(fn () => $this->loadStudents()),
-
-                    Forms\Components\Select::make('classroom_id')
-                        ->label('Kelas')
-                        ->options(function () {
-                            if (! $this->academic_year_id) return [];
-                            return Classroom::where('academic_year_id', $this->academic_year_id)
-                                ->pluck('nama_kelas', 'id');
-                        })
-                        ->required()
-                        ->live()
-                        ->afterStateUpdated(fn () => $this->loadStudents()),
+                        ->afterStateUpdated(function ($state) {
+                            if ($state) {
+                                $firstClassroom = Classroom::where('academic_year_id', $state)->first();
+                                $this->classroom_id = $firstClassroom ? $firstClassroom->id : null;
+                            } else {
+                                $this->classroom_id = null;
+                            }
+                            $this->loadStudents();
+                        }),
 
                     Forms\Components\Select::make('semester')
                         ->label('Semester')
