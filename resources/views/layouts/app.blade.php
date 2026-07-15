@@ -860,6 +860,7 @@
                             <li><a href="/profil-sekolah">Profil Sekolah</a></li>
                             <li><a href="/identitas-sekolah">Identitas Sekolah</a></li>
                             <li><a href="/visi-misi">Visi &amp; Misi</a></li>
+                            <li><a href="/staf-pengajar">Staf Pengajar</a></li>
                         </ul>
 
                         <h2 class="widgettitle" style="margin-top:16px;">Informasi</h2>
