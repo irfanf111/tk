@@ -9,8 +9,8 @@
     <meta name="description"
         content="@yield('meta_description', 'Website resmi TK Puspitasari Kaliwatubumi. Sekolah Taman Kanak-Kanak yang berlandaskan nilai Islami, kreatif, dan berdedikasi dalam mengembangkan potensi anak usia dini.')">
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="{{ asset('images/logo.png') }}">
-    <link rel="apple-touch-icon" href="{{ asset('images/logo.png') }}">
+    <link rel="icon" type="image/png" href="{{ asset('images/favicon.png') }}">
+    <link rel="apple-touch-icon" href="{{ asset('images/favicon.png') }}">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -79,6 +79,7 @@
         .navbar-logo {
             height: 90px;
             object-fit: contain;
+            width: auto;
         }
 
         .header-top-info {
@@ -514,6 +515,7 @@
         .footer-logo {
             height: 80px;
             object-fit: contain;
+            width: auto;
             margin-bottom: 14px;
             transition: transform 0.3s ease;
         }
@@ -749,7 +751,7 @@
                 <!-- Logo mobile -->
                 <a class="navbar-brand" href="/" style="display:none;" id="navbar-mobile-brand">
                     <img src="{{ asset('images/logo.png') }}" alt="Logo TK Puspitasari"
-                        style="height: 50px; object-fit: contain;">
+                        style="height: 50px; object-fit: contain; width: auto;">
                 </a>
 
                 <!-- Navigation links -->
