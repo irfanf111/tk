@@ -851,15 +851,19 @@
                         </div>
                     </div>
 
-                    <!-- Column 2: Profil Sekolah -->
+                    <!-- Column 2: Profil Kami & Informasi -->
                     <div>
-                        <h2 class="widgettitle">Profil Sekolah</h2>
+                        <h2 class="widgettitle">Profil Kami</h2>
                         <ul>
-                            <li><a href="#profil">Profil Sekolah</a></li>
-                            <li><a href="#guru">Staf Pengajar</a></li>
-                            <li><a href="#fasilitas">Fasilitas</a></li>
-                            <li><a href="{{ url('/agenda') }}">Agenda</a></li>
-                            <li><a href="#berita">Informasi &amp; Berita</a></li>
+                            <li><a href="/profil-sekolah">Profil Sekolah</a></li>
+                            <li><a href="/identitas-sekolah">Identitas Sekolah</a></li>
+                            <li><a href="/visi-misi">Visi &amp; Misi</a></li>
+                        </ul>
+
+                        <h2 class="widgettitle" style="margin-top:16px;">Informasi</h2>
+                        <ul>
+                            <li><a href="{{ route('berita.index') }}">Laman Berita</a></li>
+                            <li><a href="{{ url('/agenda') }}">Agenda Sekolah</a></li>
                         </ul>
                     </div>
 
