@@ -30,7 +30,6 @@ class BulkGradeInput extends Page implements HasForms
     // ── State ──────────────────────────────────────────────────────────────────
 
     public ?int    $academic_year_id = null;
-    public ?int    $classroom_id     = null;
     public ?string $semester         = null;
     public array   $grades           = [];
 
@@ -45,12 +44,6 @@ class BulkGradeInput extends Page implements HasForms
         $activeYear = AcademicYear::where('is_active', true)->first();
         if ($activeYear) {
             $this->academic_year_id = $activeYear->id;
-            
-            // Otomatis set kelas karena cuma ada 1 kelas
-            $firstClassroom = Classroom::where('academic_year_id', $this->academic_year_id)->first();
-            if ($firstClassroom) {
-                $this->classroom_id = $firstClassroom->id;
-            }
         }
     }
 
@@ -68,12 +61,6 @@ class BulkGradeInput extends Page implements HasForms
                         ->required()
                         ->live()
                         ->afterStateUpdated(function ($state) {
-                            if ($state) {
-                                $firstClassroom = Classroom::where('academic_year_id', $state)->first();
-                                $this->classroom_id = $firstClassroom ? $firstClassroom->id : null;
-                            } else {
-                                $this->classroom_id = null;
-                            }
                             $this->loadStudents();
                         }),
 
@@ -91,13 +78,13 @@ class BulkGradeInput extends Page implements HasForms
 
     public function loadStudents(): void
     {
-        if (! $this->academic_year_id || ! $this->classroom_id || ! $this->semester) {
+        if (! $this->academic_year_id || ! $this->semester) {
             $this->students    = null;
             $this->competencies = null;
             return;
         }
 
-        $this->students = Student::where('classroom_id', $this->classroom_id)
+        $this->students = Student::where('status', 'aktif')
             ->orderBy('nama_lengkap')
             ->get();
 
@@ -123,7 +110,7 @@ class BulkGradeInput extends Page implements HasForms
 
     public function save(): void
     {
-        if (! $this->academic_year_id || ! $this->classroom_id || ! $this->semester) {
+        if (! $this->academic_year_id || ! $this->semester) {
             Notification::make()
                 ->title('Pilih filter terlebih dahulu')
                 ->warning()

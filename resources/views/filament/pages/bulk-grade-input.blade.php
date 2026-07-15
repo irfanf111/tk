@@ -4,7 +4,7 @@
         <h2 class="text-lg font-semibold mb-4 text-gray-800 dark:text-gray-100">
             Filter Kelas & Semester
         </h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             {{-- Tahun Ajaran --}}
             <div>
                 <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Tahun Ajaran</label>
@@ -14,20 +14,6 @@
                     @foreach(\App\Models\AcademicYear::orderBy('name','desc')->get() as $ay)
                         <option value="{{ $ay->id }}" @selected($academic_year_id == $ay->id)>{{ $ay->name }}</option>
                     @endforeach
-                </select>
-            </div>
-
-            {{-- Kelas --}}
-            <div>
-                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Kelas</label>
-                <select wire:model.live="classroom_id"
-                    class="w-full rounded-lg border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100 shadow-sm focus:border-primary-500 focus:ring-primary-500">
-                    <option value="">-- Pilih Kelas --</option>
-                    @if($academic_year_id)
-                        @foreach(\App\Models\Classroom::where('academic_year_id', $academic_year_id)->orderBy('nama_kelas')->get() as $cls)
-                            <option value="{{ $cls->id }}" @selected($classroom_id == $cls->id)>{{ $cls->nama_kelas }}</option>
-                        @endforeach
-                    @endif
                 </select>
             </div>
 

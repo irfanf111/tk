@@ -52,13 +52,6 @@ class StudentResource extends Resource
                                         ->default('aktif')
                                         ->required(),
 
-                                    Forms\Components\Select::make('classroom_id')
-                                        ->label('Kelas')
-                                        ->options(Classroom::pluck('nama_kelas', 'id'))
-                                        ->nullable()
-                                        ->searchable()
-                                        ->placeholder('Pilih kelas...'),
-
                                     Forms\Components\TextInput::make('ppdb_registration_id')
                                         ->label('PPDB Registration ID')
                                         ->numeric()
@@ -233,11 +226,6 @@ class StudentResource extends Resource
                     ->sortable()
                     ->placeholder('Belum diisi'),
 
-                Tables\Columns\TextColumn::make('classroom.nama_kelas')
-                    ->label('Kelas')
-                    ->sortable()
-                    ->placeholder('Belum masuk kelas'),
-
                 Tables\Columns\TextColumn::make('jenis_kelamin')
                     ->label('JK')
                     ->badge()
@@ -272,10 +260,6 @@ class StudentResource extends Resource
                         'lulus' => 'Lulus',
                         'pindah' => 'Pindah',
                     ]),
-
-                SelectFilter::make('classroom_id')
-                    ->label('Kelas')
-                    ->options(Classroom::pluck('nama_kelas', 'id')),
 
                 SelectFilter::make('jenis_kelamin')
                     ->label('Jenis Kelamin')
