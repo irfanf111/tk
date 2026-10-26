@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # ==============================================================================
-# AUTOMATED DEPLOYMENT SCRIPT - TK PUSPITASARI
-# Target Server: irfan@10.0.2.253
+# AUTOMATED DEPLOYMENT SCRIPT - TK PUSPITASARI (PROXMOX DOCKER)
+# Target Server: irfan@10.0.5.2
 # Target Directory on Server: /home/irfan/tk
 # ==============================================================================
 
@@ -29,7 +29,7 @@ if [ -n "$1" ]; then
     SERVER_IP="$1"
     echo -e "${GREEN}Using IP from command line: ${SERVER_IP}${NC}"
 else
-    CANDIDATES=("10.0.2.253" "100.69.187.125" "192.168.21.128")
+    CANDIDATES=("10.0.5.2" "10.0.2.253" "100.69.187.125" "192.168.21.128")
     echo -n "Auto-detecting server IP... "
     for ip in "${CANDIDATES[@]}"; do
         if ssh -o ConnectTimeout=2 -o StrictHostKeyChecking=no -o BatchMode=yes -i "${SSH_KEY}" "${SERVER_USER}@${ip}" "exit" &>/dev/null; then
@@ -47,7 +47,7 @@ else
 fi
 
 echo -e "${BLUE}======================================================================${NC}"
-echo -e "${GREEN}       STARTING AUTOMATED DEPLOYMENT TO SERVER: ${SERVER_IP}${NC}"
+echo -e "${GREEN}        STARTING AUTOMATED DEPLOYMENT TO SERVER: ${SERVER_IP}${NC}"
 echo -e "${BLUE}======================================================================${NC}"
 
 # 1. Verification of Local Git
@@ -116,16 +116,14 @@ fi
 # Configure SSH command for git to use our key
 export GIT_SSH_COMMAND="ssh -i ${SSH_KEY} -o StrictHostKeyChecking=no"
 
-
 # 4. Push Code to Remote Server
 echo -e "\n${BLUE}[4/5] Pushing active branch (${LOCAL_BRANCH}) to server...${NC}"
 git push production ${LOCAL_BRANCH}:main --force
 
+# 5. Performing Setup inside Docker Container
 echo -e "\n${BLUE}[5/5] Performing Initial Setup on Server...${NC}"
 ssh ${SSH_OPTS} ${SERVER_USER}@${SERVER_IP} << EOF
     set -e
-    # Create target deployment folder
-    mkdir -p ${SERVER_PATH}
 
     # Backup critical files before deployment
     echo -e "${GREEN}--> Checking for critical files to backup...${NC}"
@@ -138,11 +136,6 @@ ssh ${SSH_OPTS} ${SERVER_USER}@${SERVER_IP} << EOF
             cp "${SERVER_PATH}/.env" "\${BACKUP_DIR}/.env_\${TIMESTAMP}"
             echo -e "${GREEN}    * Backed up .env to \${BACKUP_DIR}/.env_\${TIMESTAMP}${NC}"
         fi
-        if [ -f "${SERVER_PATH}/database/database.sqlite" ]; then
-            cp "${SERVER_PATH}/database/database.sqlite" "\${BACKUP_DIR}/database_\${TIMESTAMP}.sqlite"
-            echo -e "${GREEN}    * Backed up database to \${BACKUP_DIR}/database_\${TIMESTAMP}.sqlite${NC}"
-        fi
-        # Keep only the last 15 backups to save disk space
         (cd \${BACKUP_DIR} && ls -t | tail -n +16 | xargs rm -f 2>/dev/null || true)
     fi
 
@@ -159,70 +152,114 @@ ssh ${SSH_OPTS} ${SERVER_USER}@${SERVER_IP} << EOF
     cd ${SERVER_PATH}
     echo -e "${GREEN}--> Switched to project folder: \$(pwd)${NC}"
 
-    # Setup environment file if not exists
-    if [ ! -f ".env" ]; then
-        echo -e "${YELLOW}--> .env file not found. Copying .env.example...${NC}"
+    # Force clean .env configuration for MariaDB Docker
+    echo -e "${GREEN}--> Setting up clean .env file for MariaDB...${NC}"
+    if [ -f ".env.example" ]; then
         cp .env.example .env
-
-        # Configure for production with SQLite
-        sed -i 's/^DB_CONNECTION=.*/DB_CONNECTION=sqlite/' .env
-        sed -i 's|^DB_DATABASE=.*|DB_DATABASE=${SERVER_PATH}/database/database.sqlite|' .env
-        sed -i 's/^DB_HOST=/#DB_HOST=/' .env
-        sed -i 's/^DB_PORT=/#DB_PORT=/' .env
-        sed -i 's/^DB_USERNAME=/#DB_USERNAME=/' .env
-        sed -i 's/^DB_PASSWORD=/#DB_PASSWORD=/' .env
-        sed -i 's/^SESSION_DRIVER=.*/SESSION_DRIVER=file/' .env
-        sed -i 's/^APP_ENV=.*/APP_ENV=production/' .env
-        sed -i 's/^APP_DEBUG=.*/APP_DEBUG=false/' .env
-        sed -i "s|^APP_URL=.*|APP_URL=https://tkpuspitasarikaliwatubumi.sch.id|" .env
-        echo -e "${GREEN}--> .env configured for production (SQLite + domain).${NC}"
-    else
-        echo -e "${YELLOW}--> .env already exists. Skipping — keeping existing configuration.${NC}"
     fi
 
-    # Create SQLite database file if not exists
-    mkdir -p database
-    touch database/database.sqlite
-    chmod 775 database/database.sqlite
-    chmod 775 database
-    echo -e "${GREEN}--> SQLite database file verified at database/database.sqlite${NC}"
+    sed -i 's/^DB_CONNECTION=.*/DB_CONNECTION=mysql/' .env 2>/dev/null || echo "DB_CONNECTION=mysql" >> .env
+    sed -i 's/^DB_HOST=.*/DB_HOST=tk-puspitasari-db-1/' .env 2>/dev/null || echo "DB_HOST=tk-puspitasari-db-1" >> .env
+    sed -i 's/^DB_PORT=.*/DB_PORT=3306/' .env 2>/dev/null || echo "DB_PORT=3306" >> .env
+    sed -i 's/^DB_DATABASE=.*/DB_DATABASE=tk_puspitasari/' .env 2>/dev/null || echo "DB_DATABASE=tk_puspitasari" >> .env
+    sed -i 's/^DB_USERNAME=.*/DB_USERNAME=root/' .env 2>/dev/null || echo "DB_USERNAME=root" >> .env
+    sed -i 's/^DB_PASSWORD=.*/DB_PASSWORD=rootpassword/' .env 2>/dev/null || echo "DB_PASSWORD=rootpassword" >> .env
+    sed -i 's/^SESSION_DRIVER=.*/SESSION_DRIVER=file/' .env 2>/dev/null || true
+    sed -i 's/^CACHE_STORE=.*/CACHE_STORE=file/' .env 2>/dev/null || true
+    sed -i 's/^CACHE_DRIVER=.*/CACHE_DRIVER=file/' .env 2>/dev/null || true
+    sed -i 's/^APP_ENV=.*/APP_ENV=production/' .env 2>/dev/null || true
+    sed -i 's/^APP_DEBUG=.*/APP_DEBUG=false/' .env 2>/dev/null || true
+    sed -i "s|^APP_URL=.*|APP_URL=https://tkpuspitasarikaliwatubumi.sch.id|" .env 2>/dev/null || true
 
-    # Install Composer dependencies
-    if command -v composer &> /dev/null; then
-        echo -e "${GREEN}--> Installing Composer dependencies...${NC}"
-        composer install --no-dev --optimize-autoloader --ignore-platform-reqs
-    else
-        echo -e "${RED}Warning: composer is not installed on the server! Please install it.${NC}"
+    # Force generate Dockerfile (PHP 8.4 + intl extension for Filament)
+    echo -e "${YELLOW}--> Generating Laravel Dockerfile (PHP 8.4)...${NC}"
+    cat << 'DOCKERFILE' > Dockerfile
+FROM php:8.4-apache
+RUN apt-get update && apt-get install -y \
+    libzip-dev \
+    zip \
+    unzip \
+    git \
+    curl \
+    libicu-dev \
+    && docker-php-ext-configure intl \
+    && docker-php-ext-install pdo_mysql zip intl \
+    && a2enmod rewrite
+ENV APACHE_DOCUMENT_ROOT /var/www/html/public
+RUN sed -ri -e 's!/var/www/html!\${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
+RUN sed -ri -e 's!/var/www/!\${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+WORKDIR /var/www/html
+DOCKERFILE
+
+    # Generate docker-compose.yml
+    echo -e "${YELLOW}--> Generating Compose configuration...${NC}"
+    cat << 'DOCKERCOMPOSE' > docker-compose.yml
+services:
+  db:
+    image: mariadb:10.11
+    container_name: tk-puspitasari-db-1
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: tk_puspitasari
+      MYSQL_USER: root
+      MYSQL_PASSWORD: rootpassword
+    volumes:
+      - db_data:/var/lib/mysql
+
+  app:
+    build: .
+    image: tk-puspitasari-app
+    container_name: tk-puspitasari-app-1
+    restart: unless-stopped
+    ports:
+      - "8188:80"
+    environment:
+      DB_HOST: tk-puspitasari-db-1
+      DB_PORT: 3306
+      DB_DATABASE: tk_puspitasari
+      DB_USERNAME: root
+      DB_PASSWORD: rootpassword
+    volumes:
+      - .:/var/www/html
+    depends_on:
+      - db
+
+volumes:
+  db_data:
+DOCKERCOMPOSE
+
+    # Spin up Docker containers using docker compose (--build forces rebuild with PHP 8.4)
+    echo -e "${GREEN}--> Building & Starting Docker containers...${NC}"
+    sudo docker compose up -d --build
+
+    # Wait for container initialization
+    sleep 3
+
+    # Detect container name dynamically
+    APP_CONTAINER=\$(sudo docker ps --format '{{.Names}}' | grep -E 'tk-puspitasari.*app|tk.*app-1' | head -n 1)
+    if [ -z "\$APP_CONTAINER" ]; then
+        APP_CONTAINER="tk-puspitasari-app-1"
     fi
 
-    # Generate App Key if empty
-    if grep -q "APP_KEY=$" .env || grep -q "APP_KEY=base64:$" .env || ! grep -q "APP_KEY=" .env; then
-        echo -e "${GREEN}--> Generating application key...${NC}"
-        php artisan key:generate
-    fi
+    echo -e "${GREEN}--> Executing commands inside container: \$APP_CONTAINER${NC}"
+    sudo docker exec \$APP_CONTAINER composer install --no-dev --optimize-autoloader || true
+    sudo docker exec \$APP_CONTAINER php artisan key:generate --force || true
+    sudo docker exec \$APP_CONTAINER php artisan migrate --force || true
+    sudo docker exec \$APP_CONTAINER php artisan storage:link --force || true
+    sudo docker exec \$APP_CONTAINER php artisan optimize:clear
+    sudo docker exec \$APP_CONTAINER chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache || true
 
-    # Run Database Migrations
-    echo -e "${GREEN}--> Running database migrations...${NC}"
-    php artisan migrate --force
-
-    # Create storage symlink
-    echo -e "${GREEN}--> Creating storage symlink...${NC}"
-    php artisan storage:link --force
-
-    # Install NPM dependencies & build assets
+    # Install NPM dependencies & build assets on host if available
     if command -v npm &> /dev/null; then
-        echo -e "${GREEN}--> Installing NPM dependencies & building production assets...${NC}"
+        echo -e "${GREEN}--> Building production assets...${NC}"
         npm install
         npm run build
-    else
-        echo -e "${YELLOW}Warning: npm/nodejs is not installed on the server! Skipping asset compilation.${NC}"
     fi
 
-    echo -e "${GREEN}--> Adjusting storage & bootstrap/cache permissions...${NC}"
-    chmod -R 775 storage bootstrap/cache 2>/dev/null || true
-    
-    echo -e "${GREEN}--> Clearing optimization caches...${NC}"
-    php artisan optimize:clear
+    echo -e "${GREEN}--> Adjusting storage & bootstrap/cache permissions on host...${NC}"
+    sudo chmod -R 777 storage bootstrap/cache 2>/dev/null || true
 EOF
 
 echo -e "\n${BLUE}======================================================================${NC}"
